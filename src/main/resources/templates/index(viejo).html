@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>index</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" 
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navBar">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a class="containerLogo">
+                        <img class="logo" src="logo.png" alt="Img logo egg">
+                    </a>
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="#" class="nav-link px-2 text-secondary">Nosotros</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary">Especialidades</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary">Registra tu cita</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary" th:href="@{/profesional/registro}">Registro de médicos</a></li>
+                        <li><a href="#" class="nav-link px-2 text-secondary" th:href="@{/paciente/registrar-form}">Registro de Pacientes</a></li>
+
+                    </ul>
+
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+                    </form>
+
+                    <div class="text-end">
+                        <button type="button" class="btn btn-warning">Login</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+        <article>
+            <h1 id="titulo">MEDIFOUR</h1>
+            <h3>Quiénes somos</h3>
+            <br>
+            <p>Somos una organización de médicos profesionales comprometidos a trabajar para que todas las personas puedan acceder 
+                al derecho a la salud, mediante las teleconsultas o también llamada telemedicina, mediante el cual realizamos el 
+                acompañamiento y consultas en general de nuestros pacientes de manera remota a través de un servicio de salud de calidad. </p>
+
+        </article>
+
+        <footer class="text-muted py-5">
+            <div class="containerFooter">
+                <p >@ Derechos reservados</p>                
+
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-
+                DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-
+                ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+    </body>
+
+</html>

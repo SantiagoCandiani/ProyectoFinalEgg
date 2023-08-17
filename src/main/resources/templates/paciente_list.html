@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Pacientes</title>
+    </head>
+    <body>
+        <h1>Lista de Pacientes</h1>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+            </tr>
+            <tr th:each="paciente : ${pacientes}">
+                <td th:text="${paciente.nombre}"></td>
+                <td th:text="${paciente.apellido}"></td>
+                  
+                <td>
+                    <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
+                        <input type="submit" value="Dar de Baja">
+                    </form>
+                </td>
+          
+            </tr>
+        </table>
+    </body>
+</html>
+
+
+
