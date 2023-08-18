@@ -60,6 +60,7 @@ public class PacienteController {
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
         model.addAttribute("pacientes", pacientes);
+        
         return "paciente_list";
     }
 
