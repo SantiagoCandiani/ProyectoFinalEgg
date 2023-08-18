@@ -68,5 +68,26 @@ public class PacienteController {
         pacienteServicio.bajaPaciente(id);
         return "redirect:/paciente/listar";
     }
+    
+  /*  @PostMapping("/modificar/{id}")
+    public String modificarPaciente(@PathVariable String id,
+            @RequestParam String nombre, @RequestParam String apellido,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
+            @RequestParam Integer dni, @RequestParam String telefono,
+            @RequestParam String email, @RequestParam Boolean tieneObraSocial,
+            @RequestParam(required = false) String nombreObraSocial,
+            @RequestParam(required = false) Integer numeroAfiliado,
+            @RequestParam String password, @RequestParam String password2) {
+
+        try {
+            pacienteServicio.actualizarPaciente(id, nombre, apellido, fechaNacimiento, dni,
+                    telefono, email, tieneObraSocial, nombreObraSocial, numeroAfiliado,
+                    password, password2);
+            return "redirect:/paciente/listar";
+        } catch (MiExcepcion e) {
+            // Manejo de excepciones si es necesario
+            return "redirect:/paciente/modificar-form/" + id;
+        }
+    } */
 
 }
