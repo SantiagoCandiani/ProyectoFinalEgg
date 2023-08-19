@@ -1,5 +1,6 @@
 package App.MediFour.MediFour.servicios;
 
+import App.MediFour.MediFour.entidades.Imagen;
 import App.MediFour.MediFour.entidades.Paciente;
 import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.enumeraciones.Rol;
@@ -13,6 +14,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PacienteServicio extends UsuarioServicio {
@@ -22,6 +24,9 @@ public class PacienteServicio extends UsuarioServicio {
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
+
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
     public void registrarPaciente(String nombre, String apellido, LocalDate fechaNacimiento,
@@ -86,7 +91,7 @@ public class PacienteServicio extends UsuarioServicio {
     }
 
     @Transactional
-    public void actualizarPaciente(String id, String nombre, String apellido, LocalDate fechaNacimiento,
+    public void actualizarPaciente(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
             String nombreObraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
 //        validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
@@ -113,12 +118,15 @@ public class PacienteServicio extends UsuarioServicio {
             }
 
             paciente.setPassword(new BCryptPasswordEncoder().encode(password));
-//            String idImagen = null;
-//            if (paciente.getImagen() != null) {
-//                idImagen = paciente.getImagen().getId();
-//            }
-//            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-//            paciente.setImagen(imagen);
+            // Comprobar si se proporcionó un nuevo archivo de imagen
+            if (archivo != null && !archivo.isEmpty()) {
+                String idImagen = null;
+                if (paciente.getImagen() != null) {
+                    idImagen = paciente.getImagen().getId();
+                }
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                paciente.setImagen(imagen);
+            }
             pacienteRepo.save(paciente);
         }
     }
