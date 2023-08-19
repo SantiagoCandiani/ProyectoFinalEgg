@@ -1,5 +1,6 @@
 package App.MediFour.MediFour.servicios;
 
+import App.MediFour.MediFour.entidades.Imagen;
 import App.MediFour.MediFour.entidades.Paciente;
 import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.enumeraciones.Rol;
@@ -13,6 +14,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PacienteServicio extends UsuarioServicio {
@@ -22,6 +24,9 @@ public class PacienteServicio extends UsuarioServicio {
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
+
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Transactional
     public void registrarPaciente(String nombre, String apellido, LocalDate fechaNacimiento,
@@ -85,45 +90,45 @@ public class PacienteServicio extends UsuarioServicio {
         }
     }
 
-//    @Transactional
-//    public void actualizarPaciente(String id, String nombre, String apellido, LocalDate fechaNacimiento,
-//            Integer dni, String telefono, String email, Boolean tieneObraSocial,
-//            String nombreObraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
-////        validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
-////                nombreObraSocial, numeroAfiliado);
-//        Optional<Paciente> respuesta = usuarioRepo.findById(id);
-//        if (respuesta.isPresent()) {
-//            Paciente paciente = respuesta.get();
-//
-//            paciente.setNombre(nombre);
-//            paciente.setApellido(apellido);
-//            paciente.setFechaNacimiento(fechaNacimiento);
-//            paciente.setDni(dni);
-//            paciente.setTelefono(telefono);
-//            paciente.setEmail(email);
-//
-//            paciente.setTieneObraSocial(tieneObraSocial);
-//            if (tieneObraSocial) {
-//                validar(nombreObraSocial, numeroAfiliado);
-//                paciente.setNombreObraSocial(nombreObraSocial);
-//                paciente.setNumeroAfiliado(numeroAfiliado);
-//            } else {
-//                paciente.setNombreObraSocial(null);
-//                paciente.setNumeroAfiliado(null);
-//            }
-//
-//            paciente.setActivo(true);
-//            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
-//
-////            paciente.setRol(Rol.USER); //por defecto le damos el rol de user en vez de admin
-////            String idImagen = null;
-////            if (paciente.getImagen() != null) {
-////                idImagen = paciente.getImagen().getId();
-////            }
-////            Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-////            paciente.setImagen(imagen);
-//            usuarioRepo.save(paciente);
-//        }
-//    }
+    @Transactional
+    public void actualizarPaciente(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
+            Integer dni, String telefono, String email, Boolean tieneObraSocial,
+            String nombreObraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
+//        validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
+//                nombreObraSocial, numeroAfiliado);
+        Optional<Paciente> respuesta = pacienteRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Paciente paciente = respuesta.get();
+
+            paciente.setNombre(nombre);
+            paciente.setApellido(apellido);
+            paciente.setFechaNacimiento(fechaNacimiento);
+            paciente.setDni(dni);
+            paciente.setTelefono(telefono);
+            paciente.setEmail(email);
+
+            paciente.setTieneObraSocial(tieneObraSocial);
+            if (tieneObraSocial) {
+                validarObraSocial(nombreObraSocial, numeroAfiliado);
+                paciente.setNombreObraSocial(nombreObraSocial);
+                paciente.setNumeroAfiliado(numeroAfiliado);
+            } else {
+                paciente.setNombreObraSocial(null);
+                paciente.setNumeroAfiliado(null);
+            }
+
+            paciente.setPassword(new BCryptPasswordEncoder().encode(password));
+            // Comprobar si se proporcionó un nuevo archivo de imagen
+            if (archivo != null && !archivo.isEmpty()) {
+                String idImagen = null;
+                if (paciente.getImagen() != null) {
+                    idImagen = paciente.getImagen().getId();
+                }
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                paciente.setImagen(imagen);
+            }
+            pacienteRepo.save(paciente);
+        }
+    }
 
 }
