@@ -21,7 +21,6 @@ public class Paciente extends Usuario {
     protected Boolean tieneObraSocial;
     @Enumerated(EnumType.STRING)
     protected ObraSocial obraSocial;
-//    protected String nombreObraSocial; BORRAR SI ANDA LO OTRO
     protected Integer numeroAfiliado;
 
 //----Relacion con otras entidades----//

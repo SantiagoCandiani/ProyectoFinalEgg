@@ -36,7 +36,9 @@ public class Usuario implements Serializable {
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
+    @Column(unique = true)
     private Integer dni;
+    @Column(unique = true)
     private String telefono;
     @Column(unique = true)
     private String email;
