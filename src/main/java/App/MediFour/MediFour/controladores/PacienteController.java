@@ -40,17 +40,17 @@ public class PacienteController {
             @RequestParam(required = false) Boolean tieneObraSocial,
             @RequestParam(required = false) ObraSocial obraSocial,
             @RequestParam(required = false) Integer numeroAfiliado,
-            @RequestParam String password, @RequestParam String password2) {//<--AGREGAR ModelMap modelo
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
         try {
             Boolean tieneObraSocialBool = tieneObraSocial != null && tieneObraSocial.equals("true");
             pacienteServicio.registrarPaciente(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
-            ////AGREGAR
-            //modelo.put("exito", "El paciente fue registrado correctamente!");
 
-        } catch (MiExcepcion e) {
-            //AGREGAR
-            //modelo.put("error", ex.getMessage());
+            modelo.put("exito", "El paciente fue registrado correctamente!");
+
+        } catch (MiExcepcion ex) {
+
+            modelo.put("error", ex.getMessage());
             return "paciente_form.html";
         }
         return "redirect:/paciente/listar";

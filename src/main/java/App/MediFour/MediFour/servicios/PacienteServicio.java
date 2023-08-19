@@ -27,16 +27,18 @@ public class PacienteServicio extends UsuarioServicio {
     private UsuarioRepositorio usuarioRepo;
 
     @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
     private ImagenServicio imagenServicio;
 
     @Transactional
     public void registrarPaciente(String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
             ObraSocial obraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
-        //HACER METODO para validar las excepciones
-        //validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
-        //nombreObraSocial, numeroAfiliado,  password,  password2); 
+
         Paciente paciente = new Paciente();
+        usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
 
         paciente.setNombre(nombre);
         paciente.setApellido(apellido);
@@ -95,8 +97,9 @@ public class PacienteServicio extends UsuarioServicio {
     public void actualizarPaciente(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
             ObraSocial obraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
-//        validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
-//                nombreObraSocial, numeroAfiliado);
+
+        usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
+
         Optional<Paciente> respuesta = pacienteRepo.findById(id);
         if (respuesta.isPresent()) {
             Paciente paciente = respuesta.get();
@@ -140,5 +143,4 @@ public class PacienteServicio extends UsuarioServicio {
             pacienteRepo.save(paciente);
         }
     }
-
 }
