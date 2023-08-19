@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/paciente")
 public class PacienteController {
+    
 
     @Autowired
     private PacienteServicio pacienteServicio;
