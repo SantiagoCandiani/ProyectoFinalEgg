@@ -8,6 +8,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,6 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Usuario")
 public class Usuario implements Serializable {
 
@@ -39,8 +43,8 @@ public class Usuario implements Serializable {
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-//    @OneToOne
-//    private Imagen imagen;
+    @OneToOne
+    private Imagen imagen;
 
     @PrePersist
     protected void onCreate() {
