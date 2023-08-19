@@ -3,6 +3,7 @@ package App.MediFour.MediFour.entidades;
 import App.MediFour.MediFour.enumeraciones.Rol;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,6 +38,7 @@ public class Usuario implements Serializable {
     private LocalDate fechaNacimiento;
     private Integer dni;
     private String telefono;
+    @Column(unique = true)
     private String email;
     private String password;
     private LocalDate alta;
