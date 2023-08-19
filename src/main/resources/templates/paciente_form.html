@@ -105,11 +105,11 @@
             <label for="tieneObraSocial">Tiene Obra Social:</label>
             <select id="tieneObraSocial" name="tieneObraSocial">
                 <option value="true">Sí</option>
-                <option value="false">No</option>
+                <option value="false" selected>No</option> <!-- Establecer "No" como seleccionado por defecto -->
             </select>
             <br>
             <br>
-            <div class="form-group">
+            <div class="form-group" id="obraSocialContainer">
                 <label for="obraSocial">Seleccione una Obra Social:</label>
                 <select id="obraSocial" name="obraSocial">
                     <option value="">Seleccione una opción</option>
@@ -123,12 +123,13 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="numeroAfiliadoContainer">
                 <label for="numeroAfiliado">Número de Afiliado:</label>
                 <input type="text" id="numeroAfiliado" name="numeroAfiliado">
                 <br>
                 <br>
             </div>
+
 
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required ><br>
@@ -173,6 +174,8 @@
 
         <!-- Template Main JS File -->
         <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/paciente_form.js"></script>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
