@@ -3,6 +3,7 @@ package App.MediFour.MediFour.servicios;
 import App.MediFour.MediFour.entidades.Imagen;
 import App.MediFour.MediFour.entidades.Paciente;
 import App.MediFour.MediFour.entidades.Usuario;
+import App.MediFour.MediFour.enumeraciones.ObraSocial;
 import App.MediFour.MediFour.enumeraciones.Rol;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.PacienteRepositorio;
@@ -31,7 +32,7 @@ public class PacienteServicio extends UsuarioServicio {
     @Transactional
     public void registrarPaciente(String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
-            String nombreObraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
+            ObraSocial obraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
         //HACER METODO para validar las excepciones
         //validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
         //nombreObraSocial, numeroAfiliado,  password,  password2); 
@@ -45,12 +46,21 @@ public class PacienteServicio extends UsuarioServicio {
         paciente.setEmail(email);
 
         paciente.setTieneObraSocial(tieneObraSocial);
+        // Si tiene obra social, se establece la obra social y el número de afiliado
         if (tieneObraSocial) {
-            validarObraSocial(nombreObraSocial, numeroAfiliado);
-            paciente.setNombreObraSocial(nombreObraSocial);
-            paciente.setNumeroAfiliado(numeroAfiliado);
+            if (obraSocial != null) {
+                paciente.setObraSocial(obraSocial);
+            } else {
+                throw new MiExcepcion("Debe seleccionar una obra social si tiene obra social.");
+            }
+            if (numeroAfiliado != null) {
+                paciente.setNumeroAfiliado(numeroAfiliado);
+            } else {
+                throw new MiExcepcion("El número de afiliado no puede ser nulo si tiene obra social.");
+            }
         } else {
-            paciente.setNombreObraSocial(null);
+            // Si no tiene obra social, se establecen los campos a null
+            paciente.setObraSocial(null);
             paciente.setNumeroAfiliado(null);
         }
 
@@ -58,15 +68,6 @@ public class PacienteServicio extends UsuarioServicio {
         paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setRol(Rol.USER); //por defecto le damos el rol de user en vez de admin
         pacienteRepo.save(paciente);
-    }
-
-    private void validarObraSocial(String nombreObraSocial, Integer numeroAfiliado) throws MiExcepcion {
-        if (nombreObraSocial == null || nombreObraSocial.isEmpty()) {
-            throw new MiExcepcion("El nombre de su obra social no puede ser nulo o estar vacío!");
-        }
-        if (numeroAfiliado == null) {
-            throw new MiExcepcion("El número de afiliado no puede ser nulo!");
-        }
     }
 
     public List<Paciente> listarPacientesActivos() {
@@ -93,7 +94,7 @@ public class PacienteServicio extends UsuarioServicio {
     @Transactional
     public void actualizarPaciente(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
-            String nombreObraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
+            ObraSocial obraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
 //        validar(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial,
 //                nombreObraSocial, numeroAfiliado);
         Optional<Paciente> respuesta = pacienteRepo.findById(id);
@@ -108,12 +109,21 @@ public class PacienteServicio extends UsuarioServicio {
             paciente.setEmail(email);
 
             paciente.setTieneObraSocial(tieneObraSocial);
+            // Si tiene obra social, se establece la obra social y el número de afiliado
             if (tieneObraSocial) {
-                validarObraSocial(nombreObraSocial, numeroAfiliado);
-                paciente.setNombreObraSocial(nombreObraSocial);
-                paciente.setNumeroAfiliado(numeroAfiliado);
+                if (obraSocial != null) {
+                    paciente.setObraSocial(obraSocial);
+                } else {
+                    throw new MiExcepcion("Debe seleccionar una obra social si tiene obra social.");
+                }
+                if (numeroAfiliado != null) {
+                    paciente.setNumeroAfiliado(numeroAfiliado);
+                } else {
+                    throw new MiExcepcion("El número de afiliado no puede ser nulo si tiene obra social.");
+                }
             } else {
-                paciente.setNombreObraSocial(null);
+                // Si no tiene obra social, se establecen los campos a null
+                paciente.setObraSocial(null);
                 paciente.setNumeroAfiliado(null);
             }
 
