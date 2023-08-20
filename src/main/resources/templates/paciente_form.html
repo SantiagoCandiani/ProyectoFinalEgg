@@ -22,61 +22,69 @@
         <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
         <!-- Template Main CSS File -->
-        <link href="/assets/css/style.css" rel="stylesheet">
-
+       <link href="/assets/css/style.css" rel="stylesheet">
+        <link href="/css/Form.css" rel="stylesheet">
 
     </head>
 
-    <body>
+    <body style="background-image: url('/assets/img/hero-bg.jpg'); background-size: cover;">
 
         <!-- ======= Top Bar ======= -->
         <div id="topbar" class="d-flex align-items-center fixed-top">
             <div class="container d-flex justify-content-between">
-            <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-envelope"></i>
-                <a href="mailto:info@Medifour.com">info@Medifour.com</a>
-                <i class="bi bi-phone"></i> +51 558 863 3667
-            </div>
-            <div class="d-none d-lg-flex social-links align-items-center">
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            </div>
+                <div class="contact-info d-flex align-items-center">
+                    <i class="bi bi-envelope"></i>
+                    <a href="mailto:info@Medifour.com">info@Medifour.com</a>
+                    <i class="bi bi-phone"></i> +51 558 863 3667
+                </div>
+                <!-- Se añadió los links -->
+                <div class="d-none d-lg-flex social-links align-items-center">
+                    <a href="https://es-la.facebook.com/login" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bi bi-instagram"></i></a>
+                </div>       
+                       
             </div>
         </div>
-    
+
         <!-- ======= Header ======= -->
         <header id="header" class="fixed-top">
             <div class="container d-flex align-items-center">
-            <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>
         </header>
         <!-- End Header -->
 
-         <!-- ======= Breadcrumbs Section ======= -->
-            <section class="breadcrumbs">
-                <div class="container">
+        <!-- ======= Breadcrumbs Section ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Registro Paciente Medifour</h2>
                     <ol>
-                    <li><a th:href="@{/}">Inicio</a></li>
+                        <li><a th:href="@{/}">Inicio</a></li>
                     </ol>
                 </div>
-                </div>
-            </section>
+            </div>
+        </section>
         <!-- End Breadcrumbs Section -->
         
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+        
+
+        <div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="form-container">
         <form th:action="@{/paciente/registrar}" method="POST" >
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
                 <br>
                 <br>
             </div>
             <div class="form-group">
                 <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required>
+                <input type="text" id="apellido" name="apellido" placeholder="Ingrese su Apellido" required>
                 <br>
                 <br>
             </div>    
@@ -86,13 +94,13 @@
             <br>
             <div class="form-group">
                 <label for="dni">DNI:</label>
-                <input type="text" id="dni" name="dni" required>
+                <input type="number" id="dni" name="dni" placeholder="Numero de 5 digitos minimo" required>
                 <br>
                 <br>
             </div>
             <div class="form-group">
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
+                <input type="text" id="telefono" name="telefono" placeholder="4 caracteres minimo" required>
                 <br>
                 <br>
             </div>
@@ -105,66 +113,89 @@
             <label for="tieneObraSocial">Tiene Obra Social:</label>
             <select id="tieneObraSocial" name="tieneObraSocial">
                 <option value="true">Sí</option>
-                <option value="false">No</option>
+                <option value="false" selected>No</option> <!-- Establecer "No" como seleccionado por defecto -->
             </select>
             <br>
             <br>
-            <div class="form-group">
-                <label for="nombreObraSocial">Nombre de Obra Social:</label>
-                <input type="text" id="nombreObraSocial" name="nombreObraSocial">
-                <br>
-                <br>
-            </div>
-            <div class="form-group">
-                <label for="numeroAfiliado">Número de Afiliado:</label>
-                <input type="text" id="numeroAfiliado" name="numeroAfiliado">
-                <br>
-                <br>
+            <div class="form-group" id="obraSocialContainer">
+                <label for="obraSocial">Seleccione una Obra Social:</label>
+                <select id="obraSocial" name="obraSocial">
+                    <option value="">Seleccione una opción</option>
+                    <option value="OSEP">OSEP</option>
+                    <option value="SWISSMEDICAL">SWISSMEDICAL</option>
+                    <option value="OSDE">OSDE</option>
+                    <option value="OSPE">OSPE</option>
+                    <option value="SANCOR">SANCOR</option>
+                    <option value="MEDICUS">MEDICUS</option>
+                    <option value="OMINT">OMINT</option>
+                </select>
             </div>
 
+            <div class="form-group" id="numeroAfiliadoContainer">
+                <label for="numeroAfiliado">Número de Afiliado:</label>
+                <input type="text" id="numeroAfiliado" name="numeroAfiliado" placeholder="Debe ser un nro">
+                <br>
+                <br>
+            </div>
             <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required ><br>
+            <input type="password" id="password" name="password" placeholder="4 digitos minimo" required ><br>
             <label for="password2">Confirmar Contraseña:</label>
-            <input type="password" id="password2" name="password2" required ><br>
+            <input type="password" id="password2" name="password2" placeholder="4 digitos minimo" required ><br>
             <br>
             <input type="submit" value="Registrar">
         </form>
+         </div>
+    </div>
+</div>
         <br>
+    <section class=" text-center container">
+                <div class="row mt-3">
+                    <div class="divVolver">
+                        <a th:href="@{/}" class="appointment-btn scrollto">Volver</a>
+                      
+                    </div>
+                </div>
+    </section>
         <a th:href="@{/paciente/listar}">
             <button type="submit">Ver Lista de Pacientes</button>
         </a>
+<br>
+<br>
 
         <!-- ======= Footer ======= -->
         <footer id="footer">
             <div class="container d-md-flex py-4">
 
-            <div class="me-md-auto text-center text-md-start">
-                <div class="copyright">
-                <h5>&copy; Copyright <strong><span>Medifour</span></strong>. Todos los derechos reservados </h5>
+                <div class="me-md-auto text-center text-md-start">
+                    <div class="copyright">
+                        <h5>&copy; Copyright <strong><span>Medifour</span></strong>. Todos los derechos reservados </h5>
+                    </div>
+                    <div class="credits">
+                        <!-- All the links in the footer should remain intact. -->
+                        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                        <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+                    </div>
                 </div>
-                <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
+               <!-- se añadió los links-->
+                <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                    <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="https://es-la.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bx bxl-instagram"></i></a>
                 </div>
-            </div>
-            <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-            </div>
             </div>
         </footer><!-- End Footer -->
-    
+
         <div id="preloader"></div>
         <a
             href="#"
             class="back-to-top d-flex align-items-center justify-content-center"
             ><i class="bi bi-arrow-up-short"></i
-        ></a>
+            ></a>
 
         <!-- Template Main JS File -->
         <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/paciente_form.js"></script>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
