@@ -21,20 +21,13 @@
         <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
         <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-<<<<<<< HEAD
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-    <!-- Estilos CSS --> 
-    <link rel="stylesheet"  href="static/css/Form.css">
-    
-    </head>
-=======
         <!-- Template Main CSS File -->
-        <link href="/assets/css/style.css" rel="stylesheet">
+       <link href="/assets/css/style.css" rel="stylesheet">
+        <link href="/css/Form.css" rel="stylesheet">
 
->>>>>>> developer
+    </head>
 
-    <body>
+    <body style="background-image: url('/assets/img/hero-bg.jpg'); background-size: cover;">
 
         <!-- ======= Top Bar ======= -->
         <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -44,10 +37,12 @@
                     <a href="mailto:info@Medifour.com">info@Medifour.com</a>
                     <i class="bi bi-phone"></i> +51 558 863 3667
                 </div>
+                <!-- Se añadió los links -->
                 <div class="d-none d-lg-flex social-links align-items-center">
-                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                </div>
+                    <a href="https://es-la.facebook.com/login" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bi bi-instagram"></i></a>
+                </div>       
+                       
             </div>
         </div>
 
@@ -61,59 +56,9 @@
         </header>
         <!-- End Header -->
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
-      <div class="container d-flex align-items-center">
-        <h1 class="logo me-auto"><a href="index.html">Medifour</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-      </div>
-    </header>
-    <!-- End Header -->
-
-    <main id="main">
-      <!-- ======= Breadcrumbs Section ======= -->
-      <section class="breadcrumbs">
-        <div class="container">
-          <div class="d-flex justify-content-between align-items-center">
-            <h2>Registro Paciente Medifour</h2>
-            <ol>
-              <li><a href="index.html">Inicio</a></li>
-            </ol>
-          </div>
-        </div>
-      </section>
-      
-      <!-- End Breadcrumbs Section -->
-
-      <section class="inner-page">
-        <div class="container">
-          <!-- ======= Datos del Paciente ======= -->
-
-          <h2>Datos Basicos</h2>
-          <br /><br />
-
-          <div class="row">
-            <div class="col-md-4">
-              <h4><span class="badge bg-dark">Nombre</span></h4>
-              <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                class="form-control"
-                required
-              /><br /><br />
-=======
-         <!-- ======= Breadcrumbs Section ======= -->
-            <section class="breadcrumbs">
-                <div class="container">
-=======
         <!-- ======= Breadcrumbs Section ======= -->
         <section class="breadcrumbs">
             <div class="container">
->>>>>>> developer
                 <div class="d-flex justify-content-between align-items-center">
                     <h2>Registro Paciente Medifour</h2>
                     <ol>
@@ -123,10 +68,12 @@
             </div>
         </section>
         <!-- End Breadcrumbs Section -->
-        <br>
-        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
-        <br>   
         
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+        
+        <div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="form-container">
         <form th:action="@{/paciente/registrar}" method="POST" >
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
@@ -188,10 +135,7 @@
                 <input type="text" id="numeroAfiliado" name="numeroAfiliado" placeholder="Debe ser un nro">
                 <br>
                 <br>
->>>>>>> developer
             </div>
-
-
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" placeholder="4 digitos minimo" required ><br>
             <label for="password2">Confirmar Contraseña:</label>
@@ -199,11 +143,23 @@
             <br>
             <input type="submit" value="Registrar">
         </form>
+         </div>
+    </div>
+</div>
         <br>
-
+    <section class=" text-center container">
+                <div class="row mt-3">
+                    <div class="divVolver">
+                        <a th:href="@{/}" class="appointment-btn scrollto">Volver</a>
+                      
+                    </div>
+                </div>
+    </section>
         <a th:href="@{/paciente/listar}">
             <button type="submit">Ver Lista de Pacientes</button>
         </a>
+<br>
+<br>
 
         <!-- ======= Footer ======= -->
         <footer id="footer">
@@ -219,10 +175,11 @@
                         <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
                     </div>
                 </div>
+               <!-- se añadió los links-->
                 <div class="social-links text-center text-md-right pt-3 pt-md-0">
-                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="https://es-la.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bx bxl-instagram"></i></a>
                 </div>
             </div>
         </footer><!-- End Footer -->
