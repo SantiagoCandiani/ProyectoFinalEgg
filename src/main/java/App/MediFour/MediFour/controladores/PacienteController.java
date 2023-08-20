@@ -1,6 +1,7 @@
 package App.MediFour.MediFour.controladores;
 
 import App.MediFour.MediFour.entidades.Paciente;
+import App.MediFour.MediFour.enumeraciones.ObraSocial;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.PacienteRepositorio;
 import App.MediFour.MediFour.servicios.PacienteServicio;
@@ -11,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,19 +39,19 @@ public class PacienteController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
             @RequestParam Integer dni, @RequestParam String telefono, @RequestParam String email,
             @RequestParam(required = false) Boolean tieneObraSocial,
-            @RequestParam(required = false) String nombreObraSocial,
+            @RequestParam(required = false) ObraSocial obraSocial,
             @RequestParam(required = false) Integer numeroAfiliado,
-            @RequestParam String password, @RequestParam String password2) {//<--AGREGAR ModelMap modelo
+            @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
 
         try {
             Boolean tieneObraSocialBool = tieneObraSocial != null && tieneObraSocial.equals("true");
-            pacienteServicio.registrarPaciente(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, nombreObraSocial, numeroAfiliado, password, password2);
-            ////AGREGAR
-            //modelo.put("exito", "El paciente fue registrado correctamente!");
+            pacienteServicio.registrarPaciente(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
 
-        } catch (MiExcepcion e) {
-            //AGREGAR
-            //modelo.put("error", ex.getMessage());
+            modelo.put("exito", "El paciente fue registrado correctamente!");
+
+        } catch (MiExcepcion ex) {
+
+            modelo.put("error", ex.getMessage());
             return "paciente_form.html";
         }
         return "redirect:/paciente/listar";
