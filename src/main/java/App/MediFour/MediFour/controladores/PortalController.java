@@ -14,8 +14,6 @@ public class PortalController {
 
     @GetMapping("/")
     public String index() {
-       
-    
         return "index.html";
     }
 }
