@@ -70,7 +70,7 @@
         <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
         <br>   
         
-        <form th:action="@{/paciente/registrar}" method="POST" >
+        <form th:action="@{/paciente/registrar}" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
@@ -89,7 +89,7 @@
             <br>
             <div class="form-group">
                 <label for="dni">DNI:</label>
-                <input type="number" id="dni" name="dni" placeholder="Numero de 4 digitos minimo" required>
+                <input type="number" id="dni" name="dni" placeholder="Numero de 5 digitos minimo" required>
                 <br>
                 <br>
             </div>
