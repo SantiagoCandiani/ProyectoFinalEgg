@@ -3,11 +3,15 @@ package App.MediFour.MediFour.entidades;
 import App.MediFour.MediFour.enumeraciones.Rol;
 import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,6 +25,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Usuario")
 public class Usuario implements Serializable {
 
@@ -31,16 +36,19 @@ public class Usuario implements Serializable {
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
+    @Column(unique = true)
     private Integer dni;
+    @Column(unique = true)
     private String telefono;
+    @Column(unique = true)
     private String email;
     private String password;
     private LocalDate alta;
     private Boolean activo;
     @Enumerated(EnumType.STRING)
     private Rol rol;
-//    @OneToOne
-//    private Imagen imagen;
+    @OneToOne
+    private Imagen imagen;
 
     @PrePersist
     protected void onCreate() {

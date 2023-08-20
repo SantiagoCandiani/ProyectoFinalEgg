@@ -1,6 +1,9 @@
 package App.MediFour.MediFour.entidades;
 
+import App.MediFour.MediFour.enumeraciones.ObraSocial;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +19,8 @@ import lombok.Setter;
 public class Paciente extends Usuario {
 
     protected Boolean tieneObraSocial;
-    protected String nombreObraSocial;
+    @Enumerated(EnumType.STRING)
+    protected ObraSocial obraSocial;
     protected Integer numeroAfiliado;
 
 //----Relacion con otras entidades----//
