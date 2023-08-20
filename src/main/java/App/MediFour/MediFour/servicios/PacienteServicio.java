@@ -27,9 +27,12 @@ public class PacienteServicio extends UsuarioServicio {
     private UsuarioRepositorio usuarioRepo;
 
     @Autowired
+<<<<<<< HEAD
+=======
     private UsuarioServicio usuarioServicio;
 
     @Autowired
+>>>>>>> 6402932b59e89aa717cf004c9de1b8fae52227d2
     private ImagenServicio imagenServicio;
 
     @Transactional
