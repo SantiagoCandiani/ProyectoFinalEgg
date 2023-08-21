@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/paciente")
 public class PacienteController {
-    
 
     @Autowired
     private PacienteServicio pacienteServicio;
@@ -41,11 +41,12 @@ public class PacienteController {
             @RequestParam(required = false) Boolean tieneObraSocial,
             @RequestParam(required = false) ObraSocial obraSocial,
             @RequestParam(required = false) Integer numeroAfiliado,
-            @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+            @RequestParam String password, @RequestParam String password2,
+            @RequestParam(required = false) MultipartFile archivo, ModelMap modelo) {
 
         try {
             Boolean tieneObraSocialBool = tieneObraSocial != null && tieneObraSocial.equals("true");
-            pacienteServicio.registrarPaciente(nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
+            pacienteServicio.registrarPaciente(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
 
             modelo.put("exito", "El paciente fue registrado correctamente!");
 
@@ -61,7 +62,7 @@ public class PacienteController {
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
         model.addAttribute("pacientes", pacientes);
-        
+
         return "paciente_list";
     }
 

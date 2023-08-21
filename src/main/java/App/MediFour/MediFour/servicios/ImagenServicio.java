@@ -15,7 +15,7 @@ public class ImagenServicio {
     private ImagenRepositorio imagenRepositorio;
 
     public Imagen guardar(MultipartFile archivo) throws MiExcepcion {
-        if (archivo != null) {
+        if (archivo != null && !archivo.isEmpty()) {
             try {
                 Imagen imagen = new Imagen();
                 imagen.setMime(archivo.getContentType());
@@ -24,7 +24,7 @@ public class ImagenServicio {
 
                 return imagenRepositorio.save(imagen);
             } catch (Exception e) {
-                System.err.println(e.getMessage());
+                throw new MiExcepcion("Error al guardar la imagen.");  
             }
         }
         return null;
