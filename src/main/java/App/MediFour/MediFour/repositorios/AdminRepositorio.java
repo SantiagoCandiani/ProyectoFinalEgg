@@ -7,9 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 public interface AdminRepositorio extends JpaRepository<Admin, String> {
 
-    @Query("SELECT a FROM admin a WHERE a.email = :email")
+    @Query("SELECT a FROM Admin a WHERE a.email = :email")
     public Admin buscarPorEmail(@Param("email") String email);
 
-    @Query("SELECT a FROM admin a WHERE a.telefono = :telefono")
+    @Query("SELECT a FROM Admin a WHERE a.telefono = :telefono")
     public Admin buscarPorTelefono(@Param("telefono") String telefono);
 }

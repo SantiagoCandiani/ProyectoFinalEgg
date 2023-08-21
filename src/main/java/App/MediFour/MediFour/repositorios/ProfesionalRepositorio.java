@@ -27,9 +27,10 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Strin
     @Query("SELECT m FROM Profesional m WHERE m.telefono = :telefono")
     public Profesional buscarPorTelefono(@Param("telefono") String telefono);
 
-    @Query("SELECT m FROM Profesional m WHERE m.idPersona = :idPersona")
-    public Profesional buscarMedicoPorID(@Param("idPersona") String idPersona);
+    @Query("SELECT m FROM Profesional m WHERE m.id = :id")
+    public Profesional buscarProfesionalPorID(@Param("id") String id);
 
     @Query("SELECT m FROM Profesional m WHERE m.especialidad = :especialidad")
-    public Collection<Profesional> listarMedicosPorEspecialidad(@Param("especialidad") Especialidad especialidad);
+    public Collection<Profesional> listarProfesionalPorEspecialidad(@Param("especialidad") Especialidad especialidad);
+
 }
