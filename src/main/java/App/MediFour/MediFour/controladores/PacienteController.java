@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/paciente")
 public class PacienteController {
+    
 
     @Autowired
     private PacienteServicio pacienteServicio;
@@ -60,6 +61,7 @@ public class PacienteController {
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
         model.addAttribute("pacientes", pacientes);
+        
         return "paciente_list";
     }
 

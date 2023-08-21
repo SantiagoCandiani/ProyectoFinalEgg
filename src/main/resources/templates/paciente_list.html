@@ -17,30 +17,39 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>DNI</th>                    
+                    <th>Telefono</th>
+                    <th>E-Mail</th>
                     <th>Fecha de Nacimiento</th>
-                    <th>DNI</th>
-                    <th>Apellido</th>
+                    <th>Obra Social</th>
+                    <th>N° de Afiliado</th>
+                    <th>ACCIONES</th>
                 </tr>
             </thead>
-            <tr th:each="paciente : ${pacientes}">
-                <td th:text="${paciente.nombre}"></td>
-                <td th:text="${paciente.apellido}"></td>
-
-                <td>
-                    <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
-                        <input type="submit" value="Dar de Baja">
-                    </form>
-                </td>
-
-            </tr>
+            <tbody>
+                <tr th:each="paciente : ${pacientes}">
+                    <td th:text="${paciente.nombre}"></td>
+                    <td th:text="${paciente.apellido}"></td>
+                    <td th:text="${paciente.dni}"></td>
+                    <td th:text="${paciente.telefono}"></td>
+                    <td th:text="${paciente.email}"></td>
+                    <td th:text="${paciente.fechaNacimiento}"></td>
+                    <td th:text="${paciente.obraSocial}"></td>
+                    <td th:text="${paciente.numeroAfiliado}"></td>
+                    <td>
+                        <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
+                            <input type="submit" value="Dar de Baja">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
         </table>
 
 
 
-        <div class="container m-5" >
+        <!-- <div class="container m-5" >
 
             <table class="table table-dark">
                 <thead>
@@ -75,7 +84,10 @@
                     <h5 class="card-title">Error ð</h5>
                     <p class="card-text" th:text="${error}"></p>
                 </div>
-            </div>
+            </div> 
+        
+        -->
+        
 
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
@@ -85,6 +97,8 @@
                     </div>
                 </div>
             </section>
+
+       
     </body>
 </html>
 
