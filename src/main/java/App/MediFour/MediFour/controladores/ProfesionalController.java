@@ -58,7 +58,7 @@ public class ProfesionalController {
         } catch (MiExcepcion ex) {
 
             modelo.put("error", ex.getMessage());
-            return "profesional_form.html";
+            return "profesional_form(nuevo).html";
         }
         return "redirect:/profesional/listar";
     }
