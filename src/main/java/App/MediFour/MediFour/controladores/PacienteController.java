@@ -35,13 +35,18 @@ public class PacienteController {
     }
 
     @PostMapping("/registrar")
-    public String registrarPaciente(@RequestParam String nombre, @RequestParam String apellido,
+    public String registrarPaciente(
+            @RequestParam String nombre,
+            @RequestParam String apellido,            
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
-            @RequestParam Integer dni, @RequestParam String telefono, @RequestParam String email,
+            @RequestParam Integer dni,
+            @RequestParam String telefono,
+            @RequestParam String email,
             @RequestParam(required = false) Boolean tieneObraSocial,
             @RequestParam(required = false) ObraSocial obraSocial,
             @RequestParam(required = false) Integer numeroAfiliado,
-            @RequestParam String password, @RequestParam String password2,
+            @RequestParam String password,
+            @RequestParam String password2,
             @RequestParam(required = false) MultipartFile archivo, ModelMap modelo) {
 
         try {
@@ -58,7 +63,7 @@ public class PacienteController {
         return "redirect:/paciente/listar";
     }
 
-    @GetMapping("/listar") //localhost:8080/autor/listar
+    @GetMapping("/listar") //localhost:8080/paciente/listar
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
         model.addAttribute("pacientes", pacientes);
