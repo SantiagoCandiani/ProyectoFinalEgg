@@ -10,9 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PacienteRepositorio extends JpaRepository<Paciente, String> {
-// métodos necesarios para guardar/actualizar pacientes en la base de datos,
-// realizar consultas o dar de baja según corresponda.
-//creo una interface que extiende de JpaRepository manejando la entidad Paciente cuya llave es un String.
 
     @Query("SELECT p FROM Paciente p WHERE p.dni = :dni")
     public Paciente buscarPorDNI(@Param("dni") Integer dni);

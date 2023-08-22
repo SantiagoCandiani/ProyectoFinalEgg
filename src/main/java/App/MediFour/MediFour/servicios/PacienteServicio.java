@@ -33,7 +33,7 @@ public class PacienteServicio extends UsuarioServicio {
     private ImagenServicio imagenServicio;
 
     @Transactional
-    public void registrarPaciente(String nombre, String apellido, LocalDate fechaNacimiento,
+    public void registrarPaciente(MultipartFile archivo, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
             ObraSocial obraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
 
@@ -69,6 +69,13 @@ public class PacienteServicio extends UsuarioServicio {
         paciente.setActivo(true);
         paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setRol(Rol.USER); //por defecto le damos el rol de user en vez de admin
+
+        // Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
+        if (archivo != null && !archivo.isEmpty()) {
+            Imagen imagen = imagenServicio.guardar(archivo);
+            paciente.setImagen(imagen);
+        }
+
         pacienteRepo.save(paciente);
     }
 

@@ -24,8 +24,10 @@ public class Paciente extends Usuario {
     protected Integer numeroAfiliado;
 
 //----Relacion con otras entidades----//
-    //    private TurnoAgendado turnoAgendado;
-    //    private Profesional profesionalAsignado;
-    //    private HistoriaClinica historiaClinica;
+    //    @OneToOne //Un paciente tiene una historia clínica
+//    @JoinColumn(name = "historia_clinica_id") //Foreign Key: historia_clinica_id
+//    private HistoriaClinica historiaClinica;
+    //@OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY) //Usando mappedBy (mappedBy: indica cuál atributo de la entidad Turno es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
+    //private List<Turno> listaDeTurnos;
 //-----------------------------------//
 }
