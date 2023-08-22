@@ -15,7 +15,7 @@
         <!-- End Header -->
 
         <select id="selectConsulta" onchange="toggleDivs()">
-            <option value="" selected>ELIJA CONSULTA A REALIZAR</option>
+            <option selected>ELIJA CONSULTA A REALIZAR</option>
             <option value="dni">Consulta por DNI</option>
             <option value="obra">Consulta por Obra Social</option>
         </select>
@@ -34,7 +34,7 @@
 
             <form th:action="@{/paciente/consultaObra}" method="get">
                 <select name="obra">
-                    <option value="" selected>seleccione O. Soc.</option>
+                    <option selected>seleccione O. Soc.</option>
                     <option value="OSEP">OSEP</option>
                     <option value="SWISSMEDICAL">SWISSMEDICAL</option>
                     <option value="OSDE">OSDE</option>
