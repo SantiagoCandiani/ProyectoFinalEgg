@@ -34,6 +34,13 @@ public class PortalController {
         return "registro.html";
     }
     
+//    @GetMapping("/registrarUsuario")
+//    public String registrarUsuario(){
+//        return "register_usuario.html";
+//    }
+    
+    
+    
     @PostMapping("/registro")
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo){
         

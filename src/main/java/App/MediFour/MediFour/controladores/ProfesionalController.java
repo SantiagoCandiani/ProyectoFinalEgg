@@ -28,7 +28,7 @@ public class ProfesionalController {
 
     @GetMapping("/registrar-form")
     public String mostrarFormularioRegistro(Model model) {
-        return "profesional_form.html";
+        return "profesional_form(nuevo).html";
     }
 
     @PostMapping("/registrar")
