@@ -64,6 +64,24 @@ public class PacienteController {
         
         return "paciente_list";
     }
+    
+    
+    @GetMapping("/consultaDni") //localhost:8080/paciente/consulta
+    public String listarPacienteXdni(@RequestParam Integer dni, ModelMap model) {
+        Paciente paciente = pacienteServicio.listarPacienteXdni(dni);
+        model.addAttribute("paciente", paciente);
+
+        return "paciente_consulta";
+    }
+    
+    @GetMapping("/consultaObra") //localhost:8080/paciente/consulta
+    public String listarPacientesXobraSocial(@RequestParam("obra") String obraValue, ModelMap model) {
+        ObraSocial obra = ObraSocial.valueOf(obraValue);//se transforma obraValue a enum ObraSocial
+        List<Paciente> paciente = pacienteServicio.listarPacientesXobraSocial(obra);
+        model.addAttribute("paciente", paciente);
+        
+        return "paciente_consulta";
+    }
 
     @GetMapping("/bajaPaciente/{id}")
     public String bajaPaciente(@PathVariable String id, ModelMap model) throws MiExcepcion {
