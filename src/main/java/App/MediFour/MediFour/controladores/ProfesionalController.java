@@ -28,7 +28,7 @@ public class ProfesionalController {
 
     @GetMapping("/registrar-form")
     public String mostrarFormularioRegistro(Model model) {
-        return "profesional_form.html";
+        return "profesional_form(nuevo).html";
     }
 
     @PostMapping("/registrar")
@@ -58,7 +58,7 @@ public class ProfesionalController {
         } catch (MiExcepcion ex) {
 
             modelo.put("error", ex.getMessage());
-            return "profesional_form.html";
+            return "profesional_form(nuevo).html";
         }
         return "redirect:/profesional/listar";
     }
