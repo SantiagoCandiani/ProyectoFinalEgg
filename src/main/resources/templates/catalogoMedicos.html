@@ -23,7 +23,7 @@
 
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet">
-        <link href="/css/Form.css" rel="stylesheet">
+        <link href="/css/catalogoMedicos.css" rel="stylesheet">
 
     </head>
 
@@ -60,7 +60,8 @@
         <section class="breadcrumbs">
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Registro Paciente Medifour</h2>
+                    <h2>Médicos por Especialidad</h2>
+                    <p>Contamos con un equipo de profesionales altamente calificados y comprometidos con brindar un atención de calidad.</p>
                     <ol>
                         <li><a th:href="@{/}">Inicio</a></li>
                     </ol>
@@ -68,101 +69,47 @@
             </div>
         </section>
         <!-- End Breadcrumbs Section -->
+    <!-- Inicio catalogo -->
+    
+    <div class="container">
+    <div class="specialty">Medicina Interna</div>
+    <div class="doctor-card">
+      <img class="doctor-image" src="doctor-1.jpg" alt="Médico de Medicina Interna">
+      <div class="doctor-info">
+        <div class="doctor-name">Dr. Juan Pérez</div>
+        <div class="doctor-specialty">Especialista en Medicina Interna</div>
+      </div>
+    </div>
 
-        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+    <div class="specialty">Psiquiatría</div>
+    <div class="doctor-card">
+      <img class="doctor-image" src="doctors-2.jpg" alt="Médico de Psiquiatría">
+      <div class="doctor-info">
+        <div class="doctor-name">Dra. Ana Gómez</div>
+        <div class="doctor-specialty">Especialista en Psiquiatría</div>
+      </div>
+    </div>
 
+    <div class="specialty">Medicina General</div>
+    <div class="doctor-card">
+      <img class="doctor-image" src="doctors-3.jpg" alt="Médico de Medicina General">
+      <div class="doctor-info">
+        <div class="doctor-name">Dr. Roberto Rodríguez</div>
+        <div class="doctor-specialty">Especialista en Medicina General</div>
+      </div>
+    </div>
 
-        <div class="container">
-           
-            <div class="d-flex justify-content-center align-items-center vh-100">
-                <div class="form-container">
-                    <form th:action="@{/paciente/registrar}" method="POST" >
-                         <h2>Registro Pacientes</h2>
-                       <p>Registrate para acceder a nuestros servicios.</p>
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" id="apellido" name="apellido" placeholder="Ingrese su Apellido" required>
-                            <br>
-                            <br>
-                        </div>    
-                         <div class="form-group">
-                           
-                        <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
-                        </div>
-                        <br>
-                        <br>
-                        <div class="form-group">
-                            <label for="dni">DNI:</label>
-                            <input type="number" id="dni" name="dni" placeholder="Nro de 5 digitos minimo" required>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Teléfono:</label>
-                            <input type="text" id="telefono" name="telefono" placeholder="5 caracteres minimo" required>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="user@mail.com" required>
-                            <br>
-                            <br>
-                        </div>
-                        <div class="form-group">
-                        <label for="tieneObraSocial">Tiene Obra Social:</label>
-                        <select id="tieneObraSocial" name="tieneObraSocial">
-                            <option value="true">Sí</option>
-                            <option value="false" selected>No</option> <!-- Establecer "No" como seleccionado por defecto -->
-                        </select>
-                        <br>
-                        <br>
-                        <div class="form-group" id="obraSocialContainer">
-                            <label for="obraSocial">Seleccione una Obra Social:</label>
-                            <select id="obraSocial" name="obraSocial">
-                                <option value="">Seleccione una opción</option>
-                                <option value="OSEP">OSEP</option>
-                                <option value="SWISSMEDICAL">SWISSMEDICAL</option>
-                                <option value="OSDE">OSDE</option>
-                                <option value="OSPE">OSPE</option>
-                                <option value="SANCOR">SANCOR</option>
-                                <option value="MEDICUS">MEDICUS</option>
-                                <option value="OMINT">OMINT</option>
-                            </select>
-                        </div>
-                         </div>    
-                        <div class="form-group" id="numeroAfiliadoContainer">
-                            <label for="numeroAfiliado">Número de Afiliado:</label>
-                            <input type="text" id="numeroAfiliado" name="numeroAfiliado" placeholder="Debe ser un nro">
-                            <br>
-                            <br>
-                        </div>
-                        <div class="form-group my-3">
-                            <input type="file" class="form-control" name="archivo" >
-                        </div>
-                             <br>
-                              <div class="form-group">
-                        <label for="password">Contraseña:</label>
-                        <input type="password" id="password" name="password" placeholder="5 caracteres minimo" required ><br>
-                         <br>
-                    
-                        <label for="password2">Confirmar Contraseña:</label>
-                        <input type="password" id="password2" name="password2" placeholder="5 caracteres minimo" required ><br>
-                              </div>
-                        <br>
-                        <input type="submit"  class="appointment-btn scrollto" value="Registrar">
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="specialty">Ortopedia</div>
+    <div class="doctor-card">
+      <img class="doctor-image" src="doctors-4.jpg" alt="Médico de Ortopedia">
+      <div class="doctor-info">
+        <div class="doctor-name">Dra. María López</div>
+        <div class="doctor-specialty">Especialista en Ortopedia</div>
+      </div>
+    </div>
+  </div>
         <br>
+         <!-- Boton volver -->
         <section class=" text-center container">
             <div class="row mt-3">
                 <div class="divVolver">
@@ -171,11 +118,7 @@
                 </div>
             </div>
         </section>
-        <a th:href="@{/paciente/listar}">
-            <button type="submit">Ver Lista de Pacientes</button>
-        </a>
-        <br>
-        <br>
+        
 
         <!-- ======= Footer ======= -->
         <footer id="footer">
