@@ -75,7 +75,7 @@ public class PacienteServicio extends UsuarioServicio {
             Imagen imagen = imagenServicio.guardar(archivo);
             paciente.setImagen(imagen);
         }
-        
+
         pacienteRepo.save(paciente);
     }
 
