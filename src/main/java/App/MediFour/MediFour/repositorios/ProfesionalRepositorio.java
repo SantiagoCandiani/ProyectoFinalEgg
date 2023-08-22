@@ -33,4 +33,6 @@ public interface ProfesionalRepositorio extends JpaRepository<Profesional, Strin
     @Query("SELECT m FROM Profesional m WHERE m.especialidad = :especialidad")
     public Collection<Profesional> listarProfesionalPorEspecialidad(@Param("especialidad") Especialidad especialidad);
 
+    List<Profesional> findByActivoTrue(); // Utiliza el nombre de método con la convención para filtrar profesionales activos
+
 }

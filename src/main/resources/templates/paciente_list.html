@@ -7,9 +7,9 @@
         <!-- ======= Header ======= -->
         <header id="header" class="fixed-top">
             <div class="container d-flex align-items-center">
-            <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+                <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>
         </header>
         <!-- End Header -->
@@ -25,6 +25,7 @@
                     <th>Fecha de Nacimiento</th>
                     <th>Obra Social</th>
                     <th>N° de Afiliado</th>
+                    <th>Foto de Perfil</th>
                     <th>ACCIONES</th>
                 </tr>
             </thead>
@@ -39,6 +40,14 @@
                     <td th:text="${paciente.obraSocial}"></td>
                     <td th:text="${paciente.numeroAfiliado}"></td>
                     <td>
+                        <a th:if="${paciente.imagen != null}" th:href="@{/imagen/perfil/__${paciente.id}__}">
+                            <img th:style="'width: 10%; margin: auto;'" th:src="@{/imagen/perfil/__${paciente.id}__}">
+                        </a>
+                    </td>
+
+
+
+                    <td style="text-align: center; vertical-align: middle;">
                         <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
                             <input type="submit" value="Dar de Baja">
                         </form>
@@ -87,18 +96,18 @@
             </div> 
         
         -->
-        
 
-            <section class="py-5 text-center container">
-                <div class="row py-lg-5">
-                    <div class="col-lg-6 col-md-8 mx-auto">
-                        <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
-                        </p>
-                    </div>
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
+                    </p>
                 </div>
-            </section>
+            </div>
+        </section>
 
-       
+
     </body>
 </html>
 

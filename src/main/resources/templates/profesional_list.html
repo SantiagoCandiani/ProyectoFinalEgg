@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Profesionales</title>
+    </head>
+    <body>
+        <!-- ======= Header ======= -->
+        <header id="header" class="fixed-top">
+            <div class="container d-flex align-items-center">
+                <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+            </div>
+        </header>
+        <!-- End Header -->
+        <h1>Lista de Profesionales</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>                    
+                    <th>Telefono</th>
+                    <th>E-Mail</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Matricula</th>
+                    <th>Especialidad</th>
+                    <th>Dias disponibles</th>
+                    <th>Horario de entrada</th>
+                    <th>Horario de salida</th>
+                    <th>Precio de la Consulta</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="profesional : ${profesionales}">
+                    <td th:text="${profesional.nombre}"></td>
+                    <td th:text="${profesional.apellido}"></td>
+                    <td th:text="${profesional.dni}"></td>
+                    <td th:text="${profesional.telefono}"></td>
+                    <td th:text="${profesional.email}"></td>
+                    <td th:text="${profesional.fechaNacimiento}"></td>
+                    <td th:text="${profesional.matricula}"></td>
+                    <td th:text="${profesional.especialidad}"></td>
+                    <td th:text="${profesional.diasDisponibles}"></td>
+                    <td th:text="${profesional.horarioEntrada}"></td>
+                    <td th:text="${profesional.horarioSalida}"></td>
+                    <td th:text="${profesional.precioConsulta}"></td>
+                    <td>
+                        <a th:if="${profesional.imagen != null}" th:href="@{/imagen/perfil/__${profesional.id}__}">
+                            <img th:style="'width: 10%; margin: auto;'" th:src="@{/imagen/perfil/__${profesional.id}__}">
+                        </a>
+                    </td>
+
+
+
+                    <td style="text-align: center; vertical-align: middle;">
+                        <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
+                            <input type="submit" value="Dar de Baja">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>
