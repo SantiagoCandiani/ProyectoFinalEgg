@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -61,9 +62,9 @@ public class ProfesionalController {
             modelo.put("error", ex.getMessage());
             return "profesional_form(nuevo).html";
         }
-        return "redirect:/profesional/listar";
+        return "redirect:/login";
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
@@ -71,7 +72,8 @@ public class ProfesionalController {
 
         return "profesional_list";
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/bajaProfesional/{id}")
     public String bajaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
         profesionalServicio.bajaProfesional(id);

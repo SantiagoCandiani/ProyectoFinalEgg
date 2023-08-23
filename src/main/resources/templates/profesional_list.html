@@ -2,78 +2,113 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Lista de Profesionales</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
+        
+        <style>
+            .table-container {
+    margin-left: 0; /* Ajusta este valor según tu preferencia */
+}
+        </style>
+        
+        
     </head>
     <body>
-        <!-- ======= Header ======= -->
-        <header id="header" class="fixed-top">
-            <div class="container d-flex align-items-center">
-                <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
 
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h1 class="logo me-auto"><a class="navbar-brand" th:href="@{/inicio}">MEDIFOUR</a></h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
             </div>
-        </header>
-        <!-- End Header -->
-        <h1>Lista de Profesionales</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>DNI</th>                    
-                    <th>Telefono</th>
-                    <th>E-Mail</th>
-                    <th>Fecha de Nacimiento</th>
-                    <th>Matricula</th>
-                    <th>Especialidad</th>
-                    <th>Dias disponibles</th>
-                    <th>Horario de entrada</th>
-                    <th>Horario de salida</th>
-                    <th>Precio de la Consulta</th>
-                    <th>ACCIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="profesional : ${profesionales}">
-                    <td th:text="${profesional.nombre}"></td>
-                    <td th:text="${profesional.apellido}"></td>
-                    <td th:text="${profesional.dni}"></td>
-                    <td th:text="${profesional.telefono}"></td>
-                    <td th:text="${profesional.email}"></td>
-                    <td th:text="${profesional.fechaNacimiento}"></td>
-                    <td th:text="${profesional.matricula}"></td>
-                    <td th:text="${profesional.especialidad}"></td>
-                    <td th:text="${profesional.diasDisponibles}"></td>
-                    <td th:text="${profesional.horarioEntrada}"></td>
-                    <td th:text="${profesional.horarioSalida}"></td>
-                    <td th:text="${profesional.precioConsulta}"></td>
-                    <td>
-                        <a th:if="${profesional.imagen != null}" th:href="@{/imagen/perfil/__${profesional.id}__}">
-                            <img th:style="'width: 10%; margin: auto;'" th:src="@{/imagen/perfil/__${profesional.id}__}">
-                        </a>
-                    </td>
+        </nav>
 
 
 
-                    <td style="text-align: center; vertical-align: middle;">
-                        <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
-                            <input type="submit" value="Dar de Baja">
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
+        <div class="container table-container">
+            <h1 class="">Lista de Profesionales</h1>
+            
+            <table class="table table-striped table-bordere">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Teléfono</th>
+                        <th>E-Mail</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Matricula</th>
+                        <th>Especialidad</th>
+                        <th>Dias Disponibles</th>
+                        <th>Horario Entrada</th>
+                        <th>Horario Salida</th>
+                        <th>Precio Consulta</th>
+                        <th>Imagen</th>
+                    </tr>
+                <tbody>
+                    <tr th:each="profesional : ${profesionales}">
+                        <td th:text="${profesional.nombre}"></td>
+                        <td th:text="${profesional.apellido}"></td>
+                        <td th:text="${profesional.dni}"></td>
+                        <td th:text="${profesional.telefono}"></td>
+                        <td th:text="${profesional.email}"></td>
+                        <td th:text="${profesional.fechaNacimiento}"></td>
+                        <td th:text="${profesional.matricula}"></td>
+                        <td th:text="${profesional.especialidad}"></td>
+                        <td th:text="${profesional.diasDisponibles}"></td>
+                        <td th:text="${profesional.horarioEntrada}"></td>
+                        <td th:text="${profesional.horarioSalida}"></td>
+                        <td th:text="${profesional.precioConsulta}"></td>
+                        <td>
+                            <a th:if="${profesional.imagen != null}" th:href="@{/imagen/perfil/__${profesional.id}__}">
+                                <img th:style="'width: 100%; margin: auto; height: auto;'" th:src="@{/imagen/perfil/__${profesional.id}__}">
+                            </a>
+                        </td>
+
+
+
+                        <td style="text-align: center; vertical-align: middle;">
+                            <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
+                                <input type="submit" value="Dar de Baja">
+                            </form>
+                        </td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
 
 
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
+                    <a th:href="@{/inicio}" class="btn btn-secondary my-2">Volver</a>
                     </p>
                 </div>
             </div>
         </section>
 
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     </body>
 </html>
