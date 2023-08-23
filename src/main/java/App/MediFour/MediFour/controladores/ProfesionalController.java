@@ -6,6 +6,7 @@ import App.MediFour.MediFour.enumeraciones.Especialidad;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.servicios.ProfesionalServicio;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,7 +29,7 @@ public class ProfesionalController {
 
     @GetMapping("/registrar-form")
     public String mostrarFormularioRegistro(Model model) {
-        return "profesional_form.html";
+        return "profesional_form(nuevo).html";
     }
 
     @PostMapping("/registrar")
@@ -42,8 +43,8 @@ public class ProfesionalController {
             @RequestParam String matricula,
             @RequestParam Especialidad especialidad,
             @RequestParam List<DiaSemana> diasDisponibles,
-            @RequestParam Integer horarioEntrada,
-            @RequestParam Integer horarioSalida,
+            @RequestParam LocalTime horarioEntrada,
+            @RequestParam LocalTime horarioSalida,
             @RequestParam Double precioConsulta,
             @RequestParam String password,
             @RequestParam String password2,
@@ -58,7 +59,7 @@ public class ProfesionalController {
         } catch (MiExcepcion ex) {
 
             modelo.put("error", ex.getMessage());
-            return "profesional_form.html";
+            return "profesional_form(nuevo).html";
         }
         return "redirect:/profesional/listar";
     }

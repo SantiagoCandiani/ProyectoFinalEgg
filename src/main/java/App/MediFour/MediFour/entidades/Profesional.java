@@ -2,6 +2,7 @@ package App.MediFour.MediFour.entidades;
 
 import App.MediFour.MediFour.enumeraciones.DiaSemana;
 import App.MediFour.MediFour.enumeraciones.Especialidad;
+import java.time.LocalTime;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -29,8 +30,8 @@ public class Profesional extends Usuario {
     @CollectionTable(name = "Profesional_DiasDisponibles")
     @Enumerated(EnumType.STRING)
     protected List<DiaSemana> diasDisponibles;
-    protected Integer horarioEntrada;
-    protected Integer horarioSalida;
+    protected LocalTime  horarioEntrada;
+    protected LocalTime  horarioSalida;
     protected Double precioConsulta;
-    protected Double reputación; // Cambiado a reputación
+    protected Double reputacion; // Cambiado a reputación
 }
