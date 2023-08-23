@@ -10,6 +10,7 @@ import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.ProfesionalRepositorio;
 import App.MediFour.MediFour.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -37,7 +38,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public void registrarProfesional(MultipartFile archivo, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            Integer horarioEntrada, Integer horarioSalida, Double precioConsulta,
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta,
             String password, String password2) throws MiExcepcion {
 
         Profesional profesional = new Profesional();
@@ -58,7 +59,7 @@ public class ProfesionalServicio extends UsuarioServicio {
         profesional.setHorarioEntrada(horarioEntrada);
         profesional.setHorarioSalida(horarioSalida);
         profesional.setPrecioConsulta(precioConsulta);
-        profesional.setReputación(0.0); // Establecer la reputación en 0.0
+        profesional.setReputacion(0.0); // Establecer la reputación en 0.0
 
         profesional.setActivo(true);
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
@@ -95,7 +96,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     }
 
     public void validarProfesional(String matricula, Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            Integer horarioEntrada, Integer horarioSalida, Double precioConsulta) throws MiExcepcion {
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta) throws MiExcepcion {
 
         if (matricula == null || matricula.isEmpty()) {
             throw new MiExcepcion("La matrícula no puede ser nula o estar vacía.");
@@ -109,7 +110,7 @@ public class ProfesionalServicio extends UsuarioServicio {
             throw new MiExcepcion("Debe seleccionar al menos un día disponible.");
         }
 
-        if (horarioEntrada == null || horarioSalida == null || horarioEntrada >= horarioSalida) {
+        if (horarioEntrada == null || horarioSalida == null || horarioEntrada.isAfter(horarioSalida)) {
             throw new MiExcepcion("Los horarios de entrada y salida deben ser válidos.");
         }
 
@@ -122,7 +123,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public void actualizarProfesional(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            Integer horarioEntrada, Integer horarioSalida, Double precioConsulta, String password, String password2) throws MiExcepcion {
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String password, String password2) throws MiExcepcion {
 
         usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
         validarProfesional(matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta);
@@ -145,6 +146,12 @@ public class ProfesionalServicio extends UsuarioServicio {
             profesional.setHorarioEntrada(horarioEntrada);
             profesional.setHorarioSalida(horarioSalida);
             profesional.setPrecioConsulta(precioConsulta);
+
+            //probar este metodo para contraseña
+            // Solo actualiza la contraseña si se proporciona una nueva
+//            if (!password.isEmpty() && !password.equals(profesional.getPassword())) {
+//                profesional.setPassword(new BCryptPasswordEncoder().encode(password));
+//            }
 
             profesional.setPassword(new BCryptPasswordEncoder().encode(password));
 
