@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -54,15 +55,16 @@ public class PacienteController {
             pacienteServicio.registrarPaciente(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
 
             modelo.put("exito", "El paciente fue registrado correctamente!");
-
+            //return "/login";
         } catch (MiExcepcion ex) {
 
             modelo.put("error", ex.getMessage());
             return "paciente_form.html";
         }
-        return "redirect:/paciente/listar";
+        return "redirect:/login";
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listar") //localhost:8080/paciente/listar
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
@@ -71,7 +73,7 @@ public class PacienteController {
         return "paciente_list";
     }
     
-    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/consultaDni") //localhost:8080/paciente/consulta
     public String listarPacienteXdni(@RequestParam Integer dni, ModelMap model) {
         Paciente paciente = pacienteServicio.listarPacienteXdni(dni);
@@ -79,7 +81,7 @@ public class PacienteController {
 
         return "paciente_consulta";
     }
-    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/consultaObra") //localhost:8080/paciente/consulta
     public String listarPacientesXobraSocial(@RequestParam("obra") String obraValue, ModelMap model) {
         ObraSocial obra = ObraSocial.valueOf(obraValue);//se transforma obraValue a enum ObraSocial
@@ -88,7 +90,7 @@ public class PacienteController {
         
         return "paciente_consulta";
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/bajaPaciente/{id}")
     public String bajaPaciente(@PathVariable String id, ModelMap model) throws MiExcepcion {
         pacienteServicio.bajaPaciente(id);
