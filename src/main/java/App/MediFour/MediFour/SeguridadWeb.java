@@ -26,23 +26,25 @@ public class SeguridadWeb extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http    
+                
                 .authorizeRequests()
-                .antMatchers("/admin/*").hasRole("ADMIN")
-                .antMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll()
-                .antMatchers("/**").permitAll()
+                    .antMatchers("/admin/*").hasRole("ADMIN")
+                    .antMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll()
+                    .antMatchers("/**").permitAll()
                 .and().formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/logincheck")
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/inicio")
-                .permitAll()
+                    .loginPage("/login")
+                    .loginProcessingUrl("/logincheck")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/inicio")
+                    .permitAll()
                 .and().logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .permitAll()
-                .and().csrf()
-                .disable();
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
+                    .permitAll()
+                .and().csrf()   
+                        .disable();
+                
     }
 }

@@ -12,6 +12,7 @@
         <!-- ======= Header ======= -->
         
         <header id="header" class="fixed-top">
+
     <div class="container d-flex align-items-center">
         <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
         
@@ -39,6 +40,7 @@
     <!-- Search Form -->
     <div class="form-container">
         <label for="selectConsulta">Tipo de Consulta:</label>
+
         <select id="selectConsulta" onchange="toggleDivs()">
             <option value="dni">Consulta por DNI</option>
             <option value="obra">Consulta por Obra Social</option>
@@ -88,14 +90,16 @@
             }
         </script>
         
+
 <h1 class="section-title mt-5">Lista de Pacientes</h1>
     <table class="table">
             <thead>
+
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>DNI</th>                    
-                    <th>Telefono</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
                     <th>E-Mail</th>
                     <th>Fecha de Nacimiento</th>
                     <th>Obra Social</th>
@@ -103,7 +107,6 @@
                     <th>Foto de Perfil</th>
                     <th>ACCIONES</th>
                 </tr>
-            </thead>
             <tbody>
                 <tr th:each="paciente : ${pacientes}">
                     <td th:text="${paciente.nombre}"></td>
@@ -130,6 +133,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
 
 
         <!-- <div class="container m-5" >
@@ -172,11 +176,36 @@
         -->
         <br>
 
+
         <div class="text-center">
         <a th:href="@{/}" class="btn btn-secondary mt-3">Volver</a>
     </div>
 </div>
 
+
+        <style>
+        /* Custom CSS */
+        body {
+            padding-top: 20px;
+        }
+        
+        /* Center text in cells */
+        table td, table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Adjust image size */
+        table img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>
 
