@@ -2,27 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Lista de Pacientes</title>
+                <!-- Template Main CSS File -->
+        <link href="/assets/css/style.css" rel="stylesheet">
+        <link href="/css/lista_paciente.css" rel="stylesheet">
+        
     </head>
-    <body>
+    
+     <body style="background-image: url('/assets/img/telemedicina1.jpg'); background-size: cover;">
         <!-- ======= Header ======= -->
+        
         <header id="header" class="fixed-top">
-            <div class="container d-flex align-items-center">
-                <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-            </div>
-        </header>
+    <div class="container d-flex align-items-center">
+        <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
+        
+    </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Acerca de nosotros</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Especialidades</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Doctores</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+        
         <!-- End Header -->
 
+       <div class="container mt-5">
+           <br>
+    <!-- Search Form -->
+    <div class="form-container">
+        <label for="selectConsulta">Tipo de Consulta:</label>
         <select id="selectConsulta" onchange="toggleDivs()">
-            <option selected>ELIJA CONSULTA A REALIZAR</option>
             <option value="dni">Consulta por DNI</option>
             <option value="obra">Consulta por Obra Social</option>
         </select>
 
         <div id="consultaDniDiv" style="display: none;">
             <h2>Consulta Paciente por DNI</h2>
-
             <form th:action="@{/paciente/consultaDni}" method="get">
                 <input type="text" name="dni" placeholder="Ingrese el DNI a buscar">
                 <input type="submit" value="Buscar">
@@ -31,10 +54,9 @@
 
         <div id="consultaObraDiv" style="display: none;">
             <h2>Consulta Pacientes por Obra Social</h2>
-
             <form th:action="@{/paciente/consultaObra}" method="get">
                 <select name="obra">
-                    <option selected>seleccione O. Soc.</option>
+                    <option selected>Seleccione una Obra Social</option>
                     <option value="OSEP">OSEP</option>
                     <option value="SWISSMEDICAL">SWISSMEDICAL</option>
                     <option value="OSDE">OSDE</option>
@@ -43,9 +65,10 @@
                     <option value="MEDICUS">MEDICUS</option>
                     <option value="OMINT">OMINT</option>
                 </select>
-                <input type="submit" value="Buscar por Obra Social">
+                <input type="submit" value="Buscar">
             </form>
         </div>
+    </div>
 
 
 
@@ -65,9 +88,8 @@
             }
         </script>
         
-
-        <h1>Lista de Pacientes</h1>
-        <table>
+<h1 class="section-title mt-5">Lista de Pacientes</h1>
+    <table class="table">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -148,17 +170,12 @@
             </div> 
         
         -->
+        <br>
 
-
-        <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <a th:href="@{/}" class="btn btn-secondary my-2">Volver</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-
+        <div class="text-center">
+        <a th:href="@{...}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+</div>
 
     </body>
 </html>
