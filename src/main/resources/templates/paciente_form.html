@@ -73,9 +73,13 @@
 
 
         <div class="container">
+           
             <div class="d-flex justify-content-center align-items-center vh-100">
                 <div class="form-container">
+
                     <form th:action="@{/paciente/registrar}" method="POST" enctype="multipart/form-data">
+                         <h2>Registro Pacientes</h2>
+                       <p>Registrate para acceder a nuestros servicios.</p>
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input type="text" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
@@ -88,8 +92,11 @@
                             <br>
                             <br>
                         </div>    
+                         <div class="form-group">
+                           
                         <label for="fechaNacimiento">Fecha de Nacimiento:</label>
                         <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                        </div>
                         <br>
                         <br>
                         <div class="form-group">
@@ -110,6 +117,7 @@
                             <br>
                             <br>
                         </div>
+                        <div class="form-group">
                         <label for="tieneObraSocial">Tiene Obra Social:</label>
                         <select id="tieneObraSocial" name="tieneObraSocial">
                             <option value="true">Sí</option>
@@ -130,22 +138,29 @@
                                 <option value="OMINT">OMINT</option>
                             </select>
                         </div>
-
+                         </div>    
                         <div class="form-group" id="numeroAfiliadoContainer">
                             <label for="numeroAfiliado">Número de Afiliado:</label>
                             <input type="text" id="numeroAfiliado" name="numeroAfiliado" placeholder="Debe ser un nro">
                             <br>
                             <br>
                         </div>
-                        <div class="form-group my-3">
-                            <input type="file" class="form-control" name="archivo" >
-                        </div>
+                        <!-- Se ingresa la imagen del paciente -->
+                    <div class="col-md-6 mb-3">
+                        <label for="imagen">Imagen</label>
+                        <input type="file" class="form-control-file" id="imagen" name="archivo">
+                    </div>
+                             <br>
+                              <div class="form-group">
                         <label for="password">Contraseña:</label>
                         <input type="password" id="password" name="password" placeholder="5 caracteres minimo" required ><br>
+                         <br>
+                    
                         <label for="password2">Confirmar Contraseña:</label>
                         <input type="password" id="password2" name="password2" placeholder="5 caracteres minimo" required ><br>
+                              </div>
                         <br>
-                        <input type="submit" value="Registrar">
+                        <input type="submit"  class="appointment-btn scrollto" value="Registrar">
                     </form>
                 </div>
             </div>
