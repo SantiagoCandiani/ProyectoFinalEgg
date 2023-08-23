@@ -13,6 +13,59 @@
             </div>
         </header>
         <!-- End Header -->
+
+        <select id="selectConsulta" onchange="toggleDivs()">
+            <option selected>ELIJA CONSULTA A REALIZAR</option>
+            <option value="dni">Consulta por DNI</option>
+            <option value="obra">Consulta por Obra Social</option>
+        </select>
+
+        <div id="consultaDniDiv" style="display: none;">
+            <h2>Consulta Paciente por DNI</h2>
+
+            <form th:action="@{/paciente/consultaDni}" method="get">
+                <input type="text" name="dni" placeholder="Ingrese el DNI a buscar">
+                <input type="submit" value="Buscar">
+            </form>
+        </div>
+
+        <div id="consultaObraDiv" style="display: none;">
+            <h2>Consulta Pacientes por Obra Social</h2>
+
+            <form th:action="@{/paciente/consultaObra}" method="get">
+                <select name="obra">
+                    <option selected>seleccione O. Soc.</option>
+                    <option value="OSEP">OSEP</option>
+                    <option value="SWISSMEDICAL">SWISSMEDICAL</option>
+                    <option value="OSDE">OSDE</option>
+                    <option value="OSPE">OSPE</option>
+                    <option value="SANCOR">SANCOR</option>
+                    <option value="MEDICUS">MEDICUS</option>
+                    <option value="OMINT">OMINT</option>
+                </select>
+                <input type="submit" value="Buscar por Obra Social">
+            </form>
+        </div>
+
+
+
+        <script>
+            function toggleDivs() {
+                var selectElement = document.getElementById("selectConsulta");
+                var dniDiv = document.getElementById("consultaDniDiv");
+                var obraDiv = document.getElementById("consultaObraDiv");
+        
+                if (selectElement.value === "dni") {
+                    dniDiv.style.display = "block";
+                    obraDiv.style.display = "none";
+                } else if (selectElement.value === "obra") {
+                    dniDiv.style.display = "none";
+                    obraDiv.style.display = "block";
+                }
+            }
+        </script>
+        
+
         <h1>Lista de Pacientes</h1>
         <table>
             <thead>
@@ -55,7 +108,6 @@
                 </tr>
             </tbody>
         </table>
-
 
 
         <!-- <div class="container m-5" >
