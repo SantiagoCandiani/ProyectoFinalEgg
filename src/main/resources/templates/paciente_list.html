@@ -7,13 +7,35 @@
         <!-- ======= Header ======= -->
         <header id="header" class="fixed-top">
             <div class="container d-flex align-items-center">
-                <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>
+               <!-- <h1 class="logo me-auto"><a th:href="@{/}">Medifour</a></h1>-->
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>
         </header>
         <!-- End Header -->
 
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h1 class="logo me-auto"><a class="navbar-brand" th:href="@{/}">MEDIFOUR</a></h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Acerca de nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Especialidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Doctores</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        
         <select id="selectConsulta" onchange="toggleDivs()">
             <option selected>ELIJA CONSULTA A REALIZAR</option>
             <option value="dni">Consulta por DNI</option>
@@ -66,14 +88,15 @@
         </script>
         
 
-        <h1>Lista de Pacientes</h1>
-        <table>
-            <thead>
+        <div class="container">
+        <h1 class="text-center">Lista de Pacientes</h1>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>DNI</th>                    
-                    <th>Telefono</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
                     <th>E-Mail</th>
                     <th>Fecha de Nacimiento</th>
                     <th>Obra Social</th>
@@ -81,7 +104,6 @@
                     <th>Foto de Perfil</th>
                     <th>ACCIONES</th>
                 </tr>
-            </thead>
             <tbody>
                 <tr th:each="paciente : ${pacientes}">
                     <td th:text="${paciente.nombre}"></td>
@@ -108,6 +130,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
 
 
         <!-- <div class="container m-5" >
@@ -160,6 +183,29 @@
         </section>
 
 
+        <style>
+        /* Custom CSS */
+        body {
+            padding-top: 20px;
+        }
+        
+        /* Center text in cells */
+        table td, table th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /* Adjust image size */
+        table img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
 </html>
 
