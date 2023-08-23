@@ -82,6 +82,14 @@ public class PacienteServicio extends UsuarioServicio {
     public List<Paciente> listarPacientesActivos() {
         return pacienteRepo.findByActivoTrue();
     }
+    
+    public Paciente listarPacienteXdni(Integer dni) {
+        return pacienteRepo.buscarPorDNI(dni);
+    }
+    
+    public List<Paciente> listarPacientesXobraSocial(ObraSocial obraSocial) {
+        return pacienteRepo.buscarPorObraSocial(obraSocial);
+    }
 
     public List<Paciente> listarTodosPacientes() {
         return pacienteRepo.findAll();
