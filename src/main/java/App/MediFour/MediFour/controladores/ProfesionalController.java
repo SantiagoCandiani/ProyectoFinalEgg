@@ -47,13 +47,14 @@ public class ProfesionalController {
             @RequestParam LocalTime horarioEntrada,
             @RequestParam LocalTime horarioSalida,
             @RequestParam Double precioConsulta,
+            @RequestParam(required = false) String observaciones,
             @RequestParam String password,
             @RequestParam String password2,
             @RequestParam MultipartFile archivo,
             ModelMap modelo) {
 
         try {
-            profesionalServicio.registrarProfesional(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta, password, password2);
+            profesionalServicio.registrarProfesional(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta, observaciones, password, password2);
 
             modelo.put("exito", "El profesional fue registrado correctamente!");
 
