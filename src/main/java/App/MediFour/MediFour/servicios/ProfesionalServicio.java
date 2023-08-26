@@ -61,7 +61,7 @@ public class ProfesionalServicio extends UsuarioServicio {
         profesional.setPrecioConsulta(precioConsulta);
         profesional.setReputacion(0.0); // Establecer la reputación en 0.0
 
-        profesional.setActivo(true);
+        profesional.setActivo(false); //lo dajamos inactivo hasta q un admin lo valide
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
         profesional.setRol(Rol.PROFESIONAL);
 
@@ -91,6 +91,19 @@ public class ProfesionalServicio extends UsuarioServicio {
         if (respuesta.isPresent()) {
             Profesional profesional = (Profesional) respuesta.get();
             profesional.setActivo(false); // Establece el estado del profesional como inactivo
+            usuarioRepo.save(profesional);
+        }
+    }
+
+    @Transactional
+    public void altaProfesional(String id) throws MiExcepcion {
+        if (id == null || id.isEmpty()) {
+            throw new MiExcepcion("El id ingresado no puede ser nulo o estar vacio");
+        }
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Profesional profesional = (Profesional) respuesta.get();
+            profesional.setActivo(true); // Establece el estado del profesional como activo
             usuarioRepo.save(profesional);
         }
     }
@@ -152,7 +165,6 @@ public class ProfesionalServicio extends UsuarioServicio {
 //            if (!password.isEmpty() && !password.equals(profesional.getPassword())) {
 //                profesional.setPassword(new BCryptPasswordEncoder().encode(password));
 //            }
-
             profesional.setPassword(new BCryptPasswordEncoder().encode(password));
 
             // Comprobar si se proporcionó un nuevo archivo de imagen
@@ -169,4 +181,4 @@ public class ProfesionalServicio extends UsuarioServicio {
         }
     }
 
-}
+}//Class
