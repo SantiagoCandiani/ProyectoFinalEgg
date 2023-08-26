@@ -38,7 +38,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public void registrarProfesional(MultipartFile archivo, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta,
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String observaciones,
             String password, String password2) throws MiExcepcion {
 
         Profesional profesional = new Profesional();
@@ -59,6 +59,7 @@ public class ProfesionalServicio extends UsuarioServicio {
         profesional.setHorarioEntrada(horarioEntrada);
         profesional.setHorarioSalida(horarioSalida);
         profesional.setPrecioConsulta(precioConsulta);
+        profesional.setObvervaciones(observaciones);
         profesional.setReputacion(0.0); // Establecer la reputación en 0.0
 
         profesional.setActivo(false); //lo dajamos inactivo hasta q un admin lo valide
@@ -136,7 +137,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public void actualizarProfesional(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String password, String password2) throws MiExcepcion {
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String observaciones, Boolean activo, String password, String password2) throws MiExcepcion {
 
         usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
         validarProfesional(matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta);
@@ -159,6 +160,8 @@ public class ProfesionalServicio extends UsuarioServicio {
             profesional.setHorarioEntrada(horarioEntrada);
             profesional.setHorarioSalida(horarioSalida);
             profesional.setPrecioConsulta(precioConsulta);
+            profesional.setObvervaciones(observaciones);
+            profesional.setActivo(activo);
 
             //probar este metodo para contraseña
             // Solo actualiza la contraseña si se proporciona una nueva

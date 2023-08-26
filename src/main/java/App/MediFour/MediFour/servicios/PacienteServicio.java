@@ -171,5 +171,5 @@ public class PacienteServicio extends UsuarioServicio {
             pacienteRepo.save(paciente);
         }
     }
-    
+
 }//Class

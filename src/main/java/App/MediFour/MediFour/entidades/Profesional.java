@@ -33,5 +33,6 @@ public class Profesional extends Usuario {
     protected LocalTime  horarioEntrada;
     protected LocalTime  horarioSalida;
     protected Double precioConsulta;
-    protected Double reputacion; // Cambiado a reputación
+    protected Double reputacion;
+    protected String obvervaciones;
 }
