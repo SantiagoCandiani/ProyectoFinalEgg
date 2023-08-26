@@ -4,13 +4,13 @@ import App.MediFour.MediFour.entidades.Usuario;
 
 import App.MediFour.MediFour.enumeraciones.Rol;
 
-
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
@@ -30,7 +32,7 @@ public class UsuarioServicio implements UserDetailsService {
     public Usuario getOne(String id) {
         return usuarioRepo.getOne(id);
     }
-    
+
     @Transactional
     public void registrar(String nombre, String email, String password, String password2) throws MiExcepcion {
 
@@ -48,7 +50,7 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepo.save(usuario);
 
     }
-    
+
     private void validar(String nombre, String email, String password, String password2) throws MiExcepcion {
 
         if (nombre == null || nombre.isEmpty()) {
@@ -68,7 +70,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
 
     }
-    
+
     public List<Usuario> listarUsuarios() {
         List<Usuario> aux = new ArrayList();
         List<Usuario> usuarios = new ArrayList();
@@ -81,12 +83,36 @@ public class UsuarioServicio implements UserDetailsService {
         return usuarios;
     }
 
+    public List<Usuario> listarUsuariosActivos() {
+        return usuarioRepo.findByActivoTrue();
+    }
+
+    public List<Usuario> listarTodosUsuarios() {
+        return usuarioRepo.findAll();
+    }
+
     @Transactional
-    public void eliminarUsuario(String id) {
-        Optional<Usuario> resp = usuarioRepo.findById(id);
-        if (resp.isPresent()) {
-            Usuario user = (Usuario) (resp.get());
-            user.setActivo(Boolean.FALSE);
+    public void bajaUsuario(String id) throws MiExcepcion {
+        if (id == null || id.isEmpty()) {
+            throw new MiExcepcion("El id ingresado no puede ser nulo o estar vacio");
+        }
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario user = (Usuario) respuesta.get();
+            user.setActivo(false); // Establece el estado del profesional como inactivo
+            usuarioRepo.save(user);
+        }
+    }
+
+    @Transactional
+    public void altaUsuario(String id) throws MiExcepcion {
+        if (id == null || id.isEmpty()) {
+            throw new MiExcepcion("El id ingresado no puede ser nulo o estar vacio");
+        }
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario user = (Usuario) respuesta.get();
+            user.setActivo(true); // Establece el estado del profesional como activo
             usuarioRepo.save(user);
         }
     }
@@ -134,7 +160,7 @@ public class UsuarioServicio implements UserDetailsService {
 
         Usuario usuario = usuarioRepo.buscarPorEmail(email);
 
-        if (usuario != null) {
+        if (usuario != null && usuario.getActivo().equals(Boolean.TRUE)) {
 
             List<GrantedAuthority> permisos = new ArrayList();
 
@@ -142,11 +168,29 @@ public class UsuarioServicio implements UserDetailsService {
 
             permisos.add(p);
 
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+            HttpSession session = attr.getRequest().getSession(true);
+
+            session.setAttribute("usuariosession", usuario);
+
             return new User(usuario.getEmail(), usuario.getPassword(), permisos);
         } else {
             return null;
         }
+    }
 
+    @Transactional
+    public void cambiarRol(String id) {
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            if (usuario.getRol().equals(Rol.USER)) {
+                usuario.setRol(Rol.ADMIN);
+            } else if (usuario.getRol().equals(Rol.ADMIN)) {
+                usuario.setRol(Rol.USER);
+            }
+        }
     }
 
     //prueba
