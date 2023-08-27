@@ -38,7 +38,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public void registrarProfesional(MultipartFile archivo, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta,
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String observaciones,
             String password, String password2) throws MiExcepcion {
 
         Profesional profesional = new Profesional();
@@ -59,9 +59,10 @@ public class ProfesionalServicio extends UsuarioServicio {
         profesional.setHorarioEntrada(horarioEntrada);
         profesional.setHorarioSalida(horarioSalida);
         profesional.setPrecioConsulta(precioConsulta);
+        profesional.setObvervaciones(observaciones);
         profesional.setReputacion(0.0); // Establecer la reputación en 0.0
 
-        profesional.setActivo(true);
+        profesional.setActivo(false); //lo dajamos inactivo hasta q un admin lo valide
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
         profesional.setRol(Rol.PROFESIONAL);
 
@@ -95,6 +96,19 @@ public class ProfesionalServicio extends UsuarioServicio {
         }
     }
 
+    @Transactional
+    public void altaProfesional(String id) throws MiExcepcion {
+        if (id == null || id.isEmpty()) {
+            throw new MiExcepcion("El id ingresado no puede ser nulo o estar vacio");
+        }
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Profesional profesional = (Profesional) respuesta.get();
+            profesional.setActivo(true); // Establece el estado del profesional como activo
+            usuarioRepo.save(profesional);
+        }
+    }
+
     public void validarProfesional(String matricula, Especialidad especialidad, List<DiaSemana> diasDisponibles,
             LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta) throws MiExcepcion {
 
@@ -123,7 +137,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public void actualizarProfesional(MultipartFile archivo, String id, String nombre, String apellido, LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String password, String password2) throws MiExcepcion {
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String observaciones, Boolean activo, String password, String password2) throws MiExcepcion {
 
         usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
         validarProfesional(matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta);
@@ -146,13 +160,14 @@ public class ProfesionalServicio extends UsuarioServicio {
             profesional.setHorarioEntrada(horarioEntrada);
             profesional.setHorarioSalida(horarioSalida);
             profesional.setPrecioConsulta(precioConsulta);
+            profesional.setObvervaciones(observaciones);
+            profesional.setActivo(activo);
 
             //probar este metodo para contraseña
             // Solo actualiza la contraseña si se proporciona una nueva
 //            if (!password.isEmpty() && !password.equals(profesional.getPassword())) {
 //                profesional.setPassword(new BCryptPasswordEncoder().encode(password));
 //            }
-
             profesional.setPassword(new BCryptPasswordEncoder().encode(password));
 
             // Comprobar si se proporcionó un nuevo archivo de imagen
@@ -169,4 +184,4 @@ public class ProfesionalServicio extends UsuarioServicio {
         }
     }
 
-}
+}//Class

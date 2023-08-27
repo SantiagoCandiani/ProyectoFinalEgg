@@ -82,11 +82,11 @@ public class PacienteServicio extends UsuarioServicio {
     public List<Paciente> listarPacientesActivos() {
         return pacienteRepo.findByActivoTrue();
     }
-    
+
     public Paciente listarPacienteXdni(Integer dni) {
         return pacienteRepo.buscarPorDNI(dni);
     }
-    
+
     public List<Paciente> listarPacientesXobraSocial(ObraSocial obraSocial) {
         return pacienteRepo.buscarPorObraSocial(obraSocial);
     }
@@ -104,6 +104,19 @@ public class PacienteServicio extends UsuarioServicio {
         if (respuesta.isPresent()) {
             Paciente paciente = (Paciente) respuesta.get();
             paciente.setActivo(false); // Establece el estado del paciente como inactivo
+            usuarioRepo.save(paciente);
+        }
+    }
+
+    @Transactional
+    public void altaPaciente(String id) throws MiExcepcion {
+        if (id == null || id.isEmpty()) {
+            throw new MiExcepcion("El id ingresado no puede ser nulo o estar vacio");
+        }
+        Optional<Usuario> respuesta = usuarioRepo.findById(id);
+        if (respuesta.isPresent()) {
+            Paciente paciente = (Paciente) respuesta.get();
+            paciente.setActivo(true); // Establece el estado del paciente como activo
             usuarioRepo.save(paciente);
         }
     }
@@ -158,4 +171,5 @@ public class PacienteServicio extends UsuarioServicio {
             pacienteRepo.save(paciente);
         }
     }
-}
+
+}//Class
