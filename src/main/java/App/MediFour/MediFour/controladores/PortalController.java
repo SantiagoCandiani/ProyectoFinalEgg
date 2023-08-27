@@ -44,7 +44,7 @@ public class PortalController {
 
         try {
             usuarioServicio.registrar(nombre, email, password, password2);
-            modelo.put("Exito", "Usuario registrado correctamente!");
+            modelo.put("exito", "Usuario registrado correctamente!");
 
             return "index.html";
         } catch (MiExcepcion ex) {

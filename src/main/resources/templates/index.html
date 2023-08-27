@@ -60,8 +60,8 @@
                         <!-- <li><a class="nav-link scrollto" href="#services">Servicios</a></li> -->
                         <li><a class="nav-link scrollto" href="#departments">Especialidades</a></li>
                         <li><a class="nav-link scrollto" href="#doctors">Doctores</a></li>
-                    <!--    <li><a class="nav-link scrollto" th:href="@{/paciente/registrar-form}">Registro Paciente</a></li>
-                        <li><a class="nav-link scrollto" th:href="@{/profesional/registrar-form}">Registro Profesional</a></li>-->
+                        <!--    <li><a class="nav-link scrollto" th:href="@{/paciente/registrar-form}">Registro Paciente</a></li>
+                            <li><a class="nav-link scrollto" th:href="@{/profesional/registrar-form}">Registro Profesional</a></li>-->
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- .navbar -->
@@ -70,6 +70,9 @@
 
             </div>
         </header><!-- End Header -->
+
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
 
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex align-items-center">

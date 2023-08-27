@@ -30,7 +30,7 @@ public class ProfesionalController {
 
     @GetMapping("/registrar-form")
     public String mostrarFormularioRegistro(Model model) {
-        return "profesional_form(nuevo).html";
+        return "profesional_form.html";
     }
 
     @PostMapping("/registrar")
@@ -47,23 +47,25 @@ public class ProfesionalController {
             @RequestParam LocalTime horarioEntrada,
             @RequestParam LocalTime horarioSalida,
             @RequestParam Double precioConsulta,
+            @RequestParam(required = false) String observaciones,
             @RequestParam String password,
             @RequestParam String password2,
             @RequestParam MultipartFile archivo,
             ModelMap modelo) {
 
         try {
-            profesionalServicio.registrarProfesional(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta, password, password2);
+            profesionalServicio.registrarProfesional(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta, observaciones, password, password2);
 
             modelo.put("exito", "El profesional fue registrado correctamente!");
 
         } catch (MiExcepcion ex) {
 
             modelo.put("error", ex.getMessage());
-            return "profesional_form(nuevo).html";
+            return "profesional_form.html";
         }
         return "redirect:/login";
     }
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
@@ -72,11 +74,18 @@ public class ProfesionalController {
 
         return "profesional_list";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/bajaProfesional/{id}")
     public String bajaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
         profesionalServicio.bajaProfesional(id);
+        return "redirect:/profesional/listar";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/altaProfesional/{id}")
+    public String altaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
+        profesionalServicio.altaProfesional(id);
         return "redirect:/profesional/listar";
     }
 

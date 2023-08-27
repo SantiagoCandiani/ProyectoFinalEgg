@@ -1,6 +1,7 @@
 package App.MediFour.MediFour.repositorios;
 
 import App.MediFour.MediFour.entidades.Usuario;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +18,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT d FROM Usuario d WHERE d.dni =:dni")
     public Usuario buscarPorDni(@Param("dni") Integer dni);
+
+    List<Usuario> findByActivoTrue(); // Utiliza el nombre de método con la convención para filtrar profesionales activos
+
 }

@@ -42,12 +42,14 @@
             </div>
         </nav>
 
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
         <!-- Formulario de inicio de sesión -->
         <div class="container col-md-4">
             <h2 class="text-center">Iniciar sesión</h2>
             <form class="formulario" th:action="@{/logincheck}" method="POST">
 
-                
+
                 <div class="form-group">
                     <label for="username">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electronico">
@@ -58,7 +60,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
             </form>
-            
+
             <a th:href="@{/register_usuario}" class="appointment-btn scrollto"><span class="d-none d-md-inline">¿No tienes cuenta? Registrate</span></a>
         </div>
 

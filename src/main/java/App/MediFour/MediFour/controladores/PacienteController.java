@@ -1,12 +1,15 @@
 package App.MediFour.MediFour.controladores;
 
 import App.MediFour.MediFour.entidades.Paciente;
+import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.enumeraciones.ObraSocial;
+import App.MediFour.MediFour.enumeraciones.Rol;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.PacienteRepositorio;
 import App.MediFour.MediFour.servicios.PacienteServicio;
 import java.time.LocalDate;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,15 +33,20 @@ public class PacienteController {
     private PacienteRepositorio pacienteRepo;
 
     @GetMapping("/registrar-form")
-    public String mostrarFormularioRegistro(Model model) {
-        model.addAttribute("tieneObraSocial", false);
+    public String mostrarFormularioRegistro(ModelMap modelo) {
+        try {
+            modelo.addAttribute("tieneObraSocial", false);
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "paciente_form.html";
+        }
         return "paciente_form.html";
     }
 
     @PostMapping("/registrar")
     public String registrarPaciente(
             @RequestParam String nombre,
-            @RequestParam String apellido,            
+            @RequestParam String apellido,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
             @RequestParam Integer dni,
             @RequestParam String telefono,
@@ -48,23 +56,22 @@ public class PacienteController {
             @RequestParam(required = false) Integer numeroAfiliado,
             @RequestParam String password,
             @RequestParam String password2,
-            @RequestParam(required = false) MultipartFile archivo, ModelMap modelo) {
+            @RequestParam(required = false) MultipartFile archivo,
+            ModelMap modelo) {
 
         try {
-            Boolean tieneObraSocialBool = tieneObraSocial != null && tieneObraSocial.equals("true");
+            //Boolean tieneObraSocialBool = tieneObraSocial != null && tieneObraSocial.equals("true");
             pacienteServicio.registrarPaciente(archivo, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
 
             modelo.put("exito", "El paciente fue registrado correctamente!");
-            //return "/login";
         } catch (MiExcepcion ex) {
-
             modelo.put("error", ex.getMessage());
             return "paciente_form.html";
         }
         return "redirect:/login";
     }
-    
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listar") //localhost:8080/paciente/listar
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
@@ -72,8 +79,8 @@ public class PacienteController {
 
         return "paciente_list";
     }
-    
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/consultaDni") //localhost:8080/paciente/consulta
     public String listarPacienteXdni(@RequestParam Integer dni, ModelMap model) {
         Paciente paciente = pacienteServicio.listarPacienteXdni(dni);
@@ -81,41 +88,86 @@ public class PacienteController {
 
         return "paciente_consulta";
     }
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/consultaObra") //localhost:8080/paciente/consulta
     public String listarPacientesXobraSocial(@RequestParam("obra") String obraValue, ModelMap model) {
         ObraSocial obra = ObraSocial.valueOf(obraValue);//se transforma obraValue a enum ObraSocial
         List<Paciente> paciente = pacienteServicio.listarPacientesXobraSocial(obra);
         model.addAttribute("paciente", paciente);
-        
+
         return "paciente_consulta";
     }
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/bajaPaciente/{id}")
     public String bajaPaciente(@PathVariable String id, ModelMap model) throws MiExcepcion {
         pacienteServicio.bajaPaciente(id);
+
         return "redirect:/paciente/listar";
     }
-    
-  /*  @PostMapping("/modificar/{id}")
-    public String modificarPaciente(@PathVariable String id,
-            @RequestParam String nombre, @RequestParam String apellido,
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/altaPaciente/{id}")
+    public String altaPaciente(@PathVariable String id, ModelMap model) throws MiExcepcion {
+        pacienteServicio.altaPaciente(id);
+
+        return "redirect:/paciente/listar";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}")
+    public String mostrarPerfilPaciente(@PathVariable String id, ModelMap modelo, HttpSession session) {
+        try {
+
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            modelo.addAttribute("log", logueado);
+            modelo.addAttribute("user", pacienteServicio.getOne(id));
+            modelo.addAttribute("id", pacienteServicio.getOne(id).getId());
+            return "paciente_perfil.html";
+
+        } catch (Exception ex) {
+            Rol[] roles = Rol.values();
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            modelo.addAttribute("log", logueado);
+            modelo.put("error", ex.getMessage());
+            return "paciente_perfil.html";
+        }
+    }
+
+    @PostMapping("/modificar/{id}")
+    public String modificarPerfilPaciente(
+            @PathVariable String id,
+            @RequestParam String nombre,
+            @RequestParam String apellido,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
-            @RequestParam Integer dni, @RequestParam String telefono,
-            @RequestParam String email, @RequestParam Boolean tieneObraSocial,
-            @RequestParam(required = false) String nombreObraSocial,
+            @RequestParam Integer dni,
+            @RequestParam String telefono,
+            @RequestParam String email,
+            @RequestParam(required = false) Boolean tieneObraSocial,
+            @RequestParam(required = false) ObraSocial obraSocial,
             @RequestParam(required = false) Integer numeroAfiliado,
-            @RequestParam String password, @RequestParam String password2) {
+            @RequestParam String password,
+            @RequestParam String password2,
+            @RequestParam(required = false) MultipartFile archivo,
+            ModelMap modelo,
+            HttpSession session) {
 
         try {
-            pacienteServicio.actualizarPaciente(id, nombre, apellido, fechaNacimiento, dni,
-                    telefono, email, tieneObraSocial, nombreObraSocial, numeroAfiliado,
-                    password, password2);
-            return "redirect:/paciente/listar";
-        } catch (MiExcepcion e) {
-            // Manejo de excepciones si es necesario
-            return "redirect:/paciente/modificar-form/" + id;
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            modelo.addAttribute("log", logueado);
+            pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
+            modelo.put("exito", "Tus datos fueron modificados correctamente!");
+        } catch (MiExcepcion ex) {
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            modelo.addAttribute("log", logueado);
+            modelo.put("user", pacienteServicio.getOne(id));
+            modelo.addAttribute("id", pacienteServicio.getOne(id).getId());
+            modelo.put("error", ex.getMessage());
+            return "redirect:/paciente/perfil/" + id;
         }
-    } */
 
-}
+        return "redirect:/inicio";
+    }
+
+}//Class

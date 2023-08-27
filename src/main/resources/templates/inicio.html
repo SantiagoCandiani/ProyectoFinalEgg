@@ -65,21 +65,24 @@
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                     <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Perfil
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
-                        <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
-                        <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
-                    </ul>
-                </div>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Perfil
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
+                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+                        </ul>
+                    </div>
                 </nav><!-- .navbar -->
 
-                
+
 
             </div>
         </header><!-- End Header -->
+
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
 
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex align-items-center">
