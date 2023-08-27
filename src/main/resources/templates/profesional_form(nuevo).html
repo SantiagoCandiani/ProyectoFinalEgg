@@ -36,10 +36,13 @@
                 </li>
             </ul>
         </nav>
+        
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+        
 
-        <div class="container mt-4">
+        <div class="container mt-4" >
             <h2>Registro</h2>
-            <form th:action="@{/profesional/registrar}" method="POST" enctype="multipart/form-data">
+            <form th:action="@{/profesional/registrar}" method="POST" enctype="multipart/form-data" >
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
                         <label for="nombre">Nombre</label>

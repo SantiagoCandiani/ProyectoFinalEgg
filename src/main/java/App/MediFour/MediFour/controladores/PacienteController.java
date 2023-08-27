@@ -64,7 +64,7 @@ public class PacienteController {
         return "redirect:/login";
     }
     
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listar") //localhost:8080/paciente/listar
     public String listarPacientesActivos(Model model) {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();

@@ -60,23 +60,22 @@
                         <!-- <li><a class="nav-link scrollto" href="#services">Servicios</a></li> -->
                         <li><a class="nav-link scrollto" href="#departments">Especialidades</a></li>
                         <li><a class="nav-link scrollto" th:href="@{/profesional/listar}">Doctores</a></li>
-                        <!--    <li><a class="nav-link scrollto" th:href="@{/paciente/registrar-form}">Registro Paciente</a></li>
-                            <li><a class="nav-link scrollto" th:href="@{/profesional/registrar-form}">Registro Profesional</a></li>-->
+                        <li><i class="bi bi-list mobile-nav-toggle"></i>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Perfil
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+                                </ul>
+                            </div></li>
                     </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                    <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Perfil
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
-                        <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
-                        <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
-                    </ul>
-                </div>
+                    
                 </nav><!-- .navbar -->
 
-                
+
 
             </div>
         </header><!-- End Header -->
