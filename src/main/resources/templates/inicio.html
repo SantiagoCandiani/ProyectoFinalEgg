@@ -60,24 +60,25 @@
                         <!-- <li><a class="nav-link scrollto" href="#services">Servicios</a></li> -->
                         <li><a class="nav-link scrollto" href="#departments">Especialidades</a></li>
                         <li><a class="nav-link scrollto" th:href="@{/profesional/listar}">Doctores</a></li>
+                        <li> <i class="bi bi-list mobile-nav-toggle"></i>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <!--   <img width="24" src="#" height="24" alt="#" id="" class="global-nav__me-photo evi-image ember-view">-->
+                                    <span class="global-nav__primary-link-text">
+                                        Perfil
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/perfil/{id}}">Gestiona tu cuenta</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+                                </ul>
+                            </div>
+                        </li>
                         <!--    <li><a class="nav-link scrollto" th:href="@{/paciente/registrar-form}">Registro Paciente</a></li>
                             <li><a class="nav-link scrollto" th:href="@{/profesional/registrar-form}">Registro Profesional</a></li>-->
                     </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Perfil
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
-                            <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
-                            <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
-                        </ul>
-                    </div>
                 </nav><!-- .navbar -->
-
-
-
             </div>
         </header><!-- End Header -->
 
@@ -232,12 +233,12 @@
         <!-- ======= Appointment Section ======= 
         <section id="appointment" class="appointment section-bg">
           <div class="container">
-    
+        
             <div class="section-title">
               <h2>Agendamiento de Citas</h2>
               <p>Completa toda la informacion para que se pueda agendar su cita en el menor tiempo posible, recuerda que recibiras una confrimacion via correo electronico y tambien podras ver los detalles desde tu perfil como paciente.</p>
             </div>
-    
+        
             <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
               <div class="row">
                 <div class="col-md-4 form-group">
@@ -285,7 +286,7 @@
                   <div class="validate"></div>
                 </div>
               </div>
-    
+        
               <div class="form-group mt-3">
                 <textarea class="form-control" name="message" rows="5" placeholder="Observaciones Adicionales"></textarea>
                 <div class="validate"></div>
@@ -297,7 +298,7 @@
               </div>
               <div class="text-center"><button type="submit">Agendar Cita</button></div>
             </form>
-    
+        
           </div>
         </section>  -->
 
@@ -394,13 +395,13 @@
         <!-- ======= Doctors Section ======= 
         <section id="doctors" class="doctors">
           <div class="container">
-    
+        
             <div class="section-title">
               <h2>Doctores</h2>
             </div>
-    
+        
             <div class="row">
-    
+        
               <div class="col-lg-6">
                 <div class="member d-flex align-items-start">
                   <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
@@ -415,7 +416,7 @@
                   </div>
                 </div>
               </div>
-    
+        
               <div class="col-lg-6 mt-4 mt-lg-0">
                 <div class="member d-flex align-items-start">
                   <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
@@ -430,7 +431,7 @@
                   </div>
                 </div>
               </div>
-    
+        
               <div class="col-lg-6 mt-4">
                 <div class="member d-flex align-items-start">
                   <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
@@ -445,7 +446,7 @@
                   </div>
                 </div>
               </div>
-    
+        
               <div class="col-lg-6 mt-4">
                 <div class="member d-flex align-items-start">
                   <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
@@ -461,7 +462,7 @@
                 </div>
               </div>
             </div>
-    
+        
           </div>  -->
     </section><!-- End Doctors Section -->
 
