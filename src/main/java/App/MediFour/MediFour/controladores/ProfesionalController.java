@@ -65,27 +65,36 @@ public class ProfesionalController {
         }
         return "redirect:/login";
     }
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
         model.addAttribute("profesionales", profesionales);
 
-        return "profesional_list";
+        return "PanelAdminProfesionales";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listarAdmin") //localhost:8080/profesional/listar
+    public String listarProfesionales(Model model) {
+        List<Profesional> profesionales = profesionalServicio.listarTodosProfesionales();
+        model.addAttribute("profesionales", profesionales);
+
+        return "PanelAdminProfesionales";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/bajaProfesional/{id}")
     public String bajaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
         profesionalServicio.bajaProfesional(id);
-        return "redirect:/profesional/listar";
+        return "redirect:/profesional/listarAdmin";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/altaProfesional/{id}")
     public String altaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
         profesionalServicio.altaProfesional(id);
-        return "redirect:/profesional/listar";
+        return "redirect:/profesional/listarAdmin";
     }
 
 }//class

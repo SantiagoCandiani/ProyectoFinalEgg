@@ -77,7 +77,7 @@ public class PacienteController {
         List<Paciente> pacientes = pacienteServicio.listarPacientesActivos();
         model.addAttribute("pacientes", pacientes);
 
-        return "paciente_list";
+        return "PanelAdminPacientes.html";
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
