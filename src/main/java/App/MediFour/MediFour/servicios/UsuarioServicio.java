@@ -25,6 +25,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Service
 public class UsuarioServicio implements UserDetailsService {
+    //se implementa la interfaz UserDetailsService para poder autenticar a los 
+    //usuarios que se logueen
 
     @Autowired
     private UsuarioRepositorio usuarioRepo;
@@ -155,6 +157,7 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    //clase abstracta de UserDetailsService para poder autenticar a usuarios    
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
