@@ -46,7 +46,7 @@ public class PortalController {
             usuarioServicio.registrar(nombre, email, password, password2);
             modelo.put("exito", "Usuario registrado correctamente!");
 
-            return "index.html";
+            return "login.html";
         } catch (MiExcepcion ex) {
             Logger.getLogger(PortalController.class.getName()).log(Level.SEVERE, null, ex);
 
