@@ -71,10 +71,21 @@ public class ProfesionalController {
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
         model.addAttribute("profesionales", profesionales);
-
+        
         return "profesional_list";
     }
-
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}") //localhost:8080/profesional/perfil
+    public String mostrarProfesionalPerfil(@PathVariable String id, ModelMap model) {
+        //pasa el ID de profesional solo por el path
+        //TODO: linkear con lista de profesionales
+        Profesional profesional = profesionalServicio.profesionalPorID(id) ;
+        model.addAttribute("profesional", profesional);
+        
+        return "profesional_perfil";
+    }
+    
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/bajaProfesional/{id}")
     public String bajaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
