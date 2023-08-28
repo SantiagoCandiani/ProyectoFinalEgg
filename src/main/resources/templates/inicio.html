@@ -68,7 +68,8 @@
                                         Perfil
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{/perfil/{id}}">Gestiona tu cuenta</a></li>
+                                    <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/paciente/perfil/{id}}">Gestiona tu cuenta</a></li>
+                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/profesional/perfil/{id}}">Gestiona tu cuenta</a></li>
                                     <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
                                     <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
                                     <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
@@ -192,279 +193,129 @@
                 </div>
             </section><!-- End Counts Section -->
 
-            <!-- ======= Services Section ======= 
-            <section id="services" class="services">
-              <div class="container">
-        
-                <div class="section-title">
-                  <h2>Services</h2>
-                  <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-                </div>
-        
-                <div class="row">
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <div class="icon-box">
-                      <div class="icon"><i class="fas fa-heartbeat"></i></div>
-                      <h4><a href="">Citas con alta prioridad</a></h4>
-                      <p>Nuestra agenda te ofrece tiempos de espera cortos.</p>
-                    </div>
-                  </div>
-        
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-                    <div class="icon-box">
-                      <div class="icon"><i class="fas fa-pills"></i></div>
-                      <h4><a href="">Amplia lista de medicamentos</a></h4>
-                      <p>Los mejores medicamentos para cada diagnostico.</p>
-                    </div>
-                  </div>
-        
-                  <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-                    <div class="icon-box">
-                      <div class="icon"><i class="fas fa-hospital-user"></i></div>
-                      <h4><a href="">Manejo del Dolor</a></h4>
-                      <p>Centros de rehabilitacion fisica para ayudarte al manejo del dolor.</p>
-                    </div>
-                  </div>
-                </div>
-        
-              </div>-->
-        </section><!-- End Services Section --> 
 
-        <!-- ======= Appointment Section ======= 
-        <section id="appointment" class="appointment section-bg">
-          <div class="container">
-        
-            <div class="section-title">
-              <h2>Agendamiento de Citas</h2>
-              <p>Completa toda la informacion para que se pueda agendar su cita en el menor tiempo posible, recuerda que recibiras una confrimacion via correo electronico y tambien podras ver los detalles desde tu perfil como paciente.</p>
+
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
+                <div class="icon-box">
+                    <div class="icon"><i class="fas fa-hospital-user"></i></div>
+                    <h4><a href="">Manejo del Dolor</a></h4>
+                    <p>Centros de rehabilitacion fisica para ayudarte al manejo del dolor.</p>
+                </div>
             </div>
-        
-            <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-              <div class="row">
-                <div class="col-md-4 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
-                </div>
-                <div class="col-md-4 form-group mt-3 mt-md-0">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email" data-rule="email" data-msg="Please enter a valid email">
-                  <div class="validate"></div>
-                </div>
-                <div class="col-md-4 form-group mt-3 mt-md-0">
-                  <input type="tel" class="form-control" name="phone" id="phone" placeholder="Telefono" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4 form-group mt-3">
-                  <input type="datetime" name="date" class="form-control datepicker" id="date" placeholder="Fecha de la cita" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-                  <div class="validate"></div>
-                </div>
-                <div class="col-md-4 form-group mt-3">
-                  <select name="department" id="department" class="form-select">
-                    <option value="">Especialidad</option>
-                    <option value="Department 1">Medicina Interna</option>
-                    <option value="Department 2">Psiquiatria</option>
-                    <option value="Department 3">Medicina General</option>
-                    <option value="Department 2">Fisiatria</option>
-                    <option value="Department 3">Ortopedia</option>
-                  </select>
-                  <div class="validate"></div>
-                </div>
-                <div class="col-md-4 form-group mt-3">
-                  <select name="doctor" id="doctor" class="form-select">
-                    <option value="">Seleciona tu Doctor</option>
-                    <option value="Doctor 1">Doctor 1</option>
-                    <option value="Doctor 2">Doctor 2</option>
-                    <option value="Doctor 3">Doctor 3</option>
-                    <option value="Doctor 4">Doctor 4</option>
-                    <option value="Doctor 5">Doctor 5</option>
-                    <option value="Doctor 6">Doctor 6</option>
-                    <option value="Doctor 7">Doctor 7</option>
-                    <option value="Doctor 8">Doctor 8</option>
-                    <option value="Doctor 9">Doctor 9</option>
-                  </select>
-                  <div class="validate"></div>
-                </div>
-              </div>
-        
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Observaciones Adicionales"></textarea>
-                <div class="validate"></div>
-              </div>
-              <div class="mb-3">
-                <div class="loading">Cargando</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Tu cita se ha agendado correctamente. Gracias!</div>
-              </div>
-              <div class="text-center"><button type="submit">Agendar Cita</button></div>
-            </form>
-        
-          </div>
-        </section>  -->
+        </div>
 
-        <!-- End Appointment Section -->
+    </div>
+</section><!-- End Services Section --> 
 
-        <!-- ======= Departments Section ======= -->
-        <section id="departments" class="departments">
-            <div class="container">
 
-                <div class="section-title">
-                    <h2>Especialidades</h2>
-                    <p>En Medifour encontraras cinco especialides en las cuales podremos ayudarte de manera calida y agil al momento que requieras solicitar una cita para tu pronta atencion</p>
-                </div>
 
-                <div class="row gy-4">
-                    <div class="col-lg-3">
-                        <ul class="nav nav-tabs flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Medicina Interna</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Psiquiatria</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Medicina General</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Fisiatria</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Ortopedia</a>
-                            </li>
-                        </ul>
+<div class="form-group mt-3">
+    <textarea class="form-control" name="message" rows="5" placeholder="Observaciones Adicionales"></textarea>
+    <div class="validate"></div>
+</div>
+<div class="mb-3">
+    <div class="loading">Cargando</div>
+    <div class="error-message"></div>
+    <div class="sent-message">Tu cita se ha agendado correctamente. Gracias!</div>
+</div>
+<div class="text-center"><button type="submit">Agendar Cita</button></div>
+</form>
+
+</div>
+</section>
+
+<!-- End Appointment Section -->
+
+<!-- ======= Departments Section ======= -->
+<section id="departments" class="departments">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Especialidades</h2>
+            <p>En Medifour encontraras cinco especialides en las cuales podremos ayudarte de manera calida y agil al momento que requieras solicitar una cita para tu pronta atencion</p>
+        </div>
+
+        <div class="row gy-4">
+            <div class="col-lg-3">
+                <ul class="nav nav-tabs flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Medicina Interna</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Psiquiatria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Medicina General</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Fisiatria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Ortopedia</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-9">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="tab-1">
+                        <div class="row gy-4">
+                            <div class="col-lg-8 details order-2 order-lg-1">
+                                <h3>Medicina Interna</h3>
+                                <p class="fst-italic">Medicina Interna es una especialidad médica que se dedica a la atención integral del adulto enfermo, enfocada al diagnóstico y el tratamiento no quirúrgico de las enfermedades que afectan a sus órganos y sistemas internos, y a su prevención</p>
+                            </div>
+                            <div class="col-lg-4 text-center order-1 order-lg-2">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-9">
-                        <div class="tab-content">
-                            <div class="tab-pane active show" id="tab-1">
-                                <div class="row gy-4">
-                                    <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Medicina Interna</h3>
-                                        <p class="fst-italic">Medicina Interna es una especialidad médica que se dedica a la atención integral del adulto enfermo, enfocada al diagnóstico y el tratamiento no quirúrgico de las enfermedades que afectan a sus órganos y sistemas internos, y a su prevención</p>
-                                    </div>
-                                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    </div>
-                                </div>
+                    <div class="tab-pane" id="tab-2">
+                        <div class="row gy-4">
+                            <div class="col-lg-8 details order-2 order-lg-1">
+                                <h3>Psiquiatría</h3>
+                                <p class="fst-italic">La psiquiatría es una especialidad de la medicina, que se dedica al estudio y promoción de la salud mental, así como al diagnóstico y tratamiento de los trastornos mentales. La psiquiatría también se ocupa del tratamiento de los trastornos de comportamiento y de las adicciones.</p>
                             </div>
-                            <div class="tab-pane" id="tab-2">
-                                <div class="row gy-4">
-                                    <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Psiquiatría</h3>
-                                        <p class="fst-italic">La psiquiatría es una especialidad de la medicina, que se dedica al estudio y promoción de la salud mental, así como al diagnóstico y tratamiento de los trastornos mentales. La psiquiatría también se ocupa del tratamiento de los trastornos de comportamiento y de las adicciones.</p>
-                                    </div>
-                                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    </div>
-                                </div>
+                            <div class="col-lg-4 text-center order-1 order-lg-2">
                             </div>
-                            <div class="tab-pane" id="tab-3">
-                                <div class="row gy-4">
-                                    <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Medicina General</h3>
-                                        <p class="fst-italic">La medicina general es una rama de la medicina que no requiere especialización y trata un espectro muy amplio y variado de patologías. Su función es fundamental, ya que se centra, entre otras cosas, en la prevención de enfermedades y en garantizar un estado de salud general óptimo en los pacientes.</p>
-                                    </div>
-                                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-3">
+                        <div class="row gy-4">
+                            <div class="col-lg-8 details order-2 order-lg-1">
+                                <h3>Medicina General</h3>
+                                <p class="fst-italic">La medicina general es una rama de la medicina que no requiere especialización y trata un espectro muy amplio y variado de patologías. Su función es fundamental, ya que se centra, entre otras cosas, en la prevención de enfermedades y en garantizar un estado de salud general óptimo en los pacientes.</p>
                             </div>
-                            <div class="tab-pane" id="tab-4">
-                                <div class="row gy-4">
-                                    <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Fisiatria</h3>
-                                        <p class="fst-italic">Es una especialidad médica que ayuda a las personas a recobrar las funciones corporales que perdieron debido a enfermedades o lesiones. Este término con frecuencia se usa para describir el equipo de salud completo, no solo los médicos.</p>
-                                    </div>
-                                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    </div>
-                                </div>
+                            <div class="col-lg-4 text-center order-1 order-lg-2">
                             </div>
-                            <div class="tab-pane" id="tab-5">
-                                <div class="row gy-4">
-                                    <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Ortopedia</h3>
-                                        <p class="fst-italic">La ortopedia, o servicios ortopédicos, es la especialidad médica que involucra el tratamiento del sistema musculoesquelético. Incluye sus huesos, articulaciones, ligamentos, tendones y músculos.</p>
-                                    </div>
-                                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-4">
+                        <div class="row gy-4">
+                            <div class="col-lg-8 details order-2 order-lg-1">
+                                <h3>Fisiatria</h3>
+                                <p class="fst-italic">Es una especialidad médica que ayuda a las personas a recobrar las funciones corporales que perdieron debido a enfermedades o lesiones. Este término con frecuencia se usa para describir el equipo de salud completo, no solo los médicos.</p>
+                            </div>
+                            <div class="col-lg-4 text-center order-1 order-lg-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-5">
+                        <div class="row gy-4">
+                            <div class="col-lg-8 details order-2 order-lg-1">
+                                <h3>Ortopedia</h3>
+                                <p class="fst-italic">La ortopedia, o servicios ortopédicos, es la especialidad médica que involucra el tratamiento del sistema musculoesquelético. Incluye sus huesos, articulaciones, ligamentos, tendones y músculos.</p>
+                            </div>
+                            <div class="col-lg-4 text-center order-1 order-lg-2">
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
-            </div>
-        </section><!-- End Departments Section -->
+    </div>
+</section><!-- End Departments Section -->
 
-        <!-- ======= Doctors Section ======= 
-        <section id="doctors" class="doctors">
-          <div class="container">
-        
-            <div class="section-title">
-              <h2>Doctores</h2>
-            </div>
-        
-            <div class="row">
-        
-              <div class="col-lg-6">
-                <div class="member d-flex align-items-start">
-                  <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
-                  <div class="member-info">
-                    <h4>Juan Manuel Lopez </h4>
-                    <span>Director medico / Medico Internista</span>
-                    <div class="social">
-                      <a href=""><i class="ri-facebook-fill"></i></a>
-                      <a href=""><i class="ri-instagram-fill"></i></a>
-                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        
-              <div class="col-lg-6 mt-4 mt-lg-0">
-                <div class="member d-flex align-items-start">
-                  <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
-                  <div class="member-info">
-                    <h4>Sarah Rodriguez</h4>
-                    <span>Medicina General</span>
-                    <div class="social">
-                      <a href=""><i class="ri-facebook-fill"></i></a>
-                      <a href=""><i class="ri-instagram-fill"></i></a>
-                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        
-              <div class="col-lg-6 mt-4">
-                <div class="member d-flex align-items-start">
-                  <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
-                  <div class="member-info">
-                    <h4>William Anderson</h4>
-                    <span>Cardiologia</span>
-                    <div class="social">
-                      <a href=""><i class="ri-facebook-fill"></i></a>
-                      <a href=""><i class="ri-instagram-fill"></i></a>
-                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-        
-              <div class="col-lg-6 mt-4">
-                <div class="member d-flex align-items-start">
-                  <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
-                  <div class="member-info">
-                    <h4>Amanda Martinez</h4>
-                    <span>Neurologia</span>
-                    <div class="social">
-                      <a href=""><i class="ri-facebook-fill"></i></a>
-                      <a href=""><i class="ri-instagram-fill"></i></a>
-                      <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-        
-          </div>  -->
-    </section><!-- End Doctors Section -->
+
+</section><!-- End Doctors Section -->
 
 </main><!-- End #main -->
 
