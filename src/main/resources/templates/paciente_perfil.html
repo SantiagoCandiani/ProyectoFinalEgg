@@ -85,8 +85,14 @@
         <section id="hero" class="d-flex align-items-center">
             <div class="container">
                 <h1>Bienvenido a tu perfil</h1>
-               <h5>Nombre: <span th:text="${user.nombre}"></span></h5>
-                    <h5>Apellido: <span th:text="${user.apellido}"></span></h5>
+                
+                <p class="perfilusuario" th:if="${session.usuariosession != null}" th:text=" ${session.usuariosession.nombre}+' '+${session.usuariosession.apellido} "></p>
+              <!--   <div class="container">
+                    <a th:if="${session.usuariosession.imagen != null}" class="d-flex align-items-center">
+                        <img class="logo"  th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" >
+                    </a> </div>
+           <!--   <h5>Nombre: <span th:text="${user.nombre}"></span></h5>
+                    <h5>Apellido: <span th:text="${user.apellido}"></span></h5>-->
                 </div>
         </section>
 
