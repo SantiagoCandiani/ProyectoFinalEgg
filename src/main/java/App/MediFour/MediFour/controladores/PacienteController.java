@@ -116,7 +116,7 @@ public class PacienteController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
-    @GetMapping("/perfil/{id}")
+    @GetMapping("/modificar/{id}")
     public String mostrarPerfilPaciente(@PathVariable String id, ModelMap modelo, HttpSession session) {
         try {
 
@@ -135,60 +135,71 @@ public class PacienteController {
         }
     }
 
-   @PostMapping("/modificar/{id}")
-public String modificarPerfilPaciente(
-        @PathVariable String id,
-        @RequestParam String nombre,
-        @RequestParam String apellido,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
-        @RequestParam Integer dni,
-        @RequestParam String telefono,
-        @RequestParam String email,
-        @RequestParam(required = false) Boolean tieneObraSocial,
-        @RequestParam(required = false) ObraSocial obraSocial,
-        @RequestParam(required = false) Integer numeroAfiliado,
-        @RequestParam String password,
-        @RequestParam String password2,
-        @RequestParam(required = false) MultipartFile archivo,
-        ModelMap modelo,
-        HttpSession session) {
+    @PostMapping("/modificar/{id}")
+    public String modificarPerfilPaciente(
+            @PathVariable String id,
+            @RequestParam String nombre,
+            @RequestParam String apellido,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
+            @RequestParam Integer dni,
+            @RequestParam String telefono,
+            @RequestParam String email,
+            @RequestParam(required = false) Boolean tieneObraSocial,
+            @RequestParam(required = false) ObraSocial obraSocial,
+            @RequestParam(required = false) Integer numeroAfiliado,
+            @RequestParam String password,
+            @RequestParam String password2,
+            @RequestParam(required = false) MultipartFile archivo,
+            ModelMap modelo,
+            HttpSession session) {
 
-    try {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("log", logueado);
-        
-        // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
-        Usuario usuario = pacienteServicio.getOne(id);
-        
-        if (usuario != null) {
-            modelo.addAttribute("user", usuario);
-            
-            // Llamar al servicio para actualizar los datos del paciente
-            pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
-            
-            modelo.put("exito", "Tus datos fueron modificados correctamente!");
-        } else {
-            // Manejo de usuario nulo
-            modelo.put("error", "No se encontró el usuario.");
+        try {
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            modelo.addAttribute("log", logueado);
+
+            // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
+            Usuario usuario = pacienteServicio.getOne(id);
+
+            if (usuario != null) {
+                modelo.addAttribute("paciente", usuario);
+
+                // Llamar al servicio para actualizar los datos del paciente
+                pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
+
+                modelo.put("exito", "Tus datos fueron modificados correctamente!");
+            } else {
+                // Manejo de usuario nulo
+                modelo.put("error", "No se encontró el usuario.");
+            }
+        } catch (MiExcepcion ex) {
+            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+            modelo.addAttribute("log", logueado);
+
+            // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
+            Usuario usuario = pacienteServicio.getOne(id);
+
+            if (usuario != null) {
+                modelo.addAttribute("paciente", usuario);
+                modelo.addAttribute("id", usuario.getId());
+                modelo.put("error", ex.getMessage());
+                return "redirect:/paciente/perfil/" + id;
+            } else {
+                // Manejo de usuario nulo
+                modelo.put("error", "No se encontró el usuario.");
+            }
         }
-    } catch (MiExcepcion ex) {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("log", logueado);
-        
-        // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
-        Usuario usuario = pacienteServicio.getOne(id);
-        
-        if (usuario != null) {
-            modelo.addAttribute("user", usuario);
-            modelo.addAttribute("id", usuario.getId());
-            modelo.put("error", ex.getMessage());
-            return "redirect:/paciente/perfil/" + id;
-        } else {
-            // Manejo de usuario nulo
-            modelo.put("error", "No se encontró el usuario.");
-        }
+
+        return "redirect:/inicio";
     }
 
-    return "redirect:/inicio";
-}
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}") //localhost:8080/profesional/perfil
+    public String mostrarPacientePerfil(@PathVariable String id, ModelMap model) {
+        //pasa el ID de profesional solo por el path
+        //TODO: linkear con lista de profesionales
+        Paciente paciente = pacienteServicio.pacientePorID(id);
+        model.addAttribute("paciente", paciente);
+        return "paciente_perfil_ver.html";
+    }
 }//Class
+
