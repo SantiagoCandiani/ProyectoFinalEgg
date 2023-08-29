@@ -12,37 +12,16 @@
         <link href="assets/img/favicon.png" rel="icon" />
         <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-        <!-- Google Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-            rel="stylesheet"
-            />
 
         <!-- Vendor CSS Files -->
-        <link
-            href="/assets/vendor/fontawesome-free/css/all.min.css"
-            rel="stylesheet"
-            />
+        <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"/>
         <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
-        <link
-            href="/assets/vendor/bootstrap/css/bootstrap.min.css"
-            rel="stylesheet"
-            />
-        <link
-            href="/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-            rel="stylesheet"
-            />
-        <link
-            href="/assets/vendor/boxicons/css/boxicons.min.css"
-            rel="stylesheet"
-            />
-        <link
-            href="/assets/vendor/glightbox/css/glightbox.min.css"
-            rel="stylesheet"
-            />
+        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"/>
+        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"/>
         <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
         <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet" />
     </head>
@@ -74,36 +53,23 @@
                 <nav id="navbar" class="navbar order-last order-lg-0">
                     <ul>
                         <li>
-                            <a class="nav-link scrollto active" th:href="@{/inicio}"
-                               >Inicio</a
-                            >
+                            <a class="nav-link scrollto active" th:href="@{/inicio}" >Inicio</a>
                         </li>
                         <li>
-                            <a class="nav-link scrollto" href="#departments"
-                               >Especialidades</a
-                            >
+                            <a class="nav-link scrollto" href="#departments">Especialidades</a>
                         </li>
                         <li>
-                            <a class="nav-link scrollto" th:href="@{/profesional/listar}"
-                               >Doctores</a
-                            >
+                            <a class="nav-link scrollto" th:href="@{/profesional/listar}">Doctores</a>
                         </li>
                         <li>
                             <i class="bi bi-list mobile-nav-toggle"></i>
                             <div class="dropdown">
-                                <button
-                                    class="btn btn-primary dropdown-toggle"
-                                    type="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                    >
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Perfil
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" th:href="@{/logout}"
-                                           >Cerrar Sesion</a
-                                        >
+                                        <a class="dropdown-item" th:href="@{/logout}" >Cerrar Sesion</a>
                                     </li>
                                 </ul>
                             </div>
@@ -113,9 +79,7 @@
             </div>
         </header>
 
-        <div
-            th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"
-            ></div>
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
 
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex align-items-center">
@@ -129,14 +93,8 @@
                 </h5>
             </div>
             <div class="container d-flex justify-content-center align-items-center">
-                <a
-                    th:if="${session.usuariosession.imagen != null}"
-                    class="d-flex align-items-center"
-                    >
-                    <img
-                        class="logo"
-                        th:src="@{/imagen/perfil/__${session.usuariosession.id}__}"
-                        />
+                <a th:if="${session.usuariosession.imagen != null}"  class="d-flex align-items-center">
+                    <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}"/>
                 </a>
             </div>
         </section>
@@ -244,7 +202,7 @@
                         </select>
                         <br />
                         <br />
-                        <div class="form-group" id="obraSocialContainer" th:if="${session.usuariosession.tieneObraSocial}">
+                        <div class="form-group" id="obraSocialContainer">
                             <label for="obraSocial">Seleccione una Obra Social:</label>
                             <select id="obraSocial" name="obraSocial">
                                 <option value="">Seleccione una opción</option>
@@ -343,6 +301,6 @@
 
         <!-- Template Main JS File -->
         <script src="/assets/js/main.js"></script>
-        <script src="/assets/js/paciente_form.js"></script>
+        
     </body>
 </html>
