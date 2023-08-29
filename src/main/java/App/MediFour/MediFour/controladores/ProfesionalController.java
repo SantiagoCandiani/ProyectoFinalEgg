@@ -71,7 +71,9 @@ public class ProfesionalController {
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
         model.addAttribute("profesionales", profesionales);
-        return "profesional_list.html";
+        
+        return "lista_profesionales.HTML";
+
     }
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
