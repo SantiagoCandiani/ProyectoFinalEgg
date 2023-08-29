@@ -102,7 +102,7 @@
                         <th>Obra Social</th>
                         <th>N° de Afiliado</th>
                         <th>Foto de Perfil</th>
-                        <th>ACCIONES</th>
+                        
                     </tr>
                 <tbody>
                     <tr th:each="paciente : ${pacientes}">
@@ -122,11 +122,11 @@
 
 
 
-                        <td style="text-align: center; vertical-align: middle;">
+                       <!-- <td style="text-align: center; vertical-align: middle;">
                             <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
                                 <input type="submit" value="Dar de Baja">
                             </form>
-                        </td>
+                        </td>-->
                     </tr>
                 </tbody>
             </table>
