@@ -60,18 +60,21 @@
                         <!-- <li><a class="nav-link scrollto" href="#services">Servicios</a></li> -->
                         <li><a class="nav-link scrollto" href="#departments">Especialidades</a></li>
                         <li><a class="nav-link scrollto" href="#Doctors">Doctores</a></li>
-                        <li><sec:authorize access="hasRole('ADMIN')">
+                        <li sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/usuario/listar}">Ir al Panel</a>
-                        </sec:authorize></li>
+                        </li>
                         <li>
                             <i class="bi bi-list mobile-nav-toggle"></i>
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Perfil
+                                    MENU
                                 </button>
+                                
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
+                                    <li><a class="dropdown-item" th:href="@{paciente/perfil/{id}}">Gestiona tu cuenta</a></li>
+                                    <li sec:authorize="hasRole('ADMIN') or hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                                    <li sec:authorize="hasRole('ADMIN') or hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                                    <li sec:authorize="hasRole('ADMIN') or hasRole('PACIENTE')"><a class="dropdown-item" th:href="@{/profesional/listar}">Lista Profesionales</a></li>
                                     <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
                                 </ul>                  
                             </div>
@@ -87,6 +90,7 @@
                             <section id="hero" class="d-flex align-items-center">
                                 <div class="container">
                                     <h1>Bienvenido a Medifour</h1>
+                                    <p class="perfilusuario" th:if="${session.usuariosession != null}" th:text=" ${session.usuariosession.nombre}+' '+${session.usuariosession.apellido} "></p>
                                     <h2>Somos lideres en innovacion de la atencion en linea,<br></br>
                                         con nuestras especialidades medicas.</h2>
                                     <a href="#about" class="btn-get-started scrollto">Conocenos</a>
