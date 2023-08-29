@@ -79,6 +79,16 @@ public class PacienteController {
 
         return "paciente_list.html";
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/listarAdmin") //localhost:8080/paciente/listar
+    public String listarPacientes(Model model) {
+        List<Paciente> pacientes = pacienteServicio.listarTodosPacientes();
+        model.addAttribute("pacientes", pacientes);
+
+        return "PanelAdminPacientes.html";
+
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/consultaDni") //localhost:8080/paciente/consulta
