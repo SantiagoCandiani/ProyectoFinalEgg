@@ -156,7 +156,7 @@ public String modificarPerfilPaciente(
     try {
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         modelo.addAttribute("log", logueado);
-        
+     
         // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
         Usuario usuario = pacienteServicio.getOne(id);
         
