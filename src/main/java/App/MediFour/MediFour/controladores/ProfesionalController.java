@@ -65,13 +65,16 @@ public class ProfesionalController {
         }
         return "redirect:/login";
     }
-  
     
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROFESIONAL')")
+
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
         model.addAttribute("profesionales", profesionales);
+        
         return "lista_profesionales.HTML";
+
     }
     
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")

@@ -87,6 +87,7 @@ public class PacienteController {
         model.addAttribute("pacientes", pacientes);
 
         return "PanelAdminPacientes.html";
+
     }
 
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
@@ -202,12 +203,15 @@ public class PacienteController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
-    @GetMapping("/perfil/{id}") //localhost:8080/profesional/perfil
-    public String mostrarPacientePerfil(@PathVariable String id, ModelMap model) {
+    @GetMapping("/perfil/{id}") //localhost:8080/paciente/perfil
+    public String mostrarPacientePerfil(ModelMap model, HttpSession session) {
         //pasa el ID de profesional solo por el path
         //TODO: linkear con lista de profesionales
-        Paciente paciente = pacienteServicio.pacientePorID(id);
-        model.addAttribute("paciente", paciente);
+        
+        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
+        
+        //Paciente paciente = pacienteServicio.pacientePorID(id);
+        model.addAttribute("paciente", logueado);
         return "paciente_perfil_ver.html";
     }
 }//Class

@@ -1,9 +1,11 @@
 package App.MediFour.MediFour.controladores;
 
+import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.servicios.UsuarioServicio;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -68,7 +70,14 @@ public class PortalController {
     
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/inicio")
-    public String inicio(){
+    public String inicio(HttpSession session){
+        
+        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        
+       /*if(logueado.getRol().toString().equals("PROFESIONAL")){
+                return "redirect:/admin/dashboard";
+       }*/
+        
         return "inicio.html";
     }
 }
