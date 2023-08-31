@@ -162,42 +162,6 @@ public class PacienteController {
             @RequestParam(required = false) MultipartFile archivo,
             ModelMap modelo,
             HttpSession session) {
-
-<<<<<<< HEAD
-    try {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("log", logueado);
-     
-        // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
-        Usuario usuario = pacienteServicio.getOne(id);
-        
-        if (usuario != null) {
-            modelo.addAttribute("user", usuario);
-            
-            // Llamar al servicio para actualizar los datos del paciente
-            pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
-            
-            modelo.put("exito", "Tus datos fueron modificados correctamente!");
-        } else {
-            // Manejo de usuario nulo
-            modelo.put("error", "No se encontró el usuario.");
-        }
-    } catch (MiExcepcion ex) {
-        Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-        modelo.addAttribute("log", logueado);
-        
-        // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
-        Usuario usuario = pacienteServicio.getOne(id);
-        
-        if (usuario != null) {
-            modelo.addAttribute("user", usuario);
-            modelo.addAttribute("id", usuario.getId());
-            modelo.put("error", ex.getMessage());
-            return "redirect:/paciente/perfil/" + id;
-        } else {
-            // Manejo de usuario nulo
-            modelo.put("error", "No se encontró el usuario.");
-=======
         try {
             Usuario logueado = (Usuario) session.getAttribute("usuariosession");
             modelo.addAttribute("log", logueado);
@@ -232,7 +196,7 @@ public class PacienteController {
                 // Manejo de usuario nulo
                 modelo.put("error", "No se encontró el usuario.");
             }
->>>>>>> developer2
+
         }
 
         return "redirect:/inicio";
