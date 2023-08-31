@@ -101,10 +101,10 @@
                         </td>
                         <td th:text="${profesional.activo}"></td>
                         <td style="text-align: center; vertical-align: middle;">
-                            <form th:action="@{/usuario/bajaUsuario/{id}(id=${usuario.id})}" method="get">
+                            <form th:action="@{/usuario/bajaUsuario/{id}(id=${profesional.id})}" method="get">
                                 <button type="submit" value="Baja" >Baja</button>
                             </form>
-                            <form th:action="@{/usuario/altaUsuario/{id}(id=${usuario.id})}" method="get">
+                            <form th:action="@{/usuario/altaUsuario/{id}(id=${profesional.id})}" method="get">
                                 <button type="submit" value="Alta" >Alta</button>
                             </form>
                         </td>
