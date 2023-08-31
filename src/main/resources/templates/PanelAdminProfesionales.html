@@ -1,24 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
     <head>
-        <title>Lista de Profesionales</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        
-        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Panel de Control</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
-            .table-container {
-    margin-left: 0; /* Ajusta este valor según tu preferencia */
-}
+            body {
+                background-image: url('ruta_de_la_imagen.jpg');
+                /* Reemplaza 'ruta_de_la_imagen.jpg' con la ruta de tu imagen de fondo */
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 100px;
+            }
         </style>
-        
-        
     </head>
+
     <body>
-
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <h1 class="logo me-auto"><a class="navbar-brand" th:href="@{/inicio}">MEDIFOUR</a></h1>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" th:href="@{/inicio}">MEDIFOUR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -35,15 +44,22 @@
                 </ul>
             </div>
         </nav>
-
-
-
-
-        <div class="container table-container">
-            <h1 class="">Lista de Profesionales</h1>
-            
-            <table class="table table-striped table-bordere">
-                <thead class="thead-dark">
+        <div class="container text-center">
+            <h1>Panel de Control</h1><br>
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="/usuario/listar" class="btn btn-primary btn-block">Usuarios</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-secondary btn-block">Profesionales</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/paciente/listarAdmin" class="btn btn-primary btn-block">Pacientes</a>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-bordered">
+                <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -58,7 +74,12 @@
                         <th>Horario Salida</th>
                         <th>Precio Consulta</th>
                         <th>Imagen</th>
+                        <th>Activo</th>
+                        <th>Dar baja</th>
+                        <th>Dar alta</th>
+
                     </tr>
+                </thead>
                 <tbody>
                     <tr th:each="profesional : ${profesionales}">
                         <td th:text="${profesional.nombre}"></td>
@@ -78,37 +99,20 @@
                                 <img th:style="'width: 100%; margin: auto; height: auto;'" th:src="@{/imagen/perfil/__${profesional.id}__}">
                             </a>
                         </td>
-
-
-
+                        <td th:text="${profesional.activo}"></td>
                         <td style="text-align: center; vertical-align: middle;">
                             <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
                                 <input type="submit" value="Dar de Baja">
                             </form>
-                        </td> 
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <form th:action="@{/profesional/altaProfesional/{id}(id=${profesional.id})}" method="get">
+                                <input type="submit" value="Habilitar">
+                            </form></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-
-
-        <section class="py-5 text-center container">
-            <div class="row py-lg-5">
-                <div class="col-lg-6 col-md-8 mx-auto">
-                    <a th:href="@{/inicio}" class="btn btn-secondary my-2">Volver</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-
-
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     </body>
+
 </html>

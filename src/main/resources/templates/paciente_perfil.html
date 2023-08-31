@@ -1,46 +1,47 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
     <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
         <title>Perfil Paciente</title>
-        <meta content="" name="description">
-        <meta content="" name="keywords">
+        <meta content="" name="description" />
+        <meta content="" name="keywords" />
 
         <!-- Favicons -->
-        <link href="assets/img/favicon.png" rel="icon">
-        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="assets/img/favicon.png" rel="icon" />
+        <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
         <!-- Vendor CSS Files -->
-        <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-        <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-        <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-        <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
+        <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"/>
+        <link href="/assets/vendor/animate.css/animate.min.css" rel="stylesheet" />
+        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"/>
+        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"/>
+        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"/>
+        <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet" />
+        <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
         <!-- Template Main CSS File -->
-        <link href="/assets/css/style.css" rel="stylesheet">
-
+        <link href="/assets/css/style.css" rel="stylesheet" />
     </head>
-    <body>
 
+    <body>
         <!-- ======= Top Bar ======= -->
         <div id="topbar" class="d-flex align-items-center fixed-top">
             <div class="container d-flex justify-content-between">
                 <div class="contact-info d-flex align-items-center">
-                    <i class="bi bi-envelope"></i> <a href="mailto:info@Medifour.com">info@Medifour.com</a>
+                    <i class="bi bi-envelope"></i>
+                    <a href="mailto:info@Medifour.com">info@Medifour.com</a>
                     <i class="bi bi-phone"></i> +51 558 863 3667
                 </div>
                 <div class="d-none d-lg-flex social-links align-items-center">
-                    <a href="https://es-la.facebook.com/login" class="facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="https://es-la.facebook.com/login" class="facebook"
+                       ><i class="bi bi-facebook"></i
+                        ></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"
+                       ><i class="bi bi-instagram"></i
+                        ></a>
                 </div>
             </div>
         </div>
@@ -48,43 +49,43 @@
         <!-- ======= Header ======= -->
         <header id="header" class="fixed-top">
             <div class="container d-flex align-items-center">
-
-                <h1 class="logo me-auto"><a th:href="@{/}">MediFour</a></h1>
-                <!-- Uncomment below if you prefer to use an image logo -->
-                <!--<a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
+                <h1 class="logo me-auto"><a th:href="@{/inicio}">MediFour</a></h1>
                 <nav id="navbar" class="navbar order-last order-lg-0">
                     <ul>
-                        <li><a class="nav-link scrollto active" th:href="@{/inicio}">Inicio</a></li>
-                        <!-- <li><a class="nav-link scrollto" href="#services">Servicios</a></li> -->
-                        <li><a class="nav-link scrollto" href="#departments">Especialidades</a></li>
-                        <li><a class="nav-link scrollto" th:href="@{/profesional/listar}">Doctores</a></li>
-                        <li> <i class="bi bi-list mobile-nav-toggle"></i>
+                        <li>
+                            <a class="nav-link scrollto active" th:href="@{/inicio}" >Inicio</a>
+                        </li>
+                        <li>
+                            <a class="nav-link scrollto" href="#departments">Especialidades</a>
+                        </li>
+                        <li>
+                            <a class="nav-link scrollto" th:href="@{/profesional/listar}">Doctores</a>
+                        </li>
+                        <li>
+                            <i class="bi bi-list mobile-nav-toggle"></i>
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <!--   <img width="24" src="#" height="24" alt="#" id="" class="global-nav__me-photo evi-image ember-view">-->
-                                    <span class="global-nav__primary-link-text">
-                                        Perfil
+                                    Perfil
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/logout}" >Cerrar Sesion</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
-                        <!--    <li><a class="nav-link scrollto" th:href="@{/paciente/registrar-form}">Registro Paciente</a></li>
-                            <li><a class="nav-link scrollto" th:href="@{/profesional/registrar-form}">Registro Profesional</a></li>-->
                     </ul>
-                </nav><!-- .navbar -->
+                </nav>
             </div>
-        </header><!-- End Header -->
+        </header>
 
         <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
-
 
         <!-- ======= Hero Section ======= -->
         <section id="hero" class="d-flex align-items-center">
             <div class="container">
                 <h1>Bienvenido a tu perfil</h1>
+<<<<<<< HEAD
 
                 <p class="perfilusuario" th:if="${session.usuariosession != null}" th:text=" ${session.usuariosession.nombre}+' '+${session.usuariosession.apellido} "></p>
                 <!--   <div class="container">
@@ -98,19 +99,45 @@
 
         <!-- End Hero <form class="formulario" sec:authorize="hasAuthority('ADMIN')" th:action="@{/perfil/__${usuario.id}__}" method="POST" enctype="multipart/form-data">
         -->
+=======
+                <h5>
+                    Nombre: <span th:text="${session.usuariosession.nombre}"></span>
+                </h5>
+                <h5>
+                    Apellido: <span th:text="${session.usuariosession.apellido}"></span>
+                </h5>
+            </div>
+            <div class="container d-flex justify-content-center align-items-center">
+                <a th:if="${session.usuariosession.imagen != null}"  class="d-flex align-items-center">
+                    <img class="logo" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}"/>
+                </a>
+            </div>
+        </section>
+        <!-- End Hero -->
+>>>>>>> developer2
 
         <main id="main">
-
             <!-- ======= Why Us Section ======= -->
             <section id="why-us" class="why-us">
                 <div class="container">
+<<<<<<< HEAD
                     <form id="profile-form" th:action="@{/modificar/__{usuario.id}__}" method="POST" enctype="multipart/form-data">
                          <input hidden th:value= "${usuario.id}" name="id">
+=======
+                    <form
+                        id="profile-form"
+                        th:if="${session.usuariosession != null}"
+                        th:action="@{/paciente/modificar/__${id}__}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        >
+                        <input hidden th:value="${id}" name="id" />
+>>>>>>> developer2
                         <h2>Información Personal</h2>
                         <h3>Información Básica</h3>
-
                         <div class="form-group my-3">
                             <p>Ingresa tu Foto de perfil</p>
+<<<<<<< HEAD
                             <input type="file" class="form-control" name="archivo" th:value=${paciente.archivo}>
                         </div>
                         <label for="nombre">Nombre:</label>
@@ -153,9 +180,111 @@
                                     <option value="OMINT">OMINT</option>
                                 </select>
                             </div>
+=======
+                            <input type="file" class="form-control" name="archivo" />
                         </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="nombre"
+                                name="nombre"
+                                th:value="${session.usuariosession.nombre}"
+                                required
+                                />
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="apellido"
+                                name="apellido"
+                                th:value="${session.usuariosession.apellido}"
+                                required
+                                />
+                        </div>
+                        <div class="form-group">
+                            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                            <input
+                                type="date"
+                                class="form-control"
+                                id="fechaNacimiento"
+                                name="fechaNacimiento"
+                                th:value="${session.usuariosession.fechaNacimiento}"
+                                required
+                                />
+                        </div>
+                        <div class="form-group">
+                            <label for="dni">DNI:</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="dni"
+                                name="dni"
+                                th:value="${session.usuariosession.dni}"
+                                required
+                                />
+                        </div>
+                        <h3>Información de Contacto</h3>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="telefono"
+                                name="telefono"
+                                th:value="${session.usuariosession.telefono}"
+                                required
+                                />
+>>>>>>> developer2
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                th:value="${session.usuariosession.email}"
+                                required
+                                />
+                        </div>
+                        <label for="tieneObraSocial">Tiene Obra Social:</label>
+                        <select id="tieneObraSocial" name="tieneObraSocial">
+                            <option
+                                value="true"
+                                th:selected="${session.usuariosession.tieneObraSocial} == true"
+                                >
+                                Sí
+                            </option>
+                            <option
+                                value="false"
+                                th:selected="${session.usuariosession.tieneObraSocial} == false"
+                                >
+                                No
+                            </option>
+                        </select>
+                        <br />
+                        <br />
+                        <div class="form-group" id="obraSocialContainer">
+                            <label for="obraSocial">Seleccione una Obra Social:</label>
+                            <select id="obraSocial" name="obraSocial">
+                                <option value="">Seleccione una opción</option>
+                                <option value="OSEP" th:selected="${session.usuariosession.obraSocial == 'OSEP'}">OSEP</option>
+                                <option value="SWISSMEDICAL" th:selected="${session.usuariosession.obraSocial == 'SWISSMEDICAL'}">SWISSMEDICAL</option>
+                                <option value="OSDE" th:selected="${session.usuariosession.obraSocial == 'OSDE'}">OSDE</option>
+                                <option value="OSPE" th:selected="${session.usuariosession.obraSocial == 'OSPE'}">OSPE</option>
+                                <option value="SANCOR" th:selected="${session.usuariosession.obraSocial == 'SANCOR'}">SANCOR</option>
+                                <option value="MEDICUS" th:selected="${session.usuariosession.obraSocial == 'MEDICUS'}">MEDICUS</option>
+                                <option value="OMINT" th:selected="${session.usuariosession.obraSocial == 'OMINT'}">OMINT</option>
+                            </select>
+                        </div>
+
                         <div class="form-group" id="numeroAfiliadoContainer">
                             <label for="numeroAfiliado">Número de Afiliado:</label>
+<<<<<<< HEAD
                             <input type="text" id="numeroAfiliado" name="numeroAfiliado" th:value=${paciente.numeroAfiliado}>
                             <br>
                             <br>
@@ -168,8 +297,50 @@
                         <input type="password" id="password2" name="password2" placeholder="5 caracteres minimo" th:value=${paciente.password2} required ><br>
                         <br>
                         <button type="submit">Guardar Cambios</button>
+=======
+                            <input
+                                type="text"
+                                id="numeroAfiliado"
+                                name="numeroAfiliado"
+                                th:value="${session.usuariosession.numeroAfiliado}"
+                                />
+                            <br />
+                            <br />
+                        </div>
+                        <h3>Modificar contraseña</h3>
+                        <div class="form-group">
+                            <label for="password">Contraseña:</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                th:value="${session.usuariosession.password}"
+                                required
+                                />
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Confirmar Contraseña:</label>
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password2"
+                                name="password2"
+                                required
+                                />
+                        </div>
+                        <br />
+                        <button type="submit" class="btn btn-primary">
+                            Guardar Cambios
+                        </button>
+>>>>>>> developer2
                     </form>
+                </div>
+            </section>
+        </main>
+        <!-- End #main -->
 
+<<<<<<< HEAD
                 </div>                
             </section><!-- End Why Us Section -->
 
@@ -201,6 +372,40 @@
 
         <div id="preloader"></div>
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+=======
+        <!-- ======= Footer ======= -->
+        <footer id="footer">
+            <div class="container d-md-flex py-4">
+                <div class="me-md-auto text-center text-md-start">
+                    <div class="copyright">
+                        <h5>
+                            &copy; Copyright <strong><span>Medifour</span></strong
+                            >. Todos los derechos reservados
+                        </h5>
+                    </div>
+                </div>
+                <div class="social-links text-center text-md-right pt-3 pt-md-0">
+                    <a href="https://twitter.com/?lang=es" class="twitter"
+                       ><i class="bx bxl-twitter"></i
+                        ></a>
+                    <a href="https://es-la.facebook.com/" class="facebook"
+                       ><i class="bx bxl-facebook"></i
+                        ></a>
+                    <a href="https://www.instagram.com/accounts/login/" class="instagram"
+                       ><i class="bx bxl-instagram"></i
+                        ></a>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+
+        <div id="preloader"></div>
+        <a
+            href="#"
+            class="back-to-top d-flex align-items-center justify-content-center"
+            ><i class="bi bi-arrow-up-short"></i
+            ></a>
+>>>>>>> developer2
 
         <!-- Vendor JS Files -->
         <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -211,7 +416,13 @@
 
         <!-- Template Main JS File -->
         <script src="/assets/js/main.js"></script>
+<<<<<<< HEAD
 
     </body>
 
 </html>
+=======
+        
+    </body>
+</html>
+>>>>>>> developer2
