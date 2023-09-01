@@ -3,12 +3,15 @@ package App.MediFour.MediFour.entidades;
 import App.MediFour.MediFour.enumeraciones.DiaSemana;
 import App.MediFour.MediFour.enumeraciones.Especialidad;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,4 +38,6 @@ public class Profesional extends Usuario {
     protected Double precioConsulta;
     protected Double reputacion;
     protected String observaciones;
+    @OneToMany(mappedBy = "profesional", fetch = FetchType.LAZY)
+    private List<Turno> turnosCreados = new ArrayList<>();
 }

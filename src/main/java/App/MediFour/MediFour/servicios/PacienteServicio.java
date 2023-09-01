@@ -2,11 +2,13 @@ package App.MediFour.MediFour.servicios;
 
 import App.MediFour.MediFour.entidades.Imagen;
 import App.MediFour.MediFour.entidades.Paciente;
+import App.MediFour.MediFour.entidades.Turno;
 import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.enumeraciones.ObraSocial;
 import App.MediFour.MediFour.enumeraciones.Rol;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.PacienteRepositorio;
+import App.MediFour.MediFour.repositorios.TurnoRepositorio;
 import App.MediFour.MediFour.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PacienteServicio extends UsuarioServicio {
 
+    @Autowired
+    private TurnoServicio turnoServicio;
+
+    @Autowired
+    private TurnoRepositorio turnoRepositorio;
     @Autowired
     private PacienteRepositorio pacienteRepo;
 
@@ -175,6 +182,32 @@ public class PacienteServicio extends UsuarioServicio {
     public Paciente pacientePorID(String id) {
         return pacienteRepo.buscarPorId(id);
     }
-    
-    
+
+    @Transactional
+    public boolean elegirTurno(String idTurno, Paciente paciente) throws MiExcepcion {
+        try {
+            Optional<Turno> respuesta = turnoRepositorio.findById(idTurno);
+
+            if (respuesta.isPresent()) {
+                Turno turno = respuesta.get();
+
+                if (!turno.isDisponibilidad()) {
+                    throw new MiExcepcion("El turno no está disponible.");
+                }
+
+                turno.setPaciente(paciente); // Asignar el paciente al turno
+                turno.setDisponibilidad(false);
+
+                turnoRepositorio.save(turno);
+
+                return true;
+            }
+
+            return false;
+        } catch (Exception e) {
+            System.err.println("No es posible elegir el turno: " + e.getMessage());
+            return false;
+        }
+    }
+
 }//Class
