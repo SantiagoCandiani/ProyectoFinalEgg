@@ -1,16 +1,95 @@
-* body {
-  margin: 0;
-  padding: 0;
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: black;
 }
-/*estilo del cuerpo para el formulario*/
 
-/*Estilo del formilario*/
 .form-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi transparente */
+  padding: 30px;
+  border-radius: 10px;
+  width: 60%;
+  border: solid #1977cc;
+}
 
-    border: 5px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    width: 600px; /* Ancho del marco */
-    margin: auto; /* Centrar horizontalmente */
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-        }
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Estilos para los campos de entrada */
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="password"],
+.form-group select
+ {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: white; /* Campo semi transparente */
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Estilo para los botones */
+input[type="submit"],
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover,
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para los enlaces */
+a {
+  color: #1977cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para las secciones */
+.section {
+  margin-bottom: 30px;
+}
+
+
+/* Estilos para el logo */
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Estilos para los mensajes de error y éxito */
+.error-msg,
+.success-msg {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.error-msg {
+  background-color: #dc3545;
+}
+
+.success-msg {
+  background-color: #28a745;
+}
+.form-group-titulo{
+     font-weight: 600; 
+}
