@@ -203,10 +203,8 @@ public class PacienteController {
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
-    @GetMapping("/perfil/{id}") //localhost:8080/paciente/perfil
+    @GetMapping("/perfil") //localhost:8080/paciente/perfil
     public String mostrarPacientePerfil(ModelMap model, HttpSession session) {
-        //pasa el ID de profesional solo por el path
-        //TODO: linkear con lista de profesionales
         
         Paciente logueado = (Paciente) session.getAttribute("usuariosession");
         
