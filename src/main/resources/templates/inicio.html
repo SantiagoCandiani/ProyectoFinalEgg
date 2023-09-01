@@ -102,7 +102,7 @@
         <section id="hero" class="d-flex align-items-center">
             <div class="container">
                 <h1>Bienvenido a Medifour</h1>
-                <p class="perfilusuario" th:if="${session.usuariosession != null}" th:text=" ${session.usuariosession.nombre}+' '+${session.usuariosession.apellido} "></p>
+                <h2 style="font-weight: bold;color: #007bff; text-align: center;" class="perfilusuario" th:if="${session.usuariosession != null}" th:text=" ${session.usuariosession.nombre}+' '+${session.usuariosession.apellido} "></h2>
                 <h2>Somos lideres en innovacion de la atencion en linea,<br></br>
                     con nuestras especialidades medicas.</h2>
                 <a href="#about" class="btn-get-started scrollto">Conocenos</a>
@@ -122,7 +122,7 @@
                             <div class="content">
                                 <h3>Porque escoger Medifour?</h3>
                                 <p>
-                                    Dia a Dia ganammos mas pacientes con nuestro servicio de alta calidad, en nuestras especialidades encontraras la mejor atencion en lines de una manera agil y sencilla para ti y toda tu familia.
+                                    Dia a Dia ganamos mas pacientes con nuestro servicio de alta calidad, en nuestras especialidades encontraras la mejor atencion en lines de una manera agil y sencilla para ti y toda tu familia.
                                 </p>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                         <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
                             <div class="count-box">
                                 <i class="far fa-hospital"></i>
-                                <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
+                                <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
                                 <p>Especialidades</p>
                                 <p>Medicas</p>
                             </div>
@@ -324,27 +324,25 @@
 
                 <div class="section-title">
                     <h2>Especialidades</h2>
-                    <p>En Medifour encontraras cinco especialides en las cuales podremos ayudarte de manera calida y agil al momento que requieras solicitar una cita para tu pronta atencion</p>
+                    <p>En Medifour encontraras cuatro especialides en las cuales podremos ayudarte de manera calida y agil al momento que requieras solicitar una cita para tu pronta atencion</p>
                 </div>
 
                 <div class="row gy-4">
                     <div class="col-lg-3">
                         <ul class="nav nav-tabs flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Medicina Interna</a>
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Medicina Clínica</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Psiquiatria</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Pediatría</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Medicina General</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Ginecología</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Fisiatria</a>
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Cardiología</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Ortopedia</a>
-                            </li>
+                           
                         </ul>
                     </div>
                     <div class="col-lg-9">
@@ -352,8 +350,8 @@
                             <div class="tab-pane active show" id="tab-1">
                                 <div class="row gy-4">
                                     <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Medicina Interna</h3>
-                                        <p class="fst-italic">Medicina Interna es una especialidad médica que se dedica a la atención integral del adulto enfermo, enfocada al diagnóstico y el tratamiento no quirúrgico de las enfermedades que afectan a sus órganos y sistemas internos, y a su prevención</p>
+                                        <h3>Medicina Clinica</h3>
+                                        <p class="fst-italic">La Medicina Clinica se ocupa del diagnóstico y el tratamiento de las enfermedades a través del estudio del enfermo, hecho directamente por el médico.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                     </div>
@@ -362,8 +360,8 @@
                             <div class="tab-pane" id="tab-2">
                                 <div class="row gy-4">
                                     <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Psiquiatría</h3>
-                                        <p class="fst-italic">La psiquiatría es una especialidad de la medicina, que se dedica al estudio y promoción de la salud mental, así como al diagnóstico y tratamiento de los trastornos mentales. La psiquiatría también se ocupa del tratamiento de los trastornos de comportamiento y de las adicciones.</p>
+                                        <h3>Pediatría</h3>
+                                        <p class="fst-italic">Parte de la medicina que se ocupa del estudio del crecimiento y el desarrollo de los niños hasta la adolescencia, así como del tratamiento de sus enfermedades.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                     </div>
@@ -372,9 +370,9 @@
                             <div class="tab-pane" id="tab-3">
                                 <div class="row gy-4">
                                     <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Medicina General</h3>
-                                        <p class="fst-italic">La medicina general es una rama de la medicina que no requiere especialización y trata un espectro muy amplio y variado de patologías. Su función es fundamental, ya que se centra, entre otras cosas, en la prevención de enfermedades y en garantizar un estado de salud general óptimo en los pacientes.</p>
-                                    </div>
+                                        <h3>Ginecología</h3>
+                                        <p class="fst-italic">Ginecología es la especialidad médica que brinda atención y vela por la salud de la mujer a lo largo de su vida, especialmente en lo que se refiere a la reproducción y al embarazo.</p>
+                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                     </div>
                                 </div>
@@ -382,23 +380,14 @@
                             <div class="tab-pane" id="tab-4">
                                 <div class="row gy-4">
                                     <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Fisiatria</h3>
-                                        <p class="fst-italic">Es una especialidad médica que ayuda a las personas a recobrar las funciones corporales que perdieron debido a enfermedades o lesiones. Este término con frecuencia se usa para describir el equipo de salud completo, no solo los médicos.</p>
+                                        <h3>Cardiología</h3>
+                                        <p class="fst-italic">Es una especialidad médica dedicada al estudio de las enfermedades del corazón (tanto las orgánicas, que afectan a las válvulas, al miocardio o a la circulación coronaria, como las que se refieren a los trastornos del ritmo cardiaco), y de las repercusiones que otras enfermedades sistémicas (vasculares o no) pueden desempeñar sobre este mismo órgano.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="tab-5">
-                                <div class="row gy-4">
-                                    <div class="col-lg-8 details order-2 order-lg-1">
-                                        <h3>Ortopedia</h3>
-                                        <p class="fst-italic">La ortopedia, o servicios ortopédicos, es la especialidad médica que involucra el tratamiento del sistema musculoesquelético. Incluye sus huesos, articulaciones, ligamentos, tendones y músculos.</p>
-                                    </div>
-                                    <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    </div>
-                                </div>
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
