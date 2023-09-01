@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>Consulta de Pacientes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- enlaces a los archivos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-
 <body>
-
-
-        <table>
-            <thead>
+    <div class="container">
+        <h1 class="my-4 text-center">Consulta de Pacientes</h1>
+        
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
                     <th>Nombre</th>
                     <th>Apellido</th>
@@ -39,7 +35,6 @@ and open the template in the editor.
                     <td th:text="${paciente.fechaNacimiento}"></td>
                     <td th:text="${paciente.obraSocial}"></td>
                     <td th:text="${paciente.numeroAfiliado}"></td>
-
                 </tr>
             </tbody>
         </table>
@@ -51,8 +46,9 @@ and open the template in the editor.
                 </p>
             </div>
         </div>
-    </section>
+    </div>
 
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

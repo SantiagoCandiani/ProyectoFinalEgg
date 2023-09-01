@@ -44,8 +44,8 @@ public class ProfesionalController {
             @RequestParam String matricula,
             @RequestParam Especialidad especialidad,
             @RequestParam List<DiaSemana> diasDisponibles,
-            @RequestParam LocalTime horarioEntrada,
-            @RequestParam LocalTime horarioSalida,
+            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioEntrada,
+            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioSalida,
             @RequestParam Double precioConsulta,
             @RequestParam(required = false) String observaciones,
             @RequestParam String password,
@@ -66,27 +66,38 @@ public class ProfesionalController {
         return "redirect:/login";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROFESIONAL')")
+
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
         model.addAttribute("profesionales", profesionales);
 
-        return "profesional_list";
+        return "lista_profesionales.HTML";
+
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/listarAdmin") //localhost:8080/profesional/listar
+    public String listarProfesionales(Model model) {
+        List<Profesional> profesionales = profesionalServicio.listarTodosProfesionales();
+        model.addAttribute("profesionales", profesionales);
+
+        return "PanelAdminProfesionales";
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/bajaProfesional/{id}")
     public String bajaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
         profesionalServicio.bajaProfesional(id);
-        return "redirect:/profesional/listar";
+        return "redirect:/profesional/listarAdmin";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/altaProfesional/{id}")
     public String altaProfesional(@PathVariable String id, ModelMap model) throws MiExcepcion {
         profesionalServicio.altaProfesional(id);
-        return "redirect:/profesional/listar";
+        return "redirect:/profesional/listarAdmin";
     }
 
 }//class

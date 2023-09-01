@@ -59,7 +59,7 @@ public class ProfesionalServicio extends UsuarioServicio {
         profesional.setHorarioEntrada(horarioEntrada);
         profesional.setHorarioSalida(horarioSalida);
         profesional.setPrecioConsulta(precioConsulta);
-        profesional.setObvervaciones(observaciones);
+        profesional.setObservaciones(observaciones);
         profesional.setReputacion(0.0); // Establecer la reputación en 0.0
 
         profesional.setActivo(false); //lo dajamos inactivo hasta q un admin lo valide
@@ -81,6 +81,10 @@ public class ProfesionalServicio extends UsuarioServicio {
 
     public List<Profesional> listarTodosProfesionales() {
         return profesionalRepo.findAll();
+    }
+    
+    public Profesional profesionalPorID(String id) {
+        return profesionalRepo.buscarProfesionalPorID(id);
     }
 
     @Transactional
@@ -160,7 +164,7 @@ public class ProfesionalServicio extends UsuarioServicio {
             profesional.setHorarioEntrada(horarioEntrada);
             profesional.setHorarioSalida(horarioSalida);
             profesional.setPrecioConsulta(precioConsulta);
-            profesional.setObvervaciones(observaciones);
+            profesional.setObservaciones(observaciones);
             profesional.setActivo(activo);
 
             //probar este metodo para contraseña

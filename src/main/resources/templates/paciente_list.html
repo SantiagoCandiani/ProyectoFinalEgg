@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>Lista de Pacientes</title>
     </head>
@@ -102,7 +102,7 @@
                         <th>Obra Social</th>
                         <th>N° de Afiliado</th>
                         <th>Foto de Perfil</th>
-                        <th>ACCIONES</th>
+                        <th sec:authorize="hasRole('ADMIN')">ACCIONES</th>
                     </tr>
                 <tbody>
                     <tr th:each="paciente : ${pacientes}">
@@ -122,8 +122,8 @@
 
 
 
-                        <td style="text-align: center; vertical-align: middle;">
-                            <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
+                        <td style="text-align: center; vertical-align: middle;" sec:authorize="hasRole('ADMIN')">
+                            <form sec:authorize="hasRole('ADMIN')" th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
                                 <input type="submit" value="Dar de Baja">
                             </form>
                         </td>

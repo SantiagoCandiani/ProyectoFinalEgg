@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <style>
             body {
-                background-image: url('assets/img/fondo-login.jpg');
+                background-image: url('/assets/img/paciente_form.jpg');
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-attachment: fixed;
@@ -17,13 +17,19 @@
                 padding: 20px;
                 border-radius: 10px;
                 margin-top: 100px;
+                border: solid #1977cc;
             }
+            .col-md-6{
+                font-weight: 600;
+            }
+
         </style>
+
     </head>
 
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Medifour</a>
+            <a class="navbar-brand" href="">Medifour</a>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#">Acerca de nosotros</a>
@@ -37,8 +43,11 @@
             </ul>
         </nav>
 
+        <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
+
+
         <div class="container mt-4">
-            <h2>Registro</h2>
+            <h2>Registro de Médicos</h2>
             <form th:action="@{/profesional/registrar}" method="POST" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
@@ -77,11 +86,11 @@
                         <!-- Horario de consulta -->
                         <label for="Horarios-disponibles">Horarios disponibles</label>
                         <div class="form-row">
-                            <h4> Inicio</h4>
+                            <p> Inicio</p>
                             <div class="col-md-3 mb-3">
                                 <input type="time" class="form-control" id="horario-disponibles" placeholder="horario de Inicio" name="horarioEntrada" required>
                             </div>
-                            <h4> Fin</h4>                        
+                            <p> Fin</p>                        
                             <div class="col-md-3 mb-3">
                                 <input type="time" class="form-control" id="horario-disponibles" placeholder="horario de Fin" name="horarioSalida" required>
                             </div>
@@ -154,7 +163,7 @@
                     <!-- Se ingresa la imagen de perfil -->
                     <div class="col-md-6 mb-3">
                         <label for="imagen">Imagen</label>
-                        <input type="file" class="form-control-file" id="imagen" name="archivo">
+                        <input type="file" class="form-control-file" id="imagen" name="archivo" required>
                     </div>
                 </div>
 
@@ -169,12 +178,25 @@
                         <input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir contraseña" required>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="observaciones">Observaciones:</label>
+                        <textarea class="form-control" id="observaciones" name="observaciones" placeholder="Descripción de la especialidad que eligiste, incluye el tipo de servicio que brindas: telemedicina, presencial, ubicación, obras sociales, datos de contacto)" rows="5" required></textarea>
+                    </div>
+                </div>
                 <button class="btn btn-primary" type="submit" value="Registrar">Registrarse</button>
-                <a th:href="@{/profesional/listar}">
-                    <button type="submit">Ver Lista de Profesionales</button>
-                </a>
+
             </form>
         </div>
+        <br>
+
+        <div class="container-boton d-flex justify-content-center">
+            <div class="divVolver">
+                <a th:href="@{/register_usuario}" class="btn btn-primary">Volver</a>
+            </div>
+        </div>
+
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>

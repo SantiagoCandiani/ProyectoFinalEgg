@@ -172,4 +172,9 @@ public class PacienteServicio extends UsuarioServicio {
         }
     }
 
+    public Paciente pacientePorID(String id) {
+        return pacienteRepo.buscarPorId(id);
+    }
+    
+    
 }//Class
