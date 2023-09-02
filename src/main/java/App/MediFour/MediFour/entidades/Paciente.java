@@ -1,9 +1,12 @@
 package App.MediFour.MediFour.entidades;
 
 import App.MediFour.MediFour.enumeraciones.ObraSocial;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,12 +25,10 @@ public class Paciente extends Usuario {
     @Enumerated(EnumType.STRING)
     protected ObraSocial obraSocial;
     protected Integer numeroAfiliado;
-
+ @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY) 
+    private List<Turno> ListaDeturnos;
 //----Relacion con otras entidades----//
     //    @OneToOne //Un paciente tiene una historia clínica
 //    @JoinColumn(name = "historia_clinica_id") //Foreign Key: historia_clinica_id
 //    private HistoriaClinica historiaClinica;
-    //@OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY) //Usando mappedBy (mappedBy: indica cuál atributo de la entidad Turno es dueña del uno a muchos de forma única) indicas que la relación es unidireccional. Un ‘Paciente’ tiene muchos ‘Turnos’ pero un ‘Turno’ no tiene muchos pacientes.
-    //private List<Turno> listaDeTurnos;
-//-----------------------------------//
 }

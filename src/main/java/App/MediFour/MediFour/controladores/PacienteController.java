@@ -1,17 +1,20 @@
 package App.MediFour.MediFour.controladores;
 
 import App.MediFour.MediFour.entidades.Paciente;
+import App.MediFour.MediFour.entidades.Turno;
 import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.enumeraciones.ObraSocial;
 import App.MediFour.MediFour.enumeraciones.Rol;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.PacienteRepositorio;
 import App.MediFour.MediFour.servicios.PacienteServicio;
+import App.MediFour.MediFour.servicios.TurnoServicio;
 import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/paciente")
 public class PacienteController {
 
+    @Autowired
+    private TurnoServicio turnoServicio;
     @Autowired
     private PacienteServicio pacienteServicio;
     @Autowired
@@ -255,6 +260,44 @@ public class PacienteController {
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             return "paciente_perfil_ver.html";
+        }
+    }  
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/ver-turno/{id}") // Ruta para ver el detalle de un turno
+    public String verDetalleTurno(@PathVariable String id, ModelMap model) {
+        try {
+            Turno turno = turnoServicio.obtenerTurnoPorId(id);
+
+            if (turno != null) {
+                model.addAttribute("turno", turno);
+                return "ver_turno.html"; // Renderiza la página de detalle de turno
+            } else {
+                model.addAttribute("error", "No se encontró el turno.");
+            }
+        } catch (MiExcepcion ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+
+        return "redirect:/paciente/listar-turnos"; // Redirige a la lista de turnos si hay un error
+    }
+// El paciente elige un turno existente
+
+    @PostMapping("/elegir-turno")
+    public ResponseEntity<String> elegirTurno(@RequestParam String idTurno, @RequestParam String idPaciente) {
+        try {
+            Paciente paciente = pacienteServicio.pacientePorID(idTurno);
+            Turno turno = turnoServicio.obtenerTurnoPorId(idTurno);
+
+            boolean exito = turnoServicio.elegirTurno(idTurno, paciente);
+
+            if (exito) {
+                return ResponseEntity.ok("Turno elegido exitosamente.");
+            } else {
+                return ResponseEntity.badRequest().body("No se pudo elegir el turno.");
+            }
+        } catch (MiExcepcion e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
