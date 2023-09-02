@@ -79,7 +79,7 @@ public class PacienteController {
 
         return "paciente_list.html";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listarAdmin") //localhost:8080/paciente/listar
     public String listarPacientes(Model model) {
@@ -125,28 +125,103 @@ public class PacienteController {
         return "redirect:/paciente/listar";
     }
 
+//    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+//    @GetMapping("/modificar/{id}")
+//    public String mostrarPerfilPaciente(@PathVariable String id, ModelMap modelo, HttpSession session) {
+//        try {
+//
+//            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+//            modelo.addAttribute("log", logueado);
+//            modelo.addAttribute("user", pacienteServicio.getOne(id));
+//            modelo.addAttribute("id", pacienteServicio.getOne(id).getId());
+//            return "paciente_perfil.html";
+//
+//        } catch (Exception ex) {
+//            Rol[] roles = Rol.values();
+//            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+//            modelo.addAttribute("log", logueado);
+//            modelo.put("error", ex.getMessage());
+//            return "paciente_perfil.html";
+//        }
+//    }
+//
+//    @PostMapping("/modificar/{id}")
+//    public String modificarPerfilPaciente(
+//            @PathVariable String id,
+//            @RequestParam String nombre,
+//            @RequestParam String apellido,
+//            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
+//            @RequestParam Integer dni,
+//            @RequestParam String telefono,
+//            @RequestParam String email,
+//            @RequestParam(required = false) Boolean tieneObraSocial,
+//            @RequestParam(required = false) ObraSocial obraSocial,
+//            @RequestParam(required = false) Integer numeroAfiliado,
+//            @RequestParam String password,
+//            @RequestParam String password2,
+//            @RequestParam(required = false) MultipartFile archivo,
+//            ModelMap modelo,
+//            HttpSession session) {
+//        try {
+//            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+//            modelo.addAttribute("log", logueado);
+//
+//             Aquí obtienes el objeto de usuario desde tu servicio o base de datos
+//            Usuario usuario = pacienteServicio.getOne(id);
+//
+//            if (usuario != null) {
+//                modelo.addAttribute("paciente", usuario);
+//
+//                 Llamar al servicio para actualizar los datos del paciente
+//                pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
+//
+//                modelo.put("exito", "Tus datos fueron modificados correctamente!");
+//            } else {
+//                 Manejo de usuario nulo
+//                modelo.put("error", "No se encontró el usuario.");
+//            }
+//        } catch (MiExcepcion ex) {
+//            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+//            modelo.addAttribute("log", logueado);
+//
+//             Aquí obtienes el objeto de usuario desde tu servicio o base de datos
+//            Usuario usuario = pacienteServicio.getOne(id);
+//
+//            if (usuario != null) {
+//                modelo.addAttribute("paciente", usuario);
+//                modelo.addAttribute("id", usuario.getId());
+//                modelo.put("error", ex.getMessage());
+//                return "redirect:/paciente/perfil/" + id;
+//            } else {
+//                 Manejo de usuario nulo
+//                modelo.put("error", "No se encontró el usuario.");
+//            }
+//
+//        }
+//
+//        return "redirect:/inicio";
+//    }
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
-    @GetMapping("/modificar/{id}")
-    public String mostrarPerfilPaciente(@PathVariable String id, ModelMap modelo, HttpSession session) {
-        try {
+    @GetMapping("/perfil/{id}") //localhost:8080/paciente/perfil
+    public String mostrarPacientePerfil(ModelMap model, HttpSession session) {
 
-            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-            modelo.addAttribute("log", logueado);
-            modelo.addAttribute("user", pacienteServicio.getOne(id));
-            modelo.addAttribute("id", pacienteServicio.getOne(id).getId());
-            return "paciente_perfil.html";
+        Paciente paciente = (Paciente) session.getAttribute("usuariosession");
 
-        } catch (Exception ex) {
-            Rol[] roles = Rol.values();
-            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-            modelo.addAttribute("log", logueado);
-            modelo.put("error", ex.getMessage());
-            return "paciente_perfil.html";
+        if (paciente != null) {
+            // El paciente está presente en la sesión
+            System.out.println("Paciente en mostrarPacientePerfil del get: " + paciente.toString()); // Imprime la información del paciente en la consola
+            model.addAttribute("paciente", paciente);
+        } else {
+            // El paciente no está presente en la sesión
+            System.out.println("Paciente no encontrado en la sesión.");
         }
+
+        return "paciente_perfil_ver.html";
     }
 
-    @PostMapping("/modificar/{id}")
-    public String modificarPerfilPaciente(
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PostMapping("/perfil/{id}") //localhost:8080/paciente/perfil
+    public String actualizarPacientePerfil(
             @PathVariable String id,
             @RequestParam String nombre,
             @RequestParam String apellido,
@@ -161,58 +236,25 @@ public class PacienteController {
             @RequestParam String password2,
             @RequestParam(required = false) MultipartFile archivo,
             ModelMap modelo,
-            HttpSession session) {
-        try {
-            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-            modelo.addAttribute("log", logueado);
+            HttpSession session) throws MiExcepcion {
 
-            // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
-            Usuario usuario = pacienteServicio.getOne(id);
-
-            if (usuario != null) {
-                modelo.addAttribute("paciente", usuario);
-
-                // Llamar al servicio para actualizar los datos del paciente
-                pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
-
-                modelo.put("exito", "Tus datos fueron modificados correctamente!");
-            } else {
-                // Manejo de usuario nulo
-                modelo.put("error", "No se encontró el usuario.");
-            }
-        } catch (MiExcepcion ex) {
-            Usuario logueado = (Usuario) session.getAttribute("usuariosession");
-            modelo.addAttribute("log", logueado);
-
-            // Aquí obtienes el objeto de usuario desde tu servicio o base de datos
-            Usuario usuario = pacienteServicio.getOne(id);
-
-            if (usuario != null) {
-                modelo.addAttribute("paciente", usuario);
-                modelo.addAttribute("id", usuario.getId());
-                modelo.put("error", ex.getMessage());
-                return "redirect:/paciente/perfil/" + id;
-            } else {
-                // Manejo de usuario nulo
-                modelo.put("error", "No se encontró el usuario.");
-            }
-
+        // Imprime el paciente en la consola para verificar si llega
+        Paciente paciente = (Paciente) session.getAttribute("usuariosession");
+        if (paciente != null) {
+            System.out.println("Paciente en actualizarPacientePerfil del POST: " + paciente.toString());
+        } else {
+            System.out.println("Paciente en actualizarPacientePerfil no encontrado en la sesión.");
         }
 
-        return "redirect:/inicio";
+        try {
+            pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
+            modelo.put("exito", "Usuario actualizado correctamente!");
+            return "paciente_perfil_ver.html";
+        } catch (MiExcepcion ex) {
+            modelo.put("error", ex.getMessage());
+            return "paciente_perfil_ver.html";
+        }
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
-    @GetMapping("/perfil/{id}") //localhost:8080/paciente/perfil
-    public String mostrarPacientePerfil(ModelMap model, HttpSession session) {
-        //pasa el ID de profesional solo por el path
-        //TODO: linkear con lista de profesionales
-        
-        Paciente logueado = (Paciente) session.getAttribute("usuariosession");
-        
-        //Paciente paciente = pacienteServicio.pacientePorID(id);
-        model.addAttribute("paciente", logueado);
-        return "paciente_perfil_ver.html";
-    }
 }//Class
 
