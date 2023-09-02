@@ -201,25 +201,27 @@ public class PacienteController {
 //
 //        return "redirect:/inicio";
 //    }
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
-    @GetMapping("/perfil/{id}") //localhost:8080/paciente/perfil
+// Dentro de tu controlador
+    @GetMapping("/perfil/{id}")
     public String mostrarPacientePerfil(ModelMap model, HttpSession session) {
-
+        // Obtiene el paciente de la sesión
         Paciente paciente = (Paciente) session.getAttribute("usuariosession");
 
+        // Verifica si el paciente es nulo
         if (paciente != null) {
             // El paciente está presente en la sesión
-            System.out.println("Paciente en mostrarPacientePerfil del get: " + paciente.toString()); // Imprime la información del paciente en la consola
+            System.out.println("******* Paciente en mostrarPacientePerfil del get: " + paciente.toString()); // Imprime la información del paciente en la consola
             model.addAttribute("paciente", paciente);
         } else {
             // El paciente no está presente en la sesión
             System.out.println("Paciente no encontrado en la sesión.");
+            // Puedes manejar este caso de alguna manera, como redirigiendo a una página de error o realizando alguna otra acción apropiada.
         }
 
         return "paciente_perfil_ver.html";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    //@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @PostMapping("/perfil/{id}") //localhost:8080/paciente/perfil
     public String actualizarPacientePerfil(
             @PathVariable String id,
@@ -241,9 +243,9 @@ public class PacienteController {
         // Imprime el paciente en la consola para verificar si llega
         Paciente paciente = (Paciente) session.getAttribute("usuariosession");
         if (paciente != null) {
-            System.out.println("Paciente en actualizarPacientePerfil del POST: " + paciente.toString());
+            System.out.println("******* Paciente en actualizarPacientePerfil del POST: " + paciente.toString());
         } else {
-            System.out.println("Paciente en actualizarPacientePerfil no encontrado en la sesión.");
+            System.out.println("******* Paciente en actualizarPacientePerfil no encontrado en la sesión.");
         }
 
         try {

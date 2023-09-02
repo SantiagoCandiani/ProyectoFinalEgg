@@ -18,7 +18,7 @@
             <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
 
             <div class="img text-center">
-                <a th:if="${paciente.imagen != null}" th:href="@{/imagen/perfil/__${paciente.id}__}">
+                <a th:href="@{/imagen/perfil/__${paciente.id}__}">
                     <img class="img-fluid" th:style="'max-width: 50%; height: auto; padding: 10px 15px;'" th:src="@{/imagen/perfil/__${paciente.id}__}">
                 </a>
             </div>
@@ -26,7 +26,7 @@
         </div>
 
         <div class="container mt-3">
-            <form action="/perfil/${id}" method="post" enctype="multipart/form-data">
+            <form class="formulario" th:action="@{/paciente/perfil/__${id}__}" method="POST" enctype="multipart/form-data">
 
                 <input type="hidden" th:value="${id}" name="id">
 
