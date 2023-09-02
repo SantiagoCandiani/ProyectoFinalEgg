@@ -44,8 +44,8 @@ public class ProfesionalController {
             @RequestParam String matricula,
             @RequestParam Especialidad especialidad,
             @RequestParam List<DiaSemana> diasDisponibles,
-            @RequestParam LocalTime horarioEntrada,
-            @RequestParam LocalTime horarioSalida,
+            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioEntrada,
+            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioSalida,
             @RequestParam Double precioConsulta,
             @RequestParam(required = false) String observaciones,
             @RequestParam String password,
@@ -65,18 +65,18 @@ public class ProfesionalController {
         }
         return "redirect:/login";
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROFESIONAL')")
 
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
         List<Profesional> profesionales = profesionalServicio.listarProfesionalesActivos();
         model.addAttribute("profesionales", profesionales);
-        
+
         return "lista_profesionales.HTML";
 
     }
-    
+
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/listarAdmin") //localhost:8080/profesional/listar
     public String listarProfesionales(Model model) {

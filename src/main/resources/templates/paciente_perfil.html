@@ -85,6 +85,7 @@
         <section id="hero" class="d-flex align-items-center">
             <div class="container">
                 <h1>Bienvenido a tu perfil</h1>
+
                 <h5>
                     Nombre: <span th:text="${session.usuariosession.nombre}"></span>
                 </h5>
@@ -109,9 +110,9 @@
                         th:if="${session.usuariosession != null}"
                         th:action="@{/paciente/modificar/__${id}__}"
                         method="POST"
-                        enctype="multipart/form-data"
-                        >
+                        enctype="multipart/form-data">
                         <input hidden th:value="${id}" name="id" />
+
                         <h2>Información Personal</h2>
                         <h3>Información Básica</h3>
                         <div class="form-group my-3">
@@ -259,6 +260,7 @@
         </main>
         <!-- End #main -->
 
+
         <!-- ======= Footer ======= -->
         <footer id="footer">
             <div class="container d-md-flex py-4">
@@ -304,3 +306,4 @@
         
     </body>
 </html>
+

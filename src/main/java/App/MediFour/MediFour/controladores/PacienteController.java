@@ -162,7 +162,6 @@ public class PacienteController {
             @RequestParam(required = false) MultipartFile archivo,
             ModelMap modelo,
             HttpSession session) {
-
         try {
             Usuario logueado = (Usuario) session.getAttribute("usuariosession");
             modelo.addAttribute("log", logueado);
@@ -197,6 +196,7 @@ public class PacienteController {
                 // Manejo de usuario nulo
                 modelo.put("error", "No se encontró el usuario.");
             }
+
         }
 
         return "redirect:/inicio";
