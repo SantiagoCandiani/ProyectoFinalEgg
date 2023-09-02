@@ -70,10 +70,19 @@ public class PacienteServicio extends UsuarioServicio {
         paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setRol(Rol.USER); //por defecto le damos el rol de user en vez de admin
 
-        // Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
+// Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
         if (archivo != null && !archivo.isEmpty()) {
             Imagen imagen = imagenServicio.guardar(archivo);
             paciente.setImagen(imagen);
+        } else {
+            // Si no se proporcionó una imagen, asigna la imagen por defecto desde el servicio de Imagen
+            Imagen imagenPorDefecto = imagenServicio.ImagenPacientePorDefecto();
+            if (imagenPorDefecto != null) {
+                paciente.setImagen(imagenPorDefecto);
+            } else {
+                // Si no se pudo obtener la imagen por defecto, maneja el caso de error de alguna manera
+                throw new MiExcepcion("No se pudo obtener la imagen por defecto.");
+            }
         }
 
         pacienteRepo.save(paciente);
@@ -128,9 +137,13 @@ public class PacienteServicio extends UsuarioServicio {
 
         usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
 
+        System.out.println("Entre a MODIFICAR"); // Imprime la información del paciente en la consola
+
         Optional<Paciente> respuesta = pacienteRepo.findById(id);
         if (respuesta.isPresent()) {
             Paciente paciente = respuesta.get();
+
+            System.out.println("Paciente en actualizarPaciente del SERVICIO: " + paciente.toString());
 
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
@@ -168,13 +181,18 @@ public class PacienteServicio extends UsuarioServicio {
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 paciente.setImagen(imagen);
             }
+            System.out.println("Paciente en actualizarPaciente del SERVICIO: " + paciente.toString());
+
             pacienteRepo.save(paciente);
         }
+    }
+
+    public Usuario getOne(String id) {
+        return pacienteRepo.getOne(id);
     }
 
     public Paciente pacientePorID(String id) {
         return pacienteRepo.buscarPorId(id);
     }
-    
-    
+
 }//Class
