@@ -206,6 +206,7 @@ public class PacienteController {
     public String mostrarPacientePerfil(ModelMap model, HttpSession session) {
         // Obtiene el paciente de la sesión
         Paciente paciente = (Paciente) session.getAttribute("usuariosession");
+        System.out.println("******* Paciente en sesión: " + paciente); // Verifica si paciente es nulo o tiene un valor válido
 
         // Verifica si el paciente es nulo
         if (paciente != null) {
