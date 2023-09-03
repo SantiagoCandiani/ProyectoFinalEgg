@@ -62,6 +62,11 @@ public class TurnoServicio {
         }
     }
 
+    public List<Paciente> obtenerNombresPacientesConTurnoPorMedico(String profesionalId) {
+        List<Paciente> pacientes = turnoRepositorio.obtenerNombresPacientesConTurnoPorMedico(profesionalId);
+        return pacientes;
+    }
+
     @Transactional
     public void eliminarTurno(String id) {
         try {

@@ -26,9 +26,9 @@
         </div>
 
         <div class="container mt-3">
-            <form class="formulario" th:action="@{/paciente/perfil/__${id}__}" method="POST" enctype="multipart/form-data">
+            <form class="formulario" th:action="@{/paciente/perfil/__${paciente.id}__}" method="POST" enctype="multipart/form-data">
 
-                <input type="hidden" th:value="${id}" name="id">
+                <input hidden th:value= "${paciente.id}" name="id">
 
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>

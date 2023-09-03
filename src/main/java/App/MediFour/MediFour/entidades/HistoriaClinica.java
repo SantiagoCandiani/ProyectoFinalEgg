@@ -1,12 +1,7 @@
 package App.MediFour.MediFour.entidades;
 
-import App.MediFour.MediFour.enumeraciones.ObraSocial;
-import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -23,23 +18,18 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Paciente")
-public class Paciente extends Usuario implements Serializable {
+@Table(name = "HistoriaClinica")
+public class HistoriaClinica {
 
     @Id
     @GeneratedValue(generator = "uuid") //genera un valor de manera automatica al momento que el repo persita la entidad.
     @GenericGenerator(name = "uuid", strategy = "uuid2") //es una estrategia alternativa
     private String id;
 
-    protected Boolean tieneObraSocial;
-    @Enumerated(EnumType.STRING)
-    protected ObraSocial obraSocial;
-    protected Integer numeroAfiliado;
-
-    @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
-    private List<Turno> listaDeturnos;
+    @OneToOne
+    private Paciente paciente;
 
     @OneToMany
-    private List<FichaMedica> historialMedico;
+    private List<FichaMedica> fichasMedicas;
 
 }
