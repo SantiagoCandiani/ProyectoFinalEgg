@@ -18,6 +18,9 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, String> {
 
     @Query("SELECT d FROM Usuario d WHERE d.dni =:dni")
     public Usuario buscarPorDni(@Param("dni") Integer dni);
+    
+    @Query("SELECT i FROM Usuario i WHERE i.id =:id")
+    public Usuario buscarPorId(@Param("id") String id);
 
     List<Usuario> findByActivoTrue(); // Utiliza el nombre de método con la convención para filtrar profesionales activos
 

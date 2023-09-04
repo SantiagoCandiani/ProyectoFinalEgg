@@ -38,7 +38,7 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public void registrar(String nombre, String email, String password, String password2) throws MiExcepcion {
 
-        validar(nombre, email, password, password2);
+        validarCorto(nombre, email, password, password2);
 
         Usuario usuario = new Usuario();
 
@@ -53,7 +53,7 @@ public class UsuarioServicio implements UserDetailsService {
 
     }
 
-    private void validar(String nombre, String email, String password, String password2) throws MiExcepcion {
+    private void validarCorto(String nombre, String email, String password, String password2) throws MiExcepcion {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new MiExcepcion("El nombre no puede ser nulo o estar vacio");

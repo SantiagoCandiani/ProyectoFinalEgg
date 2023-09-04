@@ -1,15 +1,20 @@
 package App.MediFour.MediFour.controladores;
 
+import App.MediFour.MediFour.entidades.Paciente;
 import App.MediFour.MediFour.entidades.Profesional;
+import App.MediFour.MediFour.entidades.Turno;
 import App.MediFour.MediFour.enumeraciones.DiaSemana;
 import App.MediFour.MediFour.enumeraciones.Especialidad;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
+import App.MediFour.MediFour.servicios.PacienteServicio;
 import App.MediFour.MediFour.servicios.ProfesionalServicio;
+import App.MediFour.MediFour.servicios.TurnoServicio;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +29,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/profesional")
 public class ProfesionalController {
+
+    @Autowired
+    private TurnoServicio turnoServicio;
+    @Autowired
+    private PacienteServicio pacienteServicio;
 
     @Autowired
     private ProfesionalServicio profesionalServicio;
@@ -99,6 +109,24 @@ public class ProfesionalController {
         profesionalServicio.altaProfesional(id);
         return "redirect:/profesional/listarAdmin";
     }
+    
+//El profesional crea un nuevo turno para un paciente
 
-}//class
+    @PostMapping("/crear-turno")
+    public ResponseEntity<String> crearTurno(@RequestParam String fecha, @RequestParam String hora, @RequestParam String consulta, @RequestParam String idProfesional, @RequestParam String idPaciente) {
+        try {
+            Paciente paciente = pacienteServicio.pacientePorID(idPaciente);
 
+            Turno nuevoTurno = turnoServicio.crearTurno(fecha, hora, Boolean.FALSE, consulta, idProfesional);
+
+            if (nuevoTurno != null) {
+                return ResponseEntity.ok("Turno creado exitosamente.");
+            } else {
+                return ResponseEntity.badRequest().body("No se pudo crear el turno.");
+            }
+        } catch (MiExcepcion e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+
+    }
+}
