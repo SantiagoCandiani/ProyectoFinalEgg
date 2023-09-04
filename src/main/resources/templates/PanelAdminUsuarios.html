@@ -81,10 +81,13 @@
                         <td th:text="${usuario.activo}"></td>
                         <td style="text-align: center; vertical-align: middle;">
                             <form th:action="@{/usuario/bajaUsuario/{id}(id=${usuario.id})}" method="get">
-                                <input type="submit" value="Dar de Baja">
+                                <button type="submit" value="Baja" >Baja</button>
                             </form>
                             <form th:action="@{/usuario/altaUsuario/{id}(id=${usuario.id})}" method="get">
-                                <input type="submit" value="Habilitar">
+                                <button type="submit" value="Alta" >Alta</button>
+                            </form>
+                            <form th:action="@{/usuario/cambiar-rol/{id}(id=${usuario.id})}" method="get">
+                                <button type="submit" value="Cambio" >Cambio Rol</button>
                             </form>
                         </td>
                     </tr>
