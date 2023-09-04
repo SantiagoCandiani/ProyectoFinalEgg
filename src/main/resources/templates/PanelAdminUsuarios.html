@@ -86,6 +86,9 @@
                             <form th:action="@{/usuario/altaUsuario/{id}(id=${usuario.id})}" method="get">
                                 <button type="submit" value="Alta" >Alta</button>
                             </form>
+                            <form th:action="@{/usuario/cambiar-rol/{id}(id=${usuario.id})}" method="get">
+                                <button type="submit" value="Cambio" >Cambio Rol</button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>

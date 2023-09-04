@@ -188,10 +188,18 @@ public class UsuarioServicio implements UserDetailsService {
         Optional<Usuario> respuesta = usuarioRepo.findById(id);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();
-            if (usuario.getRol().equals(Rol.USER)) {
-                usuario.setRol(Rol.ADMIN);
-            } else if (usuario.getRol().equals(Rol.ADMIN)) {
-                usuario.setRol(Rol.USER);
+            switch (usuario.getRol()) {
+                case USER:
+                    usuario.setRol(Rol.PROFESIONAL);
+                    break;
+                case PROFESIONAL:
+                    usuario.setRol(Rol.ADMIN);
+                    break;
+                case ADMIN:
+                    usuario.setRol(Rol.USER);
+                    break;
+                default:
+                    break;
             }
         }
     }
