@@ -156,6 +156,40 @@ public class UsuarioServicio implements UserDetailsService {
             throw new MiExcepcion("Las contraseñas ingresadas deben ser iguales.");
         }
     }
+    
+    public void validarModificarUsuario(String nombre, String apellido, LocalDate fechaNacimiento,
+            Integer dni, String telefono, String email) throws MiExcepcion {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new MiExcepcion("El nombre no puede ser nulo o estar vacío.");
+        }
+        if (apellido == null || apellido.isEmpty()) {
+            throw new MiExcepcion("El apellido no puede ser nulo o estar vacío.");
+        }
+        if (fechaNacimiento == null) {
+            throw new MiExcepcion("La fecha de nacimiento no puede ser nula.");
+        }
+
+        if (dni == null || dni < 999) {
+            throw new MiExcepcion("El DNI no puede ser nulo y debe contener al menos 4 dígitos.");
+        }
+        /*if (usuarioRepo.buscarPorDni(dni) != null) {
+            throw new MiExcepcion("El DNI está en uso.");
+        }*/
+        if (telefono == null || telefono.isEmpty() || telefono.length() <= 4) {
+            throw new MiExcepcion("El teléfono no puede estar vacío y debe tener más de 4 caracteres.");
+        }
+        /*if (usuarioRepo.buscarPorTelefono(telefono) != null) {
+            throw new MiExcepcion("El teléfono ya está en uso.");
+        }*/
+        if (email == null || email.isEmpty()) {
+            throw new MiExcepcion("El email no puede ser nulo o estar vacío.");
+        }
+        /*if (usuarioRepo.buscarPorEmail(email) != null) {
+            throw new MiExcepcion("El email ya está en uso.");
+        }*/
+        
+    }
+
 
     //clase abstracta de UserDetailsService para poder autenticar a usuarios    
     @Override
