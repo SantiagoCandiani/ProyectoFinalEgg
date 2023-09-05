@@ -7,27 +7,111 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link href="/styleProfesionalPerfil.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <link href="/css/perfil_paciente.css" rel="stylesheet">
     </head>
+    
     <body>
-        <div>
-            <h1>Perfil del Paciente</h1>
-            <p>Nombre: <span th:text="${paciente.nombre}"></span></p>
-            <p>Apellido: <span th:text="${paciente.apellido}"></span></p>
-            <p>Fecha de Nacimiento: <span th:text="${paciente.fechaNacimiento}"></span></p>
-            <p>DNI: <span th:text="${paciente.dni}"></span></p>
-            <p>Teléfono: <span th:text="${paciente.telefono}"></span></p>
-            <p>Email: <span th:text="${paciente.email}"></span></p>
-            <p>Imagen: </p>
-            <div class="img">
-                <a th:if="${paciente.imagen != null}" th:href="@{/imagen/perfil/__${paciente.id}__}">
-                    <img th:style="'width: 50%; margin: auto; height: auto; padding: 10px 15px;'" th:src="@{/imagen/perfil/__${paciente.id}__}">
+             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Medifour</a>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Acerca de nosotros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Especialidades</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Doctores</a>
+              </li>
+          </ul>
+        </nav>
+        
+         <div class="container">
+        <div class="sidebar">
+            <h1>Ajustes del Usuario</h1>
+            <ul>
+                <li id="mi-cuenta">Mi Cuenta</li>
+                <li id="editar-perfil">Editar Perfil</li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1 id="section-title">Bienvenido</h1>
+            <div id="section-content">
+                <p>Selecciona una opción de la izquierda para ver los detalles.</p>
+            </div>
+        </div>
+    </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+    const miCuenta = document.getElementById("mi-cuenta");
+    const editarPerfil = document.getElementById("editar-perfil");
+    const sectionTitle = document.getElementById("section-title");
+    const sectionContent = document.getElementById("section-content");
+
+    miCuenta.addEventListener("click", function() {
+        sectionTitle.textContent = "Mi Cuenta";
+        sectionContent.innerHTML = `
+            <section class="user-info">
+            <div class="user-avatar">
+                <a th:if="\${paciente.imagen != null}" th:href="@{/imagen/perfil/__\${paciente.id}__}">
+                <img th:style="'width: 50%; margin: auto; height: auto; padding: 10px 15px;'" th:src="@{/imagen/perfil/__\${paciente.id}__}">
                 </a>
             </div>
-            
+            <div class="user-details">
+                <h2>Mi Perfil</h2>
+                <p><strong>Nombre:</strong><span th:text="\${paciente.nombre}\"></span></p>
+                <p><strong>Apellido:</strong><span th:text="\${paciente.apellido}\"></span></p>
+                <p><strong>Correo Electrónico:</strong><span th:text="\${paciente.email}\"></span></p>
+                <p><strong>Número de Teléfono:</strong><span th:text="\${paciente.telefono}\"></span></p>
+            </div>
+        </section>`;
+    });
 
-        </div>
-
-    </body>
+    editarPerfil.addEventListener("click", function() {
+        sectionTitle.textContent = "Editar Perfil";
+        sectionContent.innerHTML = `
+        <section class="change-perfil"> 
+        <form>
+                <label for="new-name">Nuevo Nombre:</label>
+                <input type="text" id="new-name" name="new-name" required>
+                
+                <label for="new-email">Nuevo Correo Electrónico:</label>
+                <input type="email" id="new-email" name="new-email" required>
+                
+                <label for="new-phone">Nuevo Número de Teléfono:</label>
+                <input type="tel" id="new-phone" name="new-phone" required>
+                
+                <button type="submit">Guardar Cambios</button>
+        </form>
+        </section>
+        <section class="change-password">
+            <h2>Cambiar Contraseña</h2>
+            <form>
+                <label for="current-password">Contraseña Actual:</label>
+                <input type="password" id="current-password" name="current-password" required>
+                
+                <label for="new-password">Nueva Contraseña:</label>
+                <input type="password" id="new-password" name="new-password" required>
+                
+                <label for="confirm-password">Confirmar Nueva Contraseña:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+                
+                <button type="submit">Cambiar Contraseña</button>
+            </form>
+        </section>
+        
+        <section class="delete-account">
+            <h2>Eliminar Cuenta</h2>
+            <p>Una vez que elimines tu cuenta, no podrás recuperarla.</p>
+            <button class="delete-button">Eliminar Cuenta</button>
+        </section>
+        `;
+    `;
+    });
+});
+        </script>
+               
+    
+</body>
 </html>

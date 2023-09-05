@@ -1761,7 +1761,7 @@ section {
     align-items: center; /* Centrar verticalmente */
     overflow: hidden;
     border-radius: 50%; /* Borde redondeado */
-    border: 2px solid #ccc; /* Borde con un grosor de 2px y color gris (#ccc) */
+    border: 2px solid #1977cc;; /* Borde con un grosor de 2px y color gris (#ccc) */
     margin-bottom: 10px; /* Esp*/
 }
 

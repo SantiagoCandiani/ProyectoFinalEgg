@@ -1,21 +1,23 @@
+/* Estilos generales */
 body {
   font-family: 'Open Sans', sans-serif;
   color: black;
 }
 
+/* Estilo del formulario */
 .form-container {
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi transparente */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi transparente en color claro */
   padding: 30px;
   border-radius: 10px;
   width: 60%;
-  border: solid #1977cc;
+  border: 1px solid #1977cc; /* Borde alrededor del formulario */
 }
 
+/* Estilo para los campos de entrada */
 .form-group {
   margin-bottom: 15px;
 }
 
-/* Estilos para los campos de entrada */
 .form-group label {
   font-weight: 600;
 }
@@ -25,13 +27,12 @@ body {
 .form-group input[type="email"],
 .form-group input[type="date"],
 .form-group input[type="password"],
-.form-group select
- {
+.form-group select {
   width: 100%;
   padding: 10px;
-  border: none;
-  background-color: white; /* Campo semi transparente */
-  color: #fff;
+  border: 1px solid #ccc; /* Borde alrededor de los campos */
+  background-color: rgba(255, 255, 255, 0.8); /* Campo semi transparente en color claro */
+  color: black; /* Cambiado a color negro */
   border-radius: 5px;
 }
 
@@ -67,7 +68,6 @@ a:hover {
   margin-bottom: 30px;
 }
 
-
 /* Estilos para el logo */
 .logo {
   font-size: 28px;
@@ -90,6 +90,8 @@ a:hover {
 .success-msg {
   background-color: #28a745;
 }
-.form-group-titulo{
-     font-weight: 600; 
+
+/* Estilo para los títulos de grupos */
+.form-group-titulo {
+  font-weight: 600;
 }
