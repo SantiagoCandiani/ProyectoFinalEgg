@@ -53,6 +53,7 @@
             <div class="col-md-4">
                 <a th:href="@{/profesional/listarAdmin}" class="btn btn-primary btn-block">Profesionales</a>
             </div>
+            
             <div class="col-md-4">
                 <a class="btn btn-secondary btn-block">Pacientes</a>
             </div>
@@ -71,6 +72,7 @@
                     <th>N°Afiliado</th>
                     <th>Imagen</th>
                     <th>Activo</th>
+                    <th>Funciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,10 +94,13 @@
 
 
                     <td style="text-align: center; vertical-align: middle;">
-                        <form th:action="@{/paciente/bajaPaciente/{id}(id=${paciente.id})}" method="get">
-                            <input type="submit" value="Dar de Baja">
-                        </form>
-                    </td>
+                            <form th:action="@{/usuario/bajaUsuario/{id}(id=${paciente.id})}" method="get">
+                                <button type="submit" value="Baja" >Baja</button>
+                            </form>
+                            <form th:action="@{/usuario/altaUsuario/{id}(id=${paciente.id})}" method="get">
+                                <button type="submit" value="Alta" >Alta</button>
+                            </form>
+                        </td>
                 </tr>
             </tbody>
         </table>

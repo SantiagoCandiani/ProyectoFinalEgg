@@ -75,8 +75,8 @@
                         <th>Precio Consulta</th>
                         <th>Imagen</th>
                         <th>Activo</th>
-                        <th>Dar baja</th>
-                        <th>Dar alta</th>
+                        <th>Funciones</th>
+                        
 
                     </tr>
                 </thead>
@@ -101,14 +101,13 @@
                         </td>
                         <td th:text="${profesional.activo}"></td>
                         <td style="text-align: center; vertical-align: middle;">
-                            <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
-                                <input type="submit" value="Dar de Baja">
+                            <form th:action="@{/usuario/bajaUsuario/{id}(id=${profesional.id})}" method="get">
+                                <button type="submit" value="Baja" >Baja</button>
+                            </form>
+                            <form th:action="@{/usuario/altaUsuario/{id}(id=${profesional.id})}" method="get">
+                                <button type="submit" value="Alta" >Alta</button>
                             </form>
                         </td>
-                        <td style="text-align: center; vertical-align: middle;">
-                            <form th:action="@{/profesional/altaProfesional/{id}(id=${profesional.id})}" method="get">
-                                <input type="submit" value="Habilitar">
-                            </form></td>
                     </tr>
                 </tbody>
             </table>

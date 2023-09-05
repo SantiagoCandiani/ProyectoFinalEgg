@@ -66,10 +66,19 @@ public class ProfesionalServicio extends UsuarioServicio {
         profesional.setPassword(new BCryptPasswordEncoder().encode(password));
         profesional.setRol(Rol.PROFESIONAL);
 
-        // Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
+// Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
         if (archivo != null && !archivo.isEmpty()) {
             Imagen imagen = imagenServicio.guardar(archivo);
             profesional.setImagen(imagen);
+        } else {
+            // Si no se proporcionó una imagen, asigna la imagen por defecto desde el servicio de Imagen
+            Imagen imagenPorDefecto = imagenServicio.ImagenProfesionalPorDefecto();
+            if (imagenPorDefecto != null) {
+                profesional.setImagen(imagenPorDefecto);
+            } else {
+                // Si no se pudo obtener la imagen por defecto, maneja el caso de error de alguna manera
+                throw new MiExcepcion("No se pudo obtener la imagen por defecto.");
+            }
         }
 
         profesionalRepo.save(profesional);
@@ -82,7 +91,7 @@ public class ProfesionalServicio extends UsuarioServicio {
     public List<Profesional> listarTodosProfesionales() {
         return profesionalRepo.findAll();
     }
-    
+
     public Profesional profesionalPorID(String id) {
         return profesionalRepo.getOne(id);
     }
