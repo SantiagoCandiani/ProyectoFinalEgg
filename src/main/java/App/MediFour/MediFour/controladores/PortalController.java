@@ -1,5 +1,6 @@
 package App.MediFour.MediFour.controladores;
 
+import App.MediFour.MediFour.entidades.Profesional;
 import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.servicios.UsuarioServicio;
@@ -25,6 +26,7 @@ public class PortalController {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+    
 
     @GetMapping("/")
     public String index() {
@@ -70,7 +72,11 @@ public class PortalController {
     
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/inicio")
-    public String inicio(HttpSession session){
+    public String inicio(HttpSession session, ModelMap model){
+        
+        //Profesional profesional = new Profesional();
+        
+        //model.addAttribute("profesional",profesional);
         
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         
