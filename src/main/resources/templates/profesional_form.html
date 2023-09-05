@@ -84,7 +84,9 @@
                     <div class="col-md-6 mb-3">
                         <label for="Horarios-disponibles">Horarios disponibles</label>
                         <div class="form-row">
+
                             <h4>Inicio</h4>
+
                             <div class="col-md-3 mb-3">
                                 <select class="form-control" id="horario-inicio" name="horarioInicio" required>
                                     <option value="06:00">06:00</option>
@@ -127,7 +129,9 @@
                                     <!-- Agrega más opciones según tus necesidades -->
                                 </select>
                             </div>
+
                             <h4>Fin</h4>
+
                             <div class="col-md-3 mb-3">
                                 <select class="form-control" id="horario-fin" name="horarioFin" required>
                                     <option value="06:00">06:00</option>
@@ -272,6 +276,38 @@
         </div>
 
 
+
+        <div class="form-row">
+
+            <!-- Precio de consultas -->
+            <div class="col-md-6 mb-3">
+                <label for="precio">Precio consulta</label>
+                <input type="number" class="form-control" id="precioConsulta" placeholder="Precio Consulta" name="precioConsulta" required>
+            </div>
+            <!-- Se ingresa la imagen de perfil -->
+            <div class="col-md-6 mb-3">
+                <label for="imagen">Imagen</label>
+                <input type="file" class="form-control-file" id="imagen" name="archivo" required>
+            </div>
+        </div>
+
+        <!-- Se ingresa las contraseñas -->
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña - Minimo 5 caracteres" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="password">Contraseña de nuevo</label>
+                <input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir contraseña" required>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" value="Registrar">Registrarse</button>
+        <a th:href="@{/profesional/listar}">
+            <button type="submit">Ver Lista de Profesionales</button>
+        </a>
+    </form>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>

@@ -2,11 +2,13 @@ package App.MediFour.MediFour.servicios;
 
 import App.MediFour.MediFour.entidades.Imagen;
 import App.MediFour.MediFour.entidades.Paciente;
+import App.MediFour.MediFour.entidades.Turno;
 import App.MediFour.MediFour.entidades.Usuario;
 import App.MediFour.MediFour.enumeraciones.ObraSocial;
 import App.MediFour.MediFour.enumeraciones.Rol;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.PacienteRepositorio;
+import App.MediFour.MediFour.repositorios.TurnoRepositorio;
 import App.MediFour.MediFour.repositorios.UsuarioRepositorio;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class PacienteServicio extends UsuarioServicio {
 
+    @Autowired
+    private TurnoServicio turnoServicio;
+
+    @Autowired
+    private TurnoRepositorio turnoRepositorio;
     @Autowired
     private PacienteRepositorio pacienteRepo;
 
@@ -70,10 +77,19 @@ public class PacienteServicio extends UsuarioServicio {
         paciente.setPassword(new BCryptPasswordEncoder().encode(password));
         paciente.setRol(Rol.USER); //por defecto le damos el rol de user en vez de admin
 
-        // Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
+// Comprobar si se proporcionó un nuevo archivo de imagen y guardarla
         if (archivo != null && !archivo.isEmpty()) {
             Imagen imagen = imagenServicio.guardar(archivo);
             paciente.setImagen(imagen);
+        } else {
+            // Si no se proporcionó una imagen, asigna la imagen por defecto desde el servicio de Imagen
+            Imagen imagenPorDefecto = imagenServicio.ImagenPacientePorDefecto();
+            if (imagenPorDefecto != null) {
+                paciente.setImagen(imagenPorDefecto);
+            } else {
+                // Si no se pudo obtener la imagen por defecto, maneja el caso de error de alguna manera
+                throw new MiExcepcion("No se pudo obtener la imagen por defecto.");
+            }
         }
 
         pacienteRepo.save(paciente);
@@ -128,9 +144,13 @@ public class PacienteServicio extends UsuarioServicio {
 
         usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
 
+        System.out.println("Entre a MODIFICAR"); // Imprime la información del paciente en la consola
+
         Optional<Paciente> respuesta = pacienteRepo.findById(id);
         if (respuesta.isPresent()) {
             Paciente paciente = respuesta.get();
+
+            System.out.println("Paciente en actualizarPaciente del SERVICIO: " + paciente.toString());
 
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
@@ -168,13 +188,46 @@ public class PacienteServicio extends UsuarioServicio {
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 paciente.setImagen(imagen);
             }
+            System.out.println("Paciente en actualizarPaciente del SERVICIO: " + paciente.toString());
+
             pacienteRepo.save(paciente);
         }
+    }
+
+    public Usuario getOne(String id) {
+        return pacienteRepo.getOne(id);
     }
 
     public Paciente pacientePorID(String id) {
         return pacienteRepo.buscarPorId(id);
     }
-    
-    
+
+
+    @Transactional
+    public boolean elegirTurno(String idTurno, Paciente paciente) throws MiExcepcion {
+        try {
+            Optional<Turno> respuesta = turnoRepositorio.findById(idTurno);
+
+            if (respuesta.isPresent()) {
+                Turno turno = respuesta.get();
+
+                if (!turno.isDisponibilidad()) {
+                    throw new MiExcepcion("El turno no está disponible.");
+                }
+
+                turno.setPaciente(paciente); // Asignar el paciente al turno
+                turno.setDisponibilidad(false);
+
+                turnoRepositorio.save(turno);
+
+                return true;
+            }
+
+            return false;
+        } catch (Exception e) {
+            System.err.println("No es posible elegir el turno: " + e.getMessage());
+            return false;
+        }
+    }
+
 }//Class
