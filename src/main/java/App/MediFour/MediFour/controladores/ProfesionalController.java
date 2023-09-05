@@ -8,6 +8,9 @@ import App.MediFour.MediFour.servicios.ProfesionalServicio;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -99,6 +102,61 @@ public class ProfesionalController {
         profesionalServicio.altaProfesional(id);
         return "redirect:/profesional/listarAdmin";
     }
+    
 
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/perfil/{id}") //localhost:8080/profesional/perfil
+    public String mostrarProfesionalPerfil(@PathVariable String id, ModelMap model, HttpSession session) {
+
+        
+        Profesional profesional = profesionalServicio.profesionalPorID(id) ;
+        //Profesional logueado = (Profesional) session.getAttribute("usuariosession");
+        model.addAttribute("profesional", profesional);
+        
+        System.out.println("profesional Email: "+ profesional.getEmail());
+        
+        return "profesional_perfil";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @PostMapping("/perfil/{id}") //localhost:8080/profesional/perfil
+    public String mostrarProfesionalPerfil(
+            @RequestParam @PathVariable String id,
+            @RequestParam String nombre,
+            @RequestParam String apellido,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
+            @RequestParam Integer dni,
+            @RequestParam String telefono,
+            @RequestParam String email,
+            @RequestParam String matricula,
+            @RequestParam Especialidad especialidad,
+            @RequestParam List<DiaSemana> diasDisponibles,
+            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioEntrada,
+            @RequestParam @DateTimeFormat(pattern = "HH:mm") LocalTime horarioSalida,
+            @RequestParam Double precioConsulta,
+            @RequestParam String observaciones,
+            @RequestParam MultipartFile archivo,
+            ModelMap model) {
+
+            try {
+
+                profesionalServicio.actualizarProfesional(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, 
+                                    email, matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, 
+                                    precioConsulta, observaciones, Boolean.TRUE);
+                
+                System.out.println("Estoy en Try");
+                return "redirect:../listar";
+            } catch (MiExcepcion ex) {
+                model.put("error",ex.getMessage());
+                System.out.println("Estoy en CAtch");
+                return "profesional_perfil";
+            }
+            
+            
+            
+        }
+    
+    
 }//class
 
