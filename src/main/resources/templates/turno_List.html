@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Consulta de Turnos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Enlaces a los archivos CSS de Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="my-4 text-center">Consulta de Turnos</h1>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Consulta</th>
+                        <th>Disponibilidad</th>
+                        <!-- Agrega más encabezados si es necesario -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Utiliza Thymeleaf para iterar sobre los turnos del profesional -->
+                    <tr th:each="turno : ${turnos}">
+                        <td th:text="${turno.fecha}"></td>
+                        <td th:text="${turno.hora}"></td>
+                        <td th:text="${turno.consulta}"></td>
+                        <td th:text="${turno.disponibilidad} ? 'Disponible' : 'No disponible'"></td>
+                        <!-- Agrega más columnas según los atributos de tu entidad Turno -->
+                    </tr>
+                </tbody>
+            </table>
+
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <a href="javascript: history.go(-1)">VOLVER ATRÁS</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
+

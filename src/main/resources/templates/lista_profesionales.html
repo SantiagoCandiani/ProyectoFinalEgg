@@ -59,9 +59,12 @@
                         <p class="card-text"><strong>Email: </strong> <span th:text="${profesional.email}"></span></p>
                         <p class="card-text"><strong>Telefono: </strong> <span th:text="${profesional.telefono}"></span></p>
                         <p class="card-text"><strong>Precio Consulta: </strong> <span th:text="${profesional.precioConsulta}"></span></p>
-                        <form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
+                        <!--<form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
                             <input type="submit" value="Agendar Cita" class="btn btn-primary">
-                        </form>
+                        </form>-->
+                        <a th:href="@{/turno/listar}">
+                            <button type="submit">Agendar Cita</button>
+                        </a>
                     </div>
                     <img th:if="${profesional.imagen != null}" th:style="'max-width: 100%; height: auto;'" class="card-img-top" th:src="@{/imagen/perfil/__${profesional.id}__}" alt="Imagen de perfil">
                 </div>

@@ -145,64 +145,61 @@ public class ProfesionalServicio extends UsuarioServicio {
             throw new MiExcepcion("El precio de la consulta debe ser mayor que cero.");
         }
     }
-    
-    
-    
+
     @Transactional
-    public void actualizarProfesional(MultipartFile archivo, String id, String nombre, String apellido, 
+    public void actualizarProfesional(MultipartFile archivo, String id, String nombre, String apellido,
             LocalDate fechaNacimiento,
             Integer dni, String telefono, String email, String matricula,
             Especialidad especialidad, List<DiaSemana> diasDisponibles,
-            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String observaciones, 
+            LocalTime horarioEntrada, LocalTime horarioSalida, Double precioConsulta, String observaciones,
             Boolean activo) throws MiExcepcion {
-            
-            System.out.println("Estoy en el ServicioProfesional");
-        
-           usuarioServicio.validarModificarUsuario(nombre, apellido, fechaNacimiento, dni, telefono, email);
-           validarProfesional(matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta);
-            
-            System.out.println("Estoy en el ServicioProfesional despues de validar");
-            
-            Optional<Profesional> respuesta = profesionalRepo.findById(id);
-        
-            System.out.println("Estoy en el ServicioProfesional despues del optional");
-            
-            if (respuesta.isPresent()) {
-                Profesional profesional = respuesta.get();
 
-                profesional.setNombre(nombre);
-                profesional.setApellido(apellido);
-                profesional.setFechaNacimiento(fechaNacimiento);
-                profesional.setDni(dni);
-                profesional.setTelefono(telefono);
-                profesional.setEmail(email);
+        System.out.println("Estoy en el ServicioProfesional");
 
-                // Configurar atributos específicos de Profesional
-                profesional.setMatricula(matricula);
-                profesional.setEspecialidad(especialidad);
-                profesional.setDiasDisponibles(diasDisponibles);
-                profesional.setHorarioEntrada(horarioEntrada);
-                profesional.setHorarioSalida(horarioSalida);
-                profesional.setPrecioConsulta(precioConsulta);
-                profesional.setObservaciones(observaciones);
-                profesional.setActivo(activo);
+        usuarioServicio.validarModificarUsuario(nombre, apellido, fechaNacimiento, dni, telefono, email);
+        validarProfesional(matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta);
 
-                //probar este metodo para contraseña
-                // Solo actualiza la contraseña si se proporciona una nueva
-               /* if (!password.isEmpty() && !password.equals(profesional.getPassword())) {
+        System.out.println("Estoy en el ServicioProfesional despues de validar");
+
+        Optional<Profesional> respuesta = profesionalRepo.findById(id);
+
+        System.out.println("Estoy en el ServicioProfesional despues del optional");
+
+        if (respuesta.isPresent()) {
+            Profesional profesional = respuesta.get();
+
+            profesional.setNombre(nombre);
+            profesional.setApellido(apellido);
+            profesional.setFechaNacimiento(fechaNacimiento);
+            profesional.setDni(dni);
+            profesional.setTelefono(telefono);
+            profesional.setEmail(email);
+
+            // Configurar atributos específicos de Profesional
+            profesional.setMatricula(matricula);
+            profesional.setEspecialidad(especialidad);
+            profesional.setDiasDisponibles(diasDisponibles);
+            profesional.setHorarioEntrada(horarioEntrada);
+            profesional.setHorarioSalida(horarioSalida);
+            profesional.setPrecioConsulta(precioConsulta);
+            profesional.setObservaciones(observaciones);
+            profesional.setActivo(activo);
+
+            //probar este metodo para contraseña
+            // Solo actualiza la contraseña si se proporciona una nueva
+            /* if (!password.isEmpty() && !password.equals(profesional.getPassword())) {
                     profesional.setPassword(new BCryptPasswordEncoder().encode(password));
                 }
                 profesional.setPassword(new BCryptPasswordEncoder().encode(password));*/
-
-                // Comprobar si se proporcionó un nuevo archivo de imagen
-                if (archivo != null && !archivo.isEmpty()) {
-                    String idImagen = null;
-                    if (profesional.getImagen() != null) {
-                        idImagen = profesional.getImagen().getId();
-                    }
-                    Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
-                    profesional.setImagen(imagen);
+            // Comprobar si se proporcionó un nuevo archivo de imagen
+            if (archivo != null && !archivo.isEmpty()) {
+                String idImagen = null;
+                if (profesional.getImagen() != null) {
+                    idImagen = profesional.getImagen().getId();
                 }
+                Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
+                profesional.setImagen(imagen);
+            }
 
             profesionalRepo.save(profesional);
         }
