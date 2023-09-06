@@ -158,9 +158,9 @@ public class ProfesionalServicio extends UsuarioServicio {
             
             System.out.println("Estoy en el ServicioProfesional");
         
-           usuarioServicio.validarModificarUsuario(nombre, apellido, fechaNacimiento, dni, telefono, email);
+         /*  usuarioServicio.validarModificarUsuario(nombre, apellido, fechaNacimiento, dni, telefono, email);
            validarProfesional(matricula, especialidad, diasDisponibles, horarioEntrada, horarioSalida, precioConsulta);
-            
+            */
             System.out.println("Estoy en el ServicioProfesional despues de validar");
             
             Optional<Profesional> respuesta = profesionalRepo.findById(id);
