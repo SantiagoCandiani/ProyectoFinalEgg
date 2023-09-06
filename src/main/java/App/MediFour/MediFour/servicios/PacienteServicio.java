@@ -142,15 +142,17 @@ public class PacienteServicio extends UsuarioServicio {
             Integer dni, String telefono, String email, Boolean tieneObraSocial,
             ObraSocial obraSocial, Integer numeroAfiliado, String password, String password2) throws MiExcepcion {
 
-        usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
-
         System.out.println("Entre a MODIFICAR"); // Imprime la información del paciente en la consola
 
+//        usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
+        System.out.println("Entre a MODIFICAR y ya valide!!"); // Imprime la información del paciente en la consola
+
         Optional<Paciente> respuesta = pacienteRepo.findById(id);
+
+        System.out.println("Entre a MODIFICAR y despues del optional!!"); // Imprime la información del paciente en la consola
+
         if (respuesta.isPresent()) {
             Paciente paciente = respuesta.get();
-
-            System.out.println("Paciente en actualizarPaciente del SERVICIO: " + paciente.toString());
 
             paciente.setNombre(nombre);
             paciente.setApellido(apellido);
@@ -160,23 +162,25 @@ public class PacienteServicio extends UsuarioServicio {
             paciente.setEmail(email);
 
             paciente.setTieneObraSocial(tieneObraSocial);
+            paciente.setObraSocial(obraSocial);
+            paciente.setNumeroAfiliado(numeroAfiliado);
             // Si tiene obra social, se establece la obra social y el número de afiliado
-            if (tieneObraSocial) {
-                if (obraSocial != null) {
-                    paciente.setObraSocial(obraSocial);
-                } else {
-                    throw new MiExcepcion("Debe seleccionar una obra social si tiene obra social.");
-                }
-                if (numeroAfiliado != null) {
-                    paciente.setNumeroAfiliado(numeroAfiliado);
-                } else {
-                    throw new MiExcepcion("El número de afiliado no puede ser nulo si tiene obra social.");
-                }
-            } else {
-                // Si no tiene obra social, se establecen los campos a null
-                paciente.setObraSocial(null);
-                paciente.setNumeroAfiliado(null);
-            }
+//            if (tieneObraSocial) {
+//                if (obraSocial != null) {
+//                    paciente.setObraSocial(obraSocial);
+//                } else {
+//                    throw new MiExcepcion("Debe seleccionar una obra social si tiene obra social.");
+//                }
+//                if (numeroAfiliado != null) {
+//                    paciente.setNumeroAfiliado(numeroAfiliado);
+//                } else {
+//                    throw new MiExcepcion("El número de afiliado no puede ser nulo si tiene obra social.");
+//                }
+//            } else {
+//                // Si no tiene obra social, se establecen los campos a null
+//                paciente.setObraSocial(null);
+//                paciente.setNumeroAfiliado(null);
+//            }
 
             paciente.setPassword(new BCryptPasswordEncoder().encode(password));
             // Comprobar si se proporcionó un nuevo archivo de imagen
@@ -188,20 +192,15 @@ public class PacienteServicio extends UsuarioServicio {
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 paciente.setImagen(imagen);
             }
-            System.out.println("Paciente en actualizarPaciente del SERVICIO: " + paciente.toString());
+            System.out.println("Entre a MODIFICAR y esta por grabar el paciente!!"); // Imprime la información del paciente en la consola
 
             pacienteRepo.save(paciente);
         }
     }
 
-    public Usuario getOne(String id) {
+    public Paciente pacientePorID(String id) {
         return pacienteRepo.getOne(id);
     }
-
-    public Paciente pacientePorID(String id) {
-        return pacienteRepo.buscarPorId(id);
-    }
-
 
     @Transactional
     public boolean elegirTurno(String idTurno, Paciente paciente) throws MiExcepcion {
