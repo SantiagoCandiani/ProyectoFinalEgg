@@ -8,8 +8,12 @@ package App.MediFour.MediFour.servicios;
 import App.MediFour.MediFour.entidades.Paciente;
 import App.MediFour.MediFour.entidades.Profesional;
 import App.MediFour.MediFour.entidades.Turno;
+import App.MediFour.MediFour.enumeraciones.DiaSemana;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.TurnoRepositorio;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,25 +34,60 @@ public class TurnoServicio {
     @Autowired
     private TurnoRepositorio turnoRepositorio;
 
+//    public Turno crearTurno(String fecha, String hora, Boolean disponibilidad, String consulta, String idProfesional) throws MiExcepcion {
+//        // Validación de los datos ingresados
+//        validar(fecha, hora, consulta, idProfesional, disponibilidad);
+//        // Obtener el profesional desde el servicio
+//        Profesional profesional = (Profesional) profesionalServicio.getOne(idProfesional);
+//        if (profesional == null) {
+//            throw new MiExcepcion("no existe un profesional con este turno");
+//        }
+//        // Crear y guardar el turno
+//        Turno turno = new Turno();
+//        turno.setFecha(fecha);
+//        turno.setHora(hora);
+//        turno.setDisponibilidad(false); // Por defecto, el turno se crea como disponible
+//        turno.setConsulta(consulta);
+//        turno.setProfesional(profesional);
+//
+//        return turnoRepositorio.save(turno);
+//    }
     @Transactional
+    public List<Turno> generarTurnos(Profesional profesional) {
+        List<Turno> turnos = new ArrayList<>();
+        LocalTime horaActual = profesional.getHorarioEntrada();
 
-    public Turno crearTurno(String fecha, String hora, Boolean disponibilidad, String consulta, String idProfesional) throws MiExcepcion {
-        // Validación de los datos ingresados
-        validar(fecha, hora, consulta, idProfesional, disponibilidad);
-        // Obtener el profesional desde el servicio
-        Profesional profesional = (Profesional) profesionalServicio.getOne(idProfesional);
-        if (profesional == null) {
-            throw new MiExcepcion("no existe un profesional con este turno");
+        for (DiaSemana dia : profesional.getDiasDisponibles()) {
+            String nombreDia = dia.getNombreEnCastellano(); // Obtener el nombre en castellano
+            
+            while (horaActual.isBefore(profesional.getHorarioSalida())) {
+                Turno turno = new Turno();
+                turno.setProfesional(profesional);
+                turno.setDisponibilidad(true);
+                turno.setFecha(nombreDia); // Puedes ajustar el formato de fecha
+                turno.setHora(horaActual.toString());
+
+                turnos.add(turno);
+
+                horaActual = horaActual.plus(30, ChronoUnit.MINUTES);
+            }
+
+            horaActual = profesional.getHorarioEntrada();
         }
-        // Crear y guardar el turno
-        Turno turno = new Turno();
-        turno.setFecha(fecha);
-        turno.setHora(hora);
-        turno.setDisponibilidad(false); // Por defecto, el turno se crea como disponible
-        turno.setConsulta(consulta);
-        turno.setProfesional(profesional);
 
-        return turnoRepositorio.save(turno);
+        // Guardar los turnos en el repositorio si es necesario
+        turnoRepositorio.saveAll(turnos);
+        return turnos;
+    }
+
+    public List<Turno> obtenerTodosLosTurnos() {
+        // Utiliza el repositorio para obtener todos los turnos almacenados
+        return turnoRepositorio.findAll();
+    }
+
+    public List<Turno> obtenerTurnosDeProfesionalOrdenados(Profesional profesional) {
+        // Utiliza el repositorio para obtener los turnos del profesional ordenados
+        return turnoRepositorio.findByProfesionalOrderByFechaAscHoraAsc(profesional);
     }
 
     public List<Turno> listarTurnos() {
