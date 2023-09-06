@@ -71,7 +71,16 @@
         <br>
 
         <div class="container mt-4">
-            <h2 class="titulo_centrar">Editar Perfil Profesional</h2>
+         
+            
+            <div class="card">
+                <div class="card-body">
+                <h2 class="text-center mb-4">Editar Perfil Profesional</h2>
+                <div class="text-center">
+                                <a th:if="${session.usuariosession.imagen != null}" th:href="@{/imagen/perfil/__${session.usuariosession.id}__}">
+                                    <img class="profile-image" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" alt="Perfil">
+                                </a>
+                            </div>
             <form th:action="@{/profesional/perfil/__${session.usuariosession.id}__}" method="POST" enctype="multipart/form-data">
 
                 <div>
@@ -241,7 +250,16 @@
                 <button class="btn btn-primary" type="submit" value="Registrar">Modificar</button>
 
             </form>
+                </div>
         </div>
-      
+            </div>  
+      <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
+                    </p>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
