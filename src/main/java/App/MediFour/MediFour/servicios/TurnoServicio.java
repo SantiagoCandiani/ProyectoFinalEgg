@@ -58,13 +58,13 @@ public class TurnoServicio {
         LocalTime horaActual = profesional.getHorarioEntrada();
 
         for (DiaSemana dia : profesional.getDiasDisponibles()) {
-            DayOfWeek dayOfWeek = DiaSemana.toDayOfWeek(dia);
-
+            String nombreDia = dia.getNombreEnCastellano(); // Obtener el nombre en castellano
+            
             while (horaActual.isBefore(profesional.getHorarioSalida())) {
                 Turno turno = new Turno();
                 turno.setProfesional(profesional);
                 turno.setDisponibilidad(true);
-                turno.setFecha(dayOfWeek.toString()); // Puedes ajustar el formato de fecha
+                turno.setFecha(nombreDia); // Puedes ajustar el formato de fecha
                 turno.setHora(horaActual.toString());
 
                 turnos.add(turno);
@@ -83,6 +83,11 @@ public class TurnoServicio {
     public List<Turno> obtenerTodosLosTurnos() {
         // Utiliza el repositorio para obtener todos los turnos almacenados
         return turnoRepositorio.findAll();
+    }
+
+    public List<Turno> obtenerTurnosDeProfesionalOrdenados(Profesional profesional) {
+        // Utiliza el repositorio para obtener los turnos del profesional ordenados
+        return turnoRepositorio.findByProfesionalOrderByFechaAscHoraAsc(profesional);
     }
 
     public List<Turno> listarTurnos() {
