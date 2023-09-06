@@ -21,4 +21,5 @@ public interface TurnoRepositorio extends JpaRepository<Turno, String> {
     @Query("SELECT DISTINCT t.paciente FROM Turno t WHERE t.profesional.id = :profesionalId")
     List<Paciente> obtenerNombresPacientesConTurnoPorMedico(@Param("profesionalId") String profesionalId);
 
+    List<Turno> findByProfesionalOrderByFechaAscHoraAsc(Profesional profesional);
 }
