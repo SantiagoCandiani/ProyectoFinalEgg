@@ -5,7 +5,9 @@ import App.MediFour.MediFour.entidades.Turno;
 import App.MediFour.MediFour.servicios.ProfesionalServicio;
 import App.MediFour.MediFour.servicios.TurnoServicio;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +28,20 @@ public class TurnoController {
     }
 
     // Endpoint para obtener todos los turnos
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listar")
-    public String obtenerTodosLosTurnos(Model model) {
-        List<Turno> turno = turnoServicio.obtenerTodosLosTurnos();
-        model.addAttribute("turnos", turno);
-        return "turno_List.html";
+    public String obtenerTodosLosTurnos(Model model, HttpSession session) {
+        // Verifica si el usuario está autenticado utilizando la sesión
+        if (session.getAttribute("usuariosession") == null) {
+            System.out.println("Estoy en el if listar");
+            // Si no está autenticado, redirige al usuario a la página de inicio de sesión
+            return "login.html";
+        } else {
+            List<Turno> turno = turnoServicio.obtenerTodosLosTurnos();
+            model.addAttribute("turnos", turno);
+            System.out.println("Estoy en el else listar");
+            return "turno_List.html";
+        }
     }
 
 //    // Endpoint para obtener los turnos de un profesional por su ID
@@ -55,5 +66,4 @@ public class TurnoController {
 //            return "pagina_de_error.html"; // Reemplaza con la vista de error adecuada
 //        }
 //    }
-
 }//Class

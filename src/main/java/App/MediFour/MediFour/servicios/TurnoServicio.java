@@ -74,7 +74,6 @@ public class TurnoServicio {
 
             horaActual = profesional.getHorarioEntrada();
         }
-
         // Guardar los turnos en el repositorio si es necesario
         turnoRepositorio.saveAll(turnos);
         return turnos;

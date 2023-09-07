@@ -88,7 +88,7 @@ public class ProfesionalController {
         return "redirect:/login";
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROFESIONAL')")
+    //@PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_PROFESIONAL')")
 
     @GetMapping("/listar") //localhost:8080/profesional/listar
     public String listarProfesionalesActivos(Model model) {
