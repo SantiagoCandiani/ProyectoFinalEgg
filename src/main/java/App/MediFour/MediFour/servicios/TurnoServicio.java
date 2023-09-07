@@ -59,7 +59,7 @@ public class TurnoServicio {
 
         for (DiaSemana dia : profesional.getDiasDisponibles()) {
             String nombreDia = dia.getNombreEnCastellano(); // Obtener el nombre en castellano
-            
+
             while (horaActual.isBefore(profesional.getHorarioSalida())) {
                 Turno turno = new Turno();
                 turno.setProfesional(profesional);
@@ -77,6 +77,32 @@ public class TurnoServicio {
         // Guardar los turnos en el repositorio si es necesario
         turnoRepositorio.saveAll(turnos);
         return turnos;
+    }
+
+    @Transactional
+    public void asignarTurnoAPaciente(String turnoId, Paciente paciente) {
+        // Buscar el turno por su ID
+        Optional<Turno> turnoOptional = turnoRepositorio.findById(turnoId);
+
+        if (turnoOptional.isPresent()) {
+            Turno turno = turnoOptional.get();
+
+            // Verificar si el turno está disponible
+            if (turno.isDisponibilidad()) {
+                // Asignar el paciente al turno
+                turno.setPaciente(paciente);
+                turno.setDisponibilidad(false); // Marcar el turno como no disponible
+
+                // Guardar el cambio en el repositorio
+                turnoRepositorio.save(turno);
+            } else {
+                // El turno no está disponible, maneja la lógica adecuada aquí
+                throw new RuntimeException("El turno seleccionado ya no está disponible.");
+            }
+        } else {
+            // El turno no se encontró, maneja la lógica adecuada aquí
+            throw new RuntimeException("El turno seleccionado no existe.");
+        }
     }
 
     public List<Turno> obtenerTodosLosTurnos() {
