@@ -72,9 +72,10 @@
 
                                 <ul class="dropdown-menu">
                                     <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/paciente/perfil/{id}}">Gestiona mi perfil</a></li>
+                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/profesional/perfil/__${session.usuariosession.id}__}">Gestiona mi perfil</a></li> 
                                     <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/turno/mis_turnos}">Mis Turnos</a></li>
-                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/profesional/perfil/__${session.usuariosession.id}__}">Gestiona mi perfil</a></li>                                    
-                                    <li sec:authorize="hasRole('ADMIN') or hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
+                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/turno/mis_turnos_profesional}">Mis Turnos</a></li>
+                                    <li sec:authorize="hasRole('ADMIN')"><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
                                     <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
                                 </ul>                  
                             </div>
