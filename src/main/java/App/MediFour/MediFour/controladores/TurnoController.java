@@ -105,4 +105,21 @@ public class TurnoController {
         return "mis_turnos.html";
     }
 
+    @PreAuthorize("hasRole('PROFESIONAL')")
+    @GetMapping("/mis_turnos_profesional")
+    public String obtenerMisTurnosProfesional(ModelMap model, HttpSession session) {
+        // Verifica si el usuario está autenticado como paciente
+        Profesional profesional = (Profesional) session.getAttribute("usuariosession");
+        if (profesional == null) {
+            // Si no está autenticado, redirige al usuario a la página de inicio de sesión
+            return "login.html";
+        }
+
+        // Recupera los turnos del paciente desde la base de datos
+        List<Turno> misTurnosProfesional = turnoServicio.obtenerTurnosDeProfesional(profesional);
+        model.addAttribute("misTurnosProfesional", misTurnosProfesional);
+
+        return "mis_turnos_profesional.html";
+    }
+
 }//Class

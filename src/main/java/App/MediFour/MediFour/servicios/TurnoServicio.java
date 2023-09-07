@@ -81,6 +81,10 @@ public class TurnoServicio {
         return turnoRepositorio.findByPaciente(paciente);
     }
 
+    public List<Turno> obtenerTurnosDeProfesional(Profesional profesional) {
+        return turnoRepositorio.findByProfesional(profesional);
+    }
+
     public List<Turno> obtenerTodosLosTurnos() {
         // Utiliza el repositorio para obtener todos los turnos almacenados
         return turnoRepositorio.findAll();
