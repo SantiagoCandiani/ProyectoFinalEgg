@@ -187,7 +187,7 @@ public class PacienteController {
         }
         return "redirect:/paciente/listar-turnos"; // Redirige a la lista de turnos si hay un error
     }
-
+    
 // El paciente elige un turno existente
     @PostMapping("/elegir-turno")
     public ResponseEntity<String> elegirTurno(@RequestParam String idTurno, @RequestParam String idPaciente) {
@@ -205,6 +205,7 @@ public class PacienteController {
         } catch (MiExcepcion e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+        
     }
 
 }//Class
