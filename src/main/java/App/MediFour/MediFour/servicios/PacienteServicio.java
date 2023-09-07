@@ -144,12 +144,10 @@ public class PacienteServicio extends UsuarioServicio {
 
         System.out.println("Entre a MODIFICAR"); // Imprime la información del paciente en la consola
 
-//        usuarioServicio.validar(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
+        usuarioServicio.validarModificarPaciente(nombre, apellido, fechaNacimiento, dni, telefono, email, password, password2);
         System.out.println("Entre a MODIFICAR y ya valide!!"); // Imprime la información del paciente en la consola
 
         Optional<Paciente> respuesta = pacienteRepo.findById(id);
-
-        System.out.println("Entre a MODIFICAR y despues del optional!!"); // Imprime la información del paciente en la consola
 
         if (respuesta.isPresent()) {
             Paciente paciente = respuesta.get();
@@ -192,8 +190,6 @@ public class PacienteServicio extends UsuarioServicio {
                 Imagen imagen = imagenServicio.actualizar(archivo, idImagen);
                 paciente.setImagen(imagen);
             }
-            System.out.println("Entre a MODIFICAR y esta por grabar el paciente!!"); // Imprime la información del paciente en la consola
-
             pacienteRepo.save(paciente);
         }
     }

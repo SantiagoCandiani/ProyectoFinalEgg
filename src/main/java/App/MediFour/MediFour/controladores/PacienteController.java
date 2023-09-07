@@ -162,7 +162,7 @@ public class PacienteController {
             pacienteServicio.actualizarPaciente(archivo, id, nombre, apellido, fechaNacimiento, dni, telefono, email, tieneObraSocial, obraSocial, numeroAfiliado, password, password2);
             modelo.put("exito", "Paciente actualizado correctamente!");
             System.out.println("Estoy en Post Controller Try");
-            return "inicio.html";
+            return "redirect:/login";
         } catch (MiExcepcion ex) {
             modelo.put("error", ex.getMessage());
             System.out.println("Estoy en Post Controller Catch");
@@ -187,7 +187,7 @@ public class PacienteController {
         }
         return "redirect:/paciente/listar-turnos"; // Redirige a la lista de turnos si hay un error
     }
-    
+
 // El paciente elige un turno existente
     @PostMapping("/elegir-turno")
     public ResponseEntity<String> elegirTurno(@RequestParam String idTurno, @RequestParam String idPaciente) {
@@ -205,7 +205,7 @@ public class PacienteController {
         } catch (MiExcepcion e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
-        
+
     }
 
 }//Class
