@@ -36,12 +36,12 @@
                         <td th:text="${turno.profesional.especialidad}"></td>
                         <td th:text="${turno.disponibilidad} ? 'Disponible' : 'No disponible'"></td>
                         <td>
-                            <form th:action="@{/agendar-turno}" method="post">
+                            <form th:action="@{/turno/agendar-turno}" method="post">
                                 <!-- Agregar un campo oculto para enviar el ID del turno -->
                                 <input type="hidden" name="turnoId" th:value="${turno.id}" />
 
                                 <button type="submit" class="btn btn-primary btn-agendar">Agendar Cita</button>
-                            </form>
+                            </form> 
 
                         </td>
                     </tr>
