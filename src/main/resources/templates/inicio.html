@@ -71,10 +71,10 @@
                                 </button>
 
                                 <ul class="dropdown-menu">
-                                    <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/paciente/perfil/{id}}">Gestiona tu cuenta</a></li>
-                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/profesional/perfil/__${session.usuariosession.id}__}">Gestiona tu cuenta</a></li>                                    
+                                    <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/paciente/perfil/{id}}">Gestiona mi perfil</a></li>
+                                    <li sec:authorize="hasRole('USER')"><a class="dropdown-item" th:href="@{/turno/mis_turnos}">Mis Turnos</a></li>
+                                    <li sec:authorize="hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/profesional/perfil/__${session.usuariosession.id}__}">Gestiona mi perfil</a></li>                                    
                                     <li sec:authorize="hasRole('ADMIN') or hasRole('PROFESIONAL')"><a class="dropdown-item" th:href="@{/paciente/listar}">Lista pacientes</a></li>
-
                                     <li><a class="dropdown-item" th:href="@{/logout}">Cerrar Sesion</a></li>
                                 </ul>                  
                             </div>
@@ -342,7 +342,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Cardiología</a>
                             </li>
-                           
+
                         </ul>
                     </div>
                     <div class="col-lg-9">
@@ -372,7 +372,7 @@
                                     <div class="col-lg-8 details order-2 order-lg-1">
                                         <h3>Ginecología</h3>
                                         <p class="fst-italic">Ginecología es la especialidad médica que brinda atención y vela por la salud de la mujer a lo largo de su vida, especialmente en lo que se refiere a la reproducción y al embarazo.</p>
-                                     </div>
+                                    </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                     </div>
                                 </div>
@@ -387,7 +387,7 @@
                                     </div>
                                 </div>
                             </div>
-                          
+
                         </div>
                     </div>
                 </div>

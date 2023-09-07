@@ -23,90 +23,86 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/turno")
 public class TurnoController {
-    
+
     @Autowired
     private ProfesionalServicio profesionalServicio;
-    
+
     @Autowired
     private TurnoServicio turnoServicio;
 
-    /*private final TurnoServicio turnoServicio;
-    private final ProfesionalServicio profesionalServicio; // Agrega el servicio de Profesional
-
-   
-    public TurnoController(TurnoServicio servicioTurno, ProfesionalServicio servicioProfesional) {
-        this.turnoServicio = servicioTurno;
-        this.profesionalServicio = servicioProfesional;
-    */
-
-    // Endpoint para obtener todos los turnos
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
     @GetMapping("/listar")
     public String obtenerTodosLosTurnos(ModelMap model, HttpSession session) {
         // Verifica si el usuario está autenticado utilizando la sesión
         if (session.getAttribute("usuariosession") == null) {
-            System.out.println("Estoy en el if listar obtenerTodosLosTurnos");
             // Si no está autenticado, redirige al usuario a la página de inicio de sesión
             return "login.html";
         } else {
             List<Turno> turno = turnoServicio.obtenerTodosLosTurnos();
             model.addAttribute("turnos", turno);
-            System.out.println("Estoy en el else listar obtenerTodosLosTurnos");
             return "turno_List.html";
         }
-    }   
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_PROFESIONAL','ROLE_ADMIN')")
+    @GetMapping("/listar/{profesionalId}")
+    public String obtenerTurnosDeProfesional(@PathVariable("profesionalId") String profesionalId, ModelMap model, HttpSession session) {
+        // Verifica si el usuario está autenticado utilizando la sesión
+        if (session.getAttribute("usuariosession") == null) {
+            // Si no está autenticado, redirige al usuario a la página de inicio de sesión
+            return "login.html";
+        } else {
+            // Recupera el profesional por su ID
+            Profesional profesional = profesionalServicio.profesionalPorID(profesionalId);
+
+            if (profesional != null) {
+                // Utiliza el servicio para obtener los turnos del profesional y agregarlos al modelo
+                List<Turno> turnos = turnoServicio.obtenerTurnosDeProfesionalOrdenados(profesional);
+                model.addAttribute("turnos", turnos);
+                model.addAttribute("profesional", profesional);
+
+                return "turno_List.html";
+            } else {
+                // El profesional no se encontró, maneja la lógica adecuada aquí
+                return "error.html";
+            }
+        }
+    }
 
     @PostMapping("/agendar-turno")
     public String agendarTurno(@RequestParam String turnoId, HttpSession session, ModelMap modelo) {
-        // Verifica si el usuario está autenticado utilizando la sesión
+        try {
+            // Verifica si el usuario está autenticado utilizando la sesión
+            Paciente paciente = (Paciente) session.getAttribute("usuariosession");
+            if (paciente == null) {
+                modelo.addAttribute("error", "Debes estar logueado para agendar un turno.");
+                return "login.html";
+            }
+            // Llama al servicio para asignar el turno al paciente
+            turnoServicio.asignarTurnoAPaciente(turnoId, paciente);
+            modelo.addAttribute("exito", "Turno agendado correctamente.");
+            // Si no hay URL original, redirige al usuario a la página de lista de turnos
+            return "turno_List.html";
+        } catch (Exception ex) {
+            modelo.addAttribute("error", "Error al agendar el turno: " + ex.getMessage());
+            return "turno_List.html"; // Otra página de error o manejo de errores según tus necesidades
+        }
+    }
+
+    @GetMapping("/mis_turnos")
+    public String obtenerMisTurnos(ModelMap model, HttpSession session) {
+        // Verifica si el usuario está autenticado como paciente
         Paciente paciente = (Paciente) session.getAttribute("usuariosession");
         if (paciente == null) {
-            System.out.println("***** Entre if de agendarTurno");
             // Si no está autenticado, redirige al usuario a la página de inicio de sesión
             return "login.html";
         }
-        
-        System.out.println("***** Sali del if de agendarTurno antes de asignarturno");
-        // Llama al servicio para asignar el turno al paciente
-        turnoServicio.asignarTurnoAPaciente(turnoId, paciente);
-        System.out.println("***** Sali del if de agendarTurno dsp de asignarturno");
-        // Obtiene la URL original almacenada en la variable de sesión
-       /* String originalUrl = (String) session.getAttribute("originalUrl");
-        if (originalUrl != null) {
-            System.out.println("***** Entre if de originalUrl");
 
-            // Redirige al usuario a la URL original
-            session.removeAttribute("originalUrl");
-            return "redirect:" + originalUrl;
-        } else {
-            System.out.println("***** Entre else de originalUrl");
+        // Recupera los turnos del paciente desde la base de datos
+        List<Turno> misTurnos = turnoServicio.obtenerTurnosDelPaciente(paciente);
+        model.addAttribute("misTurnos", misTurnos);
 
-            // Si no hay URL original, redirige al usuario a la página de lista de turnos*/
-        return "redirect:/listar";
-            
-        
+        return "mis_turnos.html";
     }
 
-//    // Endpoint para obtener los turnos de un profesional por su ID
-//    @GetMapping("/listar/{profesionalId}")
-//    public String obtenerTurnosDeProfesional(@PathVariable String profesionalId, Model model) {
-//        // Obtener el profesional por su ID
-//        Profesional profesional = profesionalServicio.profesionalPorID(profesionalId);
-//
-//        if (profesional != null) {
-//            // Obtener los turnos del profesional ordenados por fecha y hora
-//            List<Turno> turnos = turnoServicio.obtenerTurnosDeProfesionalOrdenados(profesional);
-//
-//            // Agregar los turnos al modelo para mostrarlos en la vista
-//            model.addAttribute("turnos", turnos);
-//
-//            // Resto de la lógica para mostrar los turnos en la vista
-//            // ...
-//            return "turno_List.html"; // Reemplaza con la vista adecuada
-//        } else {
-//            // Manejo de error si el profesional no existe
-//            model.addAttribute("error", "Profesional no encontrado.");
-//            return "pagina_de_error.html"; // Reemplaza con la vista de error adecuada
-//        }
-//    }
 }//Class

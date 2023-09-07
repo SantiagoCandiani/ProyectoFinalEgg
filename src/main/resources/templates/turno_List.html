@@ -4,13 +4,12 @@
         <title>Consulta de Turnos</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- Enlaces a los archivos CSS de Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
     <body>
         <div class="container">
             <h1 class="my-4 text-center">Consulta de Turnos</h1>
+            <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
             <label for="filtro">Filtra lo que quieras:</label>
             <input type="text" id="filtro" placeholder="Buscar turnos...">
             <table class="table">
@@ -18,20 +17,16 @@
                     <tr>
                         <th>Fecha</th>
                         <th>Hora</th>
-                        <th>Consulta (hace falta???)</th>
                         <th>Profesional</th>
                         <th>Especialidad</th>
                         <th>Disponibilidad</th>
                         <th>Agendar Cita</th>
-                        <!-- Agrega más encabezados si es necesario -->
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Utiliza Thymeleaf para iterar sobre los turnos del profesional -->
                     <tr th:each="turno, iterStat : ${turnos}" id="fila-${iterStat.index}">
                         <td th:text="${turno.fecha}"></td>
                         <td th:text="${turno.hora}"></td>
-                        <td th:text="${turno.consulta}"></td>
                         <td th:text="${turno.profesional.nombre} + ' ' + ${turno.profesional.apellido}"></td>
                         <td th:text="${turno.profesional.especialidad}"></td>
                         <td th:text="${turno.disponibilidad} ? 'Disponible' : 'No disponible'"></td>
