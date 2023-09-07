@@ -1,7 +1,5 @@
 package App.MediFour.MediFour.enumeraciones;
 
-import java.time.DayOfWeek;
-
 public enum DiaSemana {
     LUNES("Lunes"),
     MARTES("Martes"),

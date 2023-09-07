@@ -33,8 +33,8 @@
                         <td th:text="${turno.hora}"></td>
                         <td th:text="${turno.consulta}"></td>
                         <td th:text="${turno.profesional.nombre} + ' ' + ${turno.profesional.apellido}"></td>
-                        <td th:text="${turno.disponibilidad} ? 'Disponible' : 'No disponible'"></td>
                         <td th:text="${turno.profesional.especialidad}"></td>
+                        <td th:text="${turno.disponibilidad} ? 'Disponible' : 'No disponible'"></td>
                         <td>
                             <button class="btn btn-primary btn-agendar" >Agendar (hacer andar)</button>
                             <button class="btn btn-danger btn-cancelar" >Cancelar (hacer andar)</button>
