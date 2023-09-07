@@ -1751,3 +1751,26 @@ section {
   color: #fff;
   text-decoration: none;
 }
+/*----Imagen y nombre de perfil-----------------*/
+
+.circular-image-container {
+    width: 60px; /* Tamaño de la imagen */
+    height: 60px; /* Tamaño de la imagen */
+    display: flex; /* Usar flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    overflow: hidden;
+    border-radius: 50%; /* Borde redondeado */
+    border: 2px solid #1977cc;; /* Borde con un grosor de 2px y color gris (#ccc) */
+    margin-bottom: 10px; /* Esp*/
+}
+
+.circular-image {
+    max-width: 100%; /* Asegurarse de que la imagen no sea más grande que el contenedor */
+    max-height: 100%; /* Asegurarse de que la imagen no sea más grande que el contenedor */
+    object-fit: contain; /* Ajustar imagen para caber dentro del contenedor */
+}
+.nombre-perfil {
+    font-weight: bold; /* Aplicar negrita */
+    font-family: "Raleway", sans-serif; /* Cambiar a la fuente Arial */
+}

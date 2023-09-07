@@ -22,12 +22,12 @@
         <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
         <!-- Template Main CSS File -->
-       <link href="/assets/css/style.css" rel="stylesheet">
+        <link href="/assets/css/style.css" rel="stylesheet">
         <link href="/css/Form.css" rel="stylesheet">
 
     </head>
 
-    <body style="background-image: url('/assets/img/hero-bg.jpg'); background-size: cover;">
+    <body style="background-image: url('/assets/img/paciente_form.jpg'); background-size: cover;">
 
         <!-- ======= Top Bar ======= -->
         <div id="topbar" class="d-flex align-items-center fixed-top">
@@ -42,7 +42,7 @@
                     <a href="https://es-la.facebook.com/login" class="facebook"><i class="bi bi-facebook"></i></a>
                     <a href="https://www.instagram.com/accounts/login/" class="instagram"><i class="bi bi-instagram"></i></a>
                 </div>       
-                       
+
             </div>
         </div>
 
@@ -60,7 +60,7 @@
         <section class="breadcrumbs">
             <div class="container">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h2>Registro Paciente Medifour</h2>
+                    <h2>Registro Paciente</h2>
                     <ol>
                         <li><a th:href="@{/}">Inicio</a></li>
                     </ol>
@@ -68,99 +68,103 @@
             </div>
         </section>
         <!-- End Breadcrumbs Section -->
-        
+
         <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
-        
+
 
         <div class="container">
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="form-container">
-        <form th:action="@{/paciente/registrar}" method="POST" >
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
-                <br>
-                <br>
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" placeholder="Ingrese su Apellido" required>
-                <br>
-                <br>
-            </div>    
-            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
-            <br>
-            <br>
-            <div class="form-group">
-                <label for="dni">DNI:</label>
-                <input type="number" id="dni" name="dni" placeholder="Nro de 5 digitos minimo" required>
-                <br>
-                <br>
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" placeholder="5 caracteres minimo" required>
-                <br>
-                <br>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="user@mail.com" required>
-                <br>
-                <br>
-            </div>
-            <label for="tieneObraSocial">Tiene Obra Social:</label>
-            <select id="tieneObraSocial" name="tieneObraSocial">
-                <option value="true">Sí</option>
-                <option value="false" selected>No</option> <!-- Establecer "No" como seleccionado por defecto -->
-            </select>
-            <br>
-            <br>
-            <div class="form-group" id="obraSocialContainer">
-                <label for="obraSocial">Seleccione una Obra Social:</label>
-                <select id="obraSocial" name="obraSocial">
-                    <option value="">Seleccione una opción</option>
-                    <option value="OSEP">OSEP</option>
-                    <option value="SWISSMEDICAL">SWISSMEDICAL</option>
-                    <option value="OSDE">OSDE</option>
-                    <option value="OSPE">OSPE</option>
-                    <option value="SANCOR">SANCOR</option>
-                    <option value="MEDICUS">MEDICUS</option>
-                    <option value="OMINT">OMINT</option>
-                </select>
-            </div>
+            <div class="d-flex justify-content-center align-items-center vh-100">
+                <div class="form-container">
+                    <form th:action="@{/paciente/registrar}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Ingrese su Nombre" required>
+                            <br>                 
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" placeholder="Ingrese su Apellido" required>
+                             <br>
+                        </div>
+                       
+                        <div>
+                        <label class="form-group-titulo" for="fechaNacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                         <br>
+                        </div>
+                                             
+                        <div class="form-group">
+                            <label for="dni">DNI:</label>
+                            <input type="number" id="dni" name="dni" placeholder="Nro de 5 digitos minimo" required>
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" id="telefono" name="telefono" placeholder="5 caracteres minimo" required>
+                           
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="user@mail.com" required>
+                            <br>
+                          
+                        </div>
+                        <div>
+                        <label class="form-group-titulo" for="tieneObraSocial">Tiene Obra Social:</label>
+                        <select id="tieneObraSocial" name="tieneObraSocial">
+                            <option value="true">Sí</option>
+                            <option value="false" selected>No</option> <!-- Establecer "No" como seleccionado por defecto -->
+                        </select>
+                        <br>
+                       
+                        <div class="form-group-" id="obraSocialContainer">
+                            <label class="form-group" for="obraSocial">Seleccione una Obra Social:</label>
+                            <select id="obraSocial" name="obraSocial">
+                                <option value="">Seleccione una opción</option>
+                                <option value="OSEP">OSEP</option>
+                                <option value="SWISSMEDICAL">SWISSMEDICAL</option>
+                                <option value="OSDE">OSDE</option>
+                                <option value="OSPE">OSPE</option>
+                                <option value="SANCOR">SANCOR</option>
+                                <option value="MEDICUS">MEDICUS</option>
+                                <option value="OMINT">OMINT</option>
+                            </select>
+                        </div>
 
-            <div class="form-group" id="numeroAfiliadoContainer">
-                <label for="numeroAfiliado">Número de Afiliado:</label>
-                <input type="text" id="numeroAfiliado" name="numeroAfiliado" placeholder="Debe ser un nro">
-                <br>
-                <br>
-            </div>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" placeholder="5 caracteres minimo" required ><br>
-            <label for="password2">Confirmar Contraseña:</label>
-            <input type="password" id="password2" name="password2" placeholder="5 caracteres minimo" required ><br>
-            <br>
-            <input type="submit" value="Registrar">
-        </form>
-         </div>
-    </div>
-</div>
-        <br>
-    <section class=" text-center container">
-                <div class="row mt-3">
-                    <div class="divVolver">
-                        <a th:href="@{/}" class="appointment-btn scrollto">Volver</a>
-                      
-                    </div>
+                        <div class="form-group" id="numeroAfiliadoContainer">
+                            <label class="form-group-titulo" for="numeroAfiliado">Número de Afiliado:</label>
+                            <input type="text" id="numeroAfiliado" name="numeroAfiliado" placeholder="Debe ser un nro">
+                            <br>
+                           
+                        </div>
+                        </div>
+                        <div class="form-group my-3">
+                            <p class="form-group-titulo" >Imagen de Perfil:</p>
+                            <input type="file" class="form-control" name="archivo" >
+                        </div>
+                        <div>
+                        <label class="form-group-titulo" for="password">Contraseña:</label>
+                        <input type="password" id="password" class="form-control" name="password" placeholder="5 caracteres minimo" required >
+                        <br>
+                        <label class="form-group-titulo" for="password2">Confirmar Contraseña:</label>
+                        <input type="password" id="password2" class="form-control" name="password2" placeholder="5 caracteres minimo" required ><br>
+                        <br>
+                        </div>
+                        <input type="submit" value="Registrar">
+                    </form>
                 </div>
-    </section>
-        <a th:href="@{/paciente/listar}">
-            <button type="submit">Ver Lista de Pacientes</button>
-        </a>
-<br>
-<br>
+            </div>
+        </div>
+        <br>
+        <section class=" text-center container">
+            <div class="row mt-3">
+                <div class="divVolver">
+                    <a th:href="@{/register_usuario}"  class="appointment-btn scrollto">Volver</a>
+                </div>
+            </div>
+        </section>
+        
 
         <!-- ======= Footer ======= -->
         <footer id="footer">
@@ -176,7 +180,7 @@
                         <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>-->
                     </div>
                 </div>
-               <!-- se añadió los links-->
+                <!-- se añadió los links-->
                 <div class="social-links text-center text-md-right pt-3 pt-md-0">
                     <a href="https://twitter.com/?lang=es" class="twitter"><i class="bx bxl-twitter"></i></a>
                     <a href="https://es-la.facebook.com/" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -185,13 +189,13 @@
             </div>
         </footer><!-- End Footer -->
 
-        <div id="preloader"></div>
+        <div id="preloader">
         <a
             href="#"
             class="back-to-top d-flex align-items-center justify-content-center"
             ><i class="bi bi-arrow-up-short"></i
             ></a>
-
+        </div>
         <!-- Template Main JS File -->
         <script src="/assets/js/main.js"></script>
         <script src="/assets/js/paciente_form.js"></script>
@@ -199,5 +203,111 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
+
+          <!-- ======= obra social ======= 
+
+          <h2>Obra Social</h2>
+          <h5>LLena los siguientes campos solo si tienes Obra Social</h5>
+          <br /><br />
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                <span class="badge bg-dark">Nombre de la Obra social</span>
+              </h4>
+              <input
+                type="tex"
+                id="Fecha de Nacimiento"
+                name="Fecha de Nacimiento"
+                class="form-control"
+              /><br /><br />
+            </div>
+
+            <div class="col-md-4">
+              <h4><span class="badge bg-dark">Numero de afiliado</span></h4>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                class="form-control"
+              /><br /><br />
+            </div>
+          </div>
+
+          <h2>Seguridad e la cuenta</h2>
+          <h5>
+            Llena los siguientes campos para agregar una contraseña a tu cuenta,
+            recuerda esta la usaras para acceder a tu perfil.
+          </h5>
+          <br /><br />
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4><span class="badge bg-dark">Contraseña</span></h4>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                required
+              />
+              <br /><br />
+            </div>
+
+            <div class="col-md-4">
+              <h4><span class="badge bg-dark">Confirmar Contraseña</span></h4>
+              <input
+                type="password"
+                id="confirm_password"
+                class="form-control"
+                required
+              />
+              <br /><br />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3 botones">Regristrarme</button>
+        </div>
+      </section>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= 
+    <footer>
+      <div class="container d-md-flex py-4">
+        <div class="me-md-auto text-center text-md-start">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Medifour</span></strong
+            >.Todos los derechos reservados
+          </div>
+          <div class="credits"></div>
+        </div>
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+
+     End Footer -->
+
+    <!-- <div id="preloader"></div>
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a> -->
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
+
     </body>
 </html>
+
