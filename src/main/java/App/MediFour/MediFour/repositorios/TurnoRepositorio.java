@@ -22,4 +22,6 @@ public interface TurnoRepositorio extends JpaRepository<Turno, String> {
     List<Paciente> obtenerNombresPacientesConTurnoPorMedico(@Param("profesionalId") String profesionalId);
 
     List<Turno> findByProfesionalOrderByFechaAscHoraAsc(Profesional profesional);
+
+    List<Turno> findByPaciente(Paciente paciente);
 }

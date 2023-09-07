@@ -78,7 +78,7 @@
                         <!--<form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
                             <input type="submit" value="Agendar Cita" class="btn btn-primary">
                         </form>-->
-                        <a th:href="@{/turno/listar}">
+                        <a th:href="@{/turno/listar/{profesionalId}(profesionalId=${profesional.id})}">
                             <button type="submit">Agendar Cita</button>
                         </a>
                     </div>
@@ -90,7 +90,7 @@
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <a th:href="@{/inicio}" class="btn btn-primary my-2">Volver</a>
-                    
+
                 </div>
             </div>
         </section>

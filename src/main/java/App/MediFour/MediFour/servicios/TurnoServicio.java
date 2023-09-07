@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package App.MediFour.MediFour.servicios;
 
 import App.MediFour.MediFour.entidades.Paciente;
@@ -11,7 +6,6 @@ import App.MediFour.MediFour.entidades.Turno;
 import App.MediFour.MediFour.enumeraciones.DiaSemana;
 import App.MediFour.MediFour.excepciones.MiExcepcion;
 import App.MediFour.MediFour.repositorios.TurnoRepositorio;
-import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -22,10 +16,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Usuario
- */
 @Service
 public class TurnoServicio {
 
@@ -34,24 +24,6 @@ public class TurnoServicio {
     @Autowired
     private TurnoRepositorio turnoRepositorio;
 
-//    public Turno crearTurno(String fecha, String hora, Boolean disponibilidad, String consulta, String idProfesional) throws MiExcepcion {
-//        // Validación de los datos ingresados
-//        validar(fecha, hora, consulta, idProfesional, disponibilidad);
-//        // Obtener el profesional desde el servicio
-//        Profesional profesional = (Profesional) profesionalServicio.getOne(idProfesional);
-//        if (profesional == null) {
-//            throw new MiExcepcion("no existe un profesional con este turno");
-//        }
-//        // Crear y guardar el turno
-//        Turno turno = new Turno();
-//        turno.setFecha(fecha);
-//        turno.setHora(hora);
-//        turno.setDisponibilidad(false); // Por defecto, el turno se crea como disponible
-//        turno.setConsulta(consulta);
-//        turno.setProfesional(profesional);
-//
-//        return turnoRepositorio.save(turno);
-//    }
     @Transactional
     public List<Turno> generarTurnos(Profesional profesional) {
         List<Turno> turnos = new ArrayList<>();
@@ -103,6 +75,10 @@ public class TurnoServicio {
             // El turno no se encontró, maneja la lógica adecuada aquí
             throw new RuntimeException("El turno seleccionado no existe.");
         }
+    }
+
+    public List<Turno> obtenerTurnosDelPaciente(Paciente paciente) {
+        return turnoRepositorio.findByPaciente(paciente);
     }
 
     public List<Turno> obtenerTodosLosTurnos() {
