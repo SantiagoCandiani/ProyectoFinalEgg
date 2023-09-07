@@ -12,7 +12,7 @@
                 background-repeat: no-repeat;
                 background-attachment: fixed;
             }
-            .container {
+            .card {
                 background-color: rgba(255, 255, 255, 0.8);
                 padding: 20px;
                 border-radius: 10px;
@@ -46,7 +46,11 @@
         <div th:replace="/fragments/msg_error_exito :: mensajeFragment(${exito}, ${error})"></div>
 
 
-        <div class="container mt-4">
+       <div class="container mt-4">
+         
+            
+            <div class="card">
+                <div class="card-body">
             <h2>Registro de Médicos</h2>
             <form th:action="@{/profesional/registrar}" method="POST" enctype="multipart/form-data">
                 <div class="form-row">
@@ -258,12 +262,36 @@
                 <input type="password" class="form-control" id="password2" name="password2" placeholder="Repetir contraseña" required>
             </div>
         </div>
+        <br>
         <button class="btn btn-primary" type="submit" value="Registrar">Registrarse</button>
-        <a th:href="@{/profesional/listar}">
-            <button type="submit">Ver Lista de Profesionales</button>
-        </a>
+        
     </form>
 </div>
+        </div>
+            </div>
+    <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                        <a href="javascript: history.go(-1)">VOLVER ATRÁS</a>
+                    </div>
+                </div>
+            </section>
+       
+        <script>
+            document.getElementById('filtro').addEventListener('input', function () {
+            const filtro = this.value.toLowerCase();
+            const filas = document.querySelectorAll('tbody tr');
+
+            filas.forEach(function (fila) {
+            const contenido = fila.textContent.toLowerCase();
+            if (contenido.includes(filtro)) {
+            fila.style.display = 'table-row';
+            } else {
+            fila.style.display = 'none';
+            }
+            });
+            });
+        </script>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
