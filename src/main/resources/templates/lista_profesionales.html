@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head>
         <title>Lista de Profesionales</title>
@@ -75,10 +75,10 @@
                         <p class="card-text"><strong>Email: </strong> <span th:text="${profesional.email}"></span></p>
                         <p class="card-text"><strong>Telefono: </strong> <span th:text="${profesional.telefono}"></span></p>
                         <p class="card-text"><strong>Precio Consulta: </strong> <span th:text="${profesional.precioConsulta}"></span></p>
-                        <!--<form th:action="@{/profesional/bajaProfesional/{id}(id=${profesional.id})}" method="get">
-                            <input type="submit" value="Agendar Cita" class="btn btn-primary">
-                        </form>-->
-                        <a th:href="@{/turno/listar/{profesionalId}(profesionalId=${profesional.id})}">
+                        <!-- se manda por path a la url /turno/listar/ el Id del profesional del cual se muestra la tarjeta, en 
+                            "{profesionalId}(profesionalId=${profesional.id})" la primer parte entre llaves es la variable de ruta donde irá el Id la cual se asigna en lo q está entre paréntesis con el id de ese profesional "profesionalId=${profesional.id}"
+                         -->
+                        <a sec:authorize="hasAnyRole('USER', 'ADMIN')" th:href="@{/turno/listar/{profesionalId}(profesionalId=${profesional.id})}">
                             <button type="submit">Agendar Cita</button>
                         </a>
                     </div>
